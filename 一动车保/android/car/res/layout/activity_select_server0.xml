@@ -1,0 +1,170 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bj_f0f0f0"
+    android:orientation="vertical"
+    tools:context="com.carinsurance.activity.SelectServer1Activity" >
+
+    <FrameLayout
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blue_00A0EA" >
+
+        <ImageView
+            android:id="@+id/return_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/return_btn" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="选择服务"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/btn_tv_shipeichexing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="3dp" >
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/youjiantou_x"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_shipeichexing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:text="适配车型：无"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+    </FrameLayout>
+
+    <ExpandableListView
+        android:id="@+id/expan_ListView1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@color/bj_f0f0f0" >
+    </ExpandableListView>
+
+    <ListView
+        android:id="@+id/fuwu_list"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1"
+        android:divider="@null" >
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/user_center_book_business"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/layout_click_item"
+        android:clickable="true"
+        android:padding="7dp" >
+
+        <TextView
+            android:id="@+id/zibeipeijian"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:drawablePadding="8dip"
+            android:gravity="center"
+            android:text="自备配件"
+            android:textColor="#323232"
+            android:textSize="14sp" />
+
+        <CheckBox
+            android:id="@+id/in_the_spark_plug"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/chicked_gougou"
+            android:button="@null"
+            android:checked="false"
+            android:clickable="false"
+            android:focusable="false" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/xiugai0"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/selector_shape_white_circle_has_biankuang"
+            android:clickable="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="取 消"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/textcolor__343434" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/queding"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/selector_shape_red_circle"
+            android:clickable="true" >
+
+            <TextView
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="确 定"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/white" />
+        </FrameLayout>
+    </LinearLayout>
+
+</LinearLayout>

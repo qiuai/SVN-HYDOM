@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6245" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ChooseAdressTopView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qTq-d9-Y4v">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="81"/>
+                    <color key="backgroundColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="81" id="Lfb-A6-Fg0"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J8j-WK-q3q">
+                    <rect key="frame" x="10" y="0.0" width="310" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="hpe-nC-MEY"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="贵阳市">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="pressCityButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="A8b-Qe-Qqn"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tXi-bA-FsY">
+                    <rect key="frame" x="10" y="41" width="310" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="7Iz-te-Zme"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <state key="normal" title="Button">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="pressAreaButton:" destination="iN0-l3-epB" eventType="touchUpInside" id="aNt-3a-vNC"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eYW-Ij-5uo">
+                    <rect key="frame" x="0.0" y="40" width="320" height="1"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Yih-Od-WX8"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="J8j-WK-q3q" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="9Un-rZ-tZ1"/>
+                <constraint firstItem="eYW-Ij-5uo" firstAttribute="top" secondItem="J8j-WK-q3q" secondAttribute="bottom" id="AJb-C2-V7E"/>
+                <constraint firstAttribute="trailing" secondItem="eYW-Ij-5uo" secondAttribute="trailing" id="Iae-Pa-zsR"/>
+                <constraint firstItem="tXi-bA-FsY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="10" id="JIj-H0-xkA"/>
+                <constraint firstItem="qTq-d9-Y4v" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="RUi-Rm-W3s"/>
+                <constraint firstAttribute="trailing" secondItem="tXi-bA-FsY" secondAttribute="trailing" id="YTo-5X-ed4"/>
+                <constraint firstItem="eYW-Ij-5uo" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aTc-zV-hh5"/>
+                <constraint firstAttribute="trailing" secondItem="qTq-d9-Y4v" secondAttribute="trailing" id="bVH-ke-VtD"/>
+                <constraint firstItem="qTq-d9-Y4v" firstAttribute="top" secondItem="tXi-bA-FsY" secondAttribute="bottom" id="cui-OT-Zgo"/>
+                <constraint firstItem="tXi-bA-FsY" firstAttribute="top" secondItem="J8j-WK-q3q" secondAttribute="bottom" constant="1" id="k2e-ao-NxM"/>
+                <constraint firstItem="J8j-WK-q3q" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="oF6-A3-AI6"/>
+                <constraint firstAttribute="trailing" secondItem="J8j-WK-q3q" secondAttribute="trailing" id="wsr-jQ-S20"/>
+                <constraint firstItem="qTq-d9-Y4v" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="xAw-SD-L03"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="cui-OT-Zgo"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="areaButton" destination="tXi-bA-FsY" id="dbv-9s-Xnc"/>
+            </connections>
+        </view>
+    </objects>
+</document>

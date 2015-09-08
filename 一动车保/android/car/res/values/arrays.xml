@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- club权限 -->
+    <string-array name="clubspace_quanxian">
+        <item>所有人可见</item>
+        <item>仅会员可见</item>
+    </string-array>
+<!-- club权限 -->
+    <string-array name="chongzhi">
+        <item>全部</item>
+        <item>充值</item>
+        <item>消费</item>
+    </string-array>
+</resources>

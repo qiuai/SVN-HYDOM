@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+         <LinearLayout
+                    android:id="@+id/user_center_book_business"
+                    android:layout_width="fill_parent"
+                    android:layout_height="37dp"
+                    android:layout_marginTop="15dp"
+                    android:clickable="true"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dip"
+                        android:drawablePadding="8dip"
+                        android:gravity="center"
+                        android:text="订单编号:"
+                        android:textColor="@color/red"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/the_order_no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical|right"
+                        android:paddingRight="15dip"
+                        android:text="001"
+                        android:textColor="@color/red"
+                        />
+
+                    <RelativeLayout 
+                        android:id="@+id/bussion_on"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        >
+                    <TextView
+                        android:id="@+id/bussion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical|right"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="2dp"
+                        android:text="详情"
+                        android:textColor="@color/red" />
+                     </RelativeLayout>
+                </LinearLayout>
+            <View 
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray"
+                />    
+                <LinearLayout
+                    android:id="@+id/user_center_book_business"
+                    android:layout_width="fill_parent"
+                    android:layout_height="37dp"
+                    android:clickable="true"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dip"
+                        android:drawablePadding="8dip"
+                        android:gravity="center"
+                        android:text="服务方式:"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/service_f"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical|right"
+                        android:paddingRight="15dip"
+                        android:text="001"
+                        />
+                    <TextView 
+                        android:id="@+id/order_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:text="已拒绝"
+                        android:paddingRight="15dip"
+                        android:gravity="center"
+                        />
+                    
+                    </LinearLayout>
+                    
+                 <LinearLayout
+                    android:id="@+id/user_center_book_business"
+                    android:layout_width="fill_parent"
+                    android:layout_height="37dp"
+                    android:clickable="true"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dip"
+                        android:drawablePadding="8dip"
+                        android:gravity="center"
+                        android:text="服务时间:"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/service_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="fill_parent"
+                        android:gravity="center_vertical|right"
+                        android:paddingRight="15dip"
+                        android:text="001"
+                        />
+                    </LinearLayout>
+              <View 
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/gray"
+                />  
+                    
+
+</LinearLayout>

@@ -1,0 +1,340 @@
+//
+//  JVconfirmOrderViewController.m
+//  HD_Car
+//
+//  Created by xingso on 15/7/31.
+//  Copyright (c) 2015年 HD_CyYihan. All rights reserved.
+//
+
+#import "JVconfirmOrderViewController.h"
+#import "HDNavigationView.h"
+#import "JVorderImportantView.h"
+#import "servicesOrderInfoView.h"
+#import "JVconfirmWashCarView.h"
+#import "submitOrderModel.h"
+#import "HDApiUrl.h"
+#import "HTTPconnect.h"
+#import "userDefaultManager.h"
+#import "MBProgressHUD.h"
+#import "signValueObject.h"
+#import "UIImageView+WebCache.h"
+
+#import "lookSelectLocationViewController.h"
+
+@interface JVconfirmOrderViewController ()
+@property(strong,nonatomic)UIScrollView* baseScrollView;
+/**附近是否有技师提供服务*/
+@property(strong,nonatomic)UILabel* bulletinLabel;
+/**重要信息view*/
+@property(strong,nonatomic)JVorderImportantView* importantView;
+/**洗车描述*/
+@property(strong,nonatomic)servicesOrderInfoView* servicesInfoView;
+/**洗车确认*/
+@property(strong,nonatomic)JVconfirmWashCarView* confirmView;
+/**确认订单*/
+@property(strong,nonatomic)UIView* submitView;
+
+@property(weak,nonatomic)UIView* backView;
+@property(weak,nonatomic)UIView* warinView;
+
+
+@property(nonatomic,strong)MBProgressHUD *HUD;
+
+
+
+/**地图相关*/
+@property (nonatomic, strong) MAMapView *mapView;
+@property (nonatomic, strong) AMapSearchAPI *search;
+
+@property (nonatomic, strong) CLLocationManager *locationManager;
+
+@end
+
+@implementation JVconfirmOrderViewController
+-(MBProgressHUD *)HUD{
+    if (!_HUD) {
+        _HUD = [[MBProgressHUD alloc] initWithView:self.view.window];
+    }
+    return _HUD;
+}
+
+
+-(void)initData{
+    signValueObject* signV=[signValueObject shareSignValue];
+    globalServicesModel* servModel=[signV getSelectGlobalServiceModel];
+    [self.servicesInfoView.serviceImageView sd_setImageWithURL:imageURLWithPath(servModel.scimage) placeholderImage:[UIImage imageNamed:FillImage]];
+    self.servicesInfoView.servicePrices.text=[NSString stringWithFormat:@"￥ %@",servModel.servicesPrices];
+    UILabel* titleLB=[[UILabel alloc]initWithFrame:CGRM(0, 0, self.servicesInfoView.servicesInfoView.frame.size.width, 20)];
+    titleLB.text=servModel.scremark;
+    titleLB.textColor=[UIColor blackColor];
+    titleLB.font=FONT14;
+    [self.servicesInfoView.servicesInfoView addSubview:titleLB];
+    UILabel* infoLB=[[UILabel alloc]initWithFrame:CGRM(0, 20, self.servicesInfoView.servicesInfoView.frame.size.width, 20)];
+    infoLB.text=servModel.scremark1;
+    infoLB.textColor=[UIColor grayColor];
+    infoLB.font=FONT12;
+    [self.servicesInfoView.servicesInfoView addSubview:titleLB];
+    
+    //设置 订单信息 数据
+    self.importantView.contantNameLB.text=self.model.contact;
+    self.importantView.carNameLB.text=self.model.carDescription;
+    self.importantView.carNumberLB.text=self.model.plateNumber;
+    self.importantView.contantPhoneLB.text=self.model.phone;
+    self.importantView.serviceModelLB.text=self.model.serviceDescription;
+    self.importantView.carColorLB.text=self.model.color;
+    
+    [self.confirmView.lookMyLocation addTapGestureRecognizerWithTarget:self action:@selector(pushLookMyLocation)];
+    
+    self.confirmView.payStyle.text=self.model.payWayDescription;
+    self.confirmView.couponsLabel.text=@"已使用";
+    self.confirmView.payPrcies.text=servModel.servicesPrices;
+#warning -mark 优惠卷  优惠金额 计算
+    double realityPrice=[servModel.servicesPrices doubleValue]-2;
+    self.confirmView.realityPrices.text=[NSString stringWithFormat:@"%f",realityPrice];
+}
+
+#pragma -mark load
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    HDNavigationView* nav=[HDNavigationView navigationViewWithTitle:@"确认订单"];
+    WEAKSELF;
+    [nav tapLeftViewWithImageName:nil tapBlock:^{
+        [weakSelf.navigationController popViewControllerAnimated:YES];
+    }];
+    [self.view  addSubview:nav];
+    [self layoutUI];
+    //判断 是否有技师提供服务
+    if (self.isTrue) {
+        self.bulletinLabel.text=@"附近有技师为您提供服务";
+    }else{
+        if (self.backView==nil&&self.warinView==nil) {
+            [self noPersonForServicesLayout];
+        }
+    }
+    [self initData];
+    
+}
+
+-(void)noPersonForServicesLayout{
+    UIView* back=[[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    back.backgroundColor=[UIColor blackColor];
+    back.alpha=0.3;
+    [self.view addSubview:back];
+    self.backView=back;
+    
+    UIView* warinView=[[UIView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+    warinView.backgroundColor=[UIColor clearColor];
+    [self.view addSubview:warinView];
+    self.warinView=warinView;
+    
+    UIView* infoView=[[UIView alloc]initWithFrame:CGRM((SCREEN_WIDTH-260)/2.0, (SCREEN_HEIGHT-100)/2.0, 260, 100)];
+    infoView.backgroundColor=[UIColor whiteColor];
+    
+    UILabel* lb=[[UILabel alloc]initWithFrame:CGRM(0, 0, 260, 30)];
+    lb.textAlignment=1;
+    lb.textColor=[UIColor redColor];
+    lb.text=@"抱歉";
+    [lb setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+    [infoView addSubview:lb];
+    UILabel* lbtext=[[UILabel alloc]initWithFrame:CGRM((260-180)/2.0, 30, 180, 60)];
+    lbtext.textAlignment=1;
+    lbtext.textColor=[UIColor blueColor];
+    lbtext.text=@"现在没有空闲的技师为您提供服务";
+    lbtext.numberOfLines=0;
+    [lbtext setFont:[UIFont fontWithName:@"Helvetica-Bold" size:16]];
+    [infoView addSubview:lbtext];
+    [self.warinView addSubview:infoView];
+    //刷新  修改 按钮
+    UIButton* comebackBtn=[[UIButton alloc]initWithFrame:CGRM(SCREEN_WIDTH/2.0, SCREEN_HEIGHT-50+15, 65,30)];
+    [comebackBtn setTitle:@"返回" forState:0];
+    [comebackBtn setTitleColor:[UIColor blackColor] forState:0];
+    [self.warinView addSubview:comebackBtn];
+    [comebackBtn.layer setMasksToBounds:YES];
+    [comebackBtn.layer setCornerRadius:5.0]; //设置矩形四个圆角半径
+    [comebackBtn.layer setBorderWidth:1.0]; //边框宽度
+    CGColorRef colorref=COLOR(221, 221, 221, 1).CGColor;
+    [comebackBtn.layer setBorderColor:colorref];
+    comebackBtn.titleLabel.font=FONT14;
+    [comebackBtn addTarget:self action:@selector(combaceClick) forControlEvents:UIControlEventTouchUpInside];
+    comebackBtn.backgroundColor=[UIColor whiteColor];
+    
+    UIButton* submitBTN=[[UIButton alloc]initWithFrame:CGRM(SCREEN_WIDTH-20-65,SCREEN_HEIGHT-50+15, 65,30)];
+    submitBTN.titleLabel.font=FONT14;
+    [submitBTN setTitle:@"刷新" forState:0];
+    submitBTN.backgroundColor=[UIColor whiteColor];
+    [submitBTN setTitleColor:[UIColor blackColor] forState:0];
+    [submitBTN.layer setMasksToBounds:YES];
+    [submitBTN.layer setCornerRadius:5.0]; //设置矩形四个圆角半径
+    [submitBTN.layer setBorderWidth:1.0]; //边框宽度
+    CGColorRef scolorref=colorref;
+    [submitBTN.layer setBorderColor:scolorref];
+    [self.warinView addSubview:submitBTN];
+    [submitBTN addTarget:self action:@selector(updateTap) forControlEvents:UIControlEventTouchUpInside];
+}
+
+-(void)layoutUI{
+    self.baseScrollView=[[UIScrollView alloc]initWithFrame:CGRM(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-55)];
+    self.baseScrollView.backgroundColor=HDfillColor;
+    self.baseScrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 600);
+    [self.view addSubview:self.baseScrollView];
+    self.bulletinLabel=[[UILabel alloc]initWithFrame:CGRM(0, 0, SCREEN_WIDTH, 30)];
+    self.bulletinLabel.font=FONT14;
+    self.bulletinLabel.textAlignment=1;
+    self.bulletinLabel.textColor=[UIColor redColor];
+    self.bulletinLabel.backgroundColor=[UIColor whiteColor];
+    [self.baseScrollView addSubview:self.bulletinLabel];
+    self.importantView=[[[NSBundle mainBundle]loadNibNamed:@"JVorderImportantView" owner:nil options:nil]lastObject];
+    self.importantView.frame=CGRM(0, CGRectGetMaxY(self.bulletinLabel.frame), SCREEN_WIDTH, 130);
+    [self.baseScrollView addSubview:self.importantView];
+    self.servicesInfoView=[[[NSBundle mainBundle]loadNibNamed:@"servicesOrderInfoView" owner:nil options:nil]lastObject];
+    self.servicesInfoView.frame=CGRM(0, CGRectGetMaxY(self.importantView.frame), SCREEN_WIDTH, 130);
+    [self.baseScrollView addSubview:self.servicesInfoView];
+    self.confirmView=[[[NSBundle mainBundle]loadNibNamed:@"JVconfirmWashCarView" owner:nil options:nil]lastObject];
+    self.confirmView.frame=CGRM(0, CGRectGetMaxY(self.servicesInfoView.frame), SCREEN_WIDTH, 285);
+    [self.baseScrollView addSubview:self.confirmView];
+    //    提交订单view
+    [self submitViewLayout];
+}
+
+#pragma -mark submitView Layout
+-(void)submitViewLayout{
+    self.submitView=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 55)];
+    self.submitView.backgroundColor=[UIColor whiteColor];
+    [self.view addSubview:self.submitView];
+    UIButton* comebackBtn=[[UIButton alloc]initWithFrame:CGRM(SCREEN_WIDTH/2.0, 15, 65,30)];
+    [comebackBtn setTitle:@"修改" forState:0];
+    [comebackBtn setTitleColor:[UIColor blackColor] forState:0];
+    [self.submitView addSubview:comebackBtn];
+    [comebackBtn.layer setMasksToBounds:YES];
+    [comebackBtn.layer setCornerRadius:5.0]; //设置矩形四个圆角半径
+    [comebackBtn.layer setBorderWidth:1.0]; //边框宽度
+    CGColorRef colorref=COLOR(221, 221, 221, 1).CGColor;
+    [comebackBtn.layer setBorderColor:colorref];
+    comebackBtn.titleLabel.font=FONT14;
+    [comebackBtn addTarget:self action:@selector(combaceClick) forControlEvents:UIControlEventTouchUpInside];
+    UIButton* submitBTN=[[UIButton alloc]initWithFrame:CGRM(SCREEN_WIDTH-20-65, 15, 65,30)];
+    submitBTN.titleLabel.font=FONT14;
+    [submitBTN setTitle:@"支付" forState:0];
+    submitBTN.backgroundColor=[UIColor redColor];
+    [submitBTN setTitleColor:[UIColor whiteColor] forState:0];
+    [submitBTN.layer setMasksToBounds:YES];
+    [submitBTN.layer setCornerRadius:5.0]; //设置矩形四个圆角半径
+    [submitBTN.layer setBorderWidth:1.0]; //边框宽度
+    CGColorRef scolorref=[UIColor redColor].CGColor;
+    [submitBTN.layer setBorderColor:scolorref];
+    [self.submitView addSubview:submitBTN];
+    [submitBTN addTarget:self action:@selector(submitClick) forControlEvents:UIControlEventTouchUpInside];
+    
+    //加阴影
+    //    for (NSInteger i=0; i<5; i++) {
+    //       UIView* line1=[UIView new];
+    //        line1.frame=CGRM(0, 4-i, SCREEN_WIDTH, 1);
+    //        line1.backgroundColor=COLOR(0, 00, 00, (5-i)/10.0f);
+    //        [self.submitView addSubview:line1];
+    //    }
+    UIView* line1=[UIView new];
+    line1.frame=CGRM(0, 0, SCREEN_WIDTH, 1);
+    line1.backgroundColor=COLOR(0, 00, 00, 0.3);
+    [self.submitView addSubview:line1];
+    
+    
+    
+}
+
+#pragma -mark 相应事件
+-(void)combaceClick{
+    WEAKSELF;
+    [weakSelf.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma -mark 初始化地图
+-(void)initMap{
+    self.mapView = [[MAMapView alloc] initWithFrame:CGRM(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0)
+    {
+        self.locationManager = [[CLLocationManager alloc] init];
+        [self.locationManager requestAlwaysAuthorization];
+    }
+    self.search = [[AMapSearchAPI alloc] initWithSearchKey:[MAMapServices sharedServices].apiKey Delegate:nil];
+}
+
+//查看我的位置
+-(void)pushLookMyLocation{
+    
+    [self initMap];
+    lookSelectLocationViewController* vc=[[lookSelectLocationViewController alloc]init];
+    vc.mapView = self.mapView;
+    vc.search  = self.search;
+    vc.title=@"您选择的位置";
+    CLLocationCoordinate2D coord=CLLocationCoordinate2DMake([self.model.lat doubleValue], [self.model.lng doubleValue]);
+    vc.locationCoordinate=coord;
+    [self.navigationController pushViewController:vc animated:NO];
+}
+
+#pragma -mark 刷新
+-(void)updateTap{
+    
+    [HTTPconnect sendPOSTHttpWithUrl:getTechnicianAPI parameters:[userDefaultManager getUserWithToken] success:^(id responseObject) {
+        if (![responseObject isKindOfClass:[NSString class]]) {
+            if ([[responseObject objectForKey:@"canserver"] intValue]==1) {
+                self.isTrue=YES;
+                [self.backView setHidden:YES];
+                [self.warinView setHidden:YES];
+            }else{
+                self.isTrue=NO;
+                [self.warinView setHidden:YES];
+                [self.view addSubview:self.HUD];
+                self.HUD.labelText =@"刷新中...";
+                self.HUD.mode=MBProgressHUDModeText;
+                [self.HUD showAnimated:YES whileExecutingBlock:^{
+                    sleep(2);
+                } completionBlock:^{
+                    [self.HUD removeFromSuperview];
+                    [self.warinView setHidden:NO];
+                }];
+            }
+        }else{
+            warn(responseObject);
+        }
+    } failure:^(NSError *error) {
+        warn(@"请检查网络");
+    }];
+    
+    
+    
+    
+}
+
+#pragma -mark 跳转支付界面
+-(void)submitClick{
+    NSMutableDictionary* dict=[NSMutableDictionary dictionaryWithDictionary:[userDefaultManager getUserWithToken]];
+    [dict addEntriesFromDictionary:[UtilityMethod getObjectData:self.model]];
+    
+    _po(dict);
+    
+    NSString* str=[UtilityMethod JVDebugUrlWithdict:dict nsurl:submitWashCarAPI];
+    _po(str);
+    
+    [HTTPconnect sendGETWithUrl:submitWashCarAPI parameters:dict success:^(id responseObject) {
+        if (![responseObject isKindOfClass:[NSString class]]) {
+            [self.view addSubview:self.HUD];
+            self.HUD.labelText =@"下单成功";
+            self.HUD.mode=MBProgressHUDModeText;
+            [self.HUD showAnimated:YES whileExecutingBlock:^{
+                sleep(2);
+            } completionBlock:^{
+                [self.HUD removeFromSuperview];
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }];
+        }else{
+            warn(responseObject);
+        }
+        
+    } failure:^(NSError *error) {
+        warn(@"请检查网络");
+    }];
+    
+}
+
+
+@end

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/com.carinsurancer.car"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <com.miloisbadboy.view.CircleImageView
+        android:id="@+id/goods_discuss_list_item_headImg"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:border_width="1dp"
+        app:border_color="#F5F6F6" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:id="@+id/goods_discuss_list_item_uname"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:textColor="#02A0E9"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/goods_discuss_list_item_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:textColor="#8C8C8C"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/goods_discuss_list_item_carname"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:textColor="#959595"
+                android:textSize="14sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/goods_discuss_list_item_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <RatingBar
+            android:id="@+id/goods_discuss_list_item_star"
+            style="@style/roomRatingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp" />
+
+        <GridView
+            android:id="@+id/goods_discuss_list_item_images"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnWidth="60dp"
+            android:numColumns="auto_fit" >
+        </GridView>
+    </LinearLayout>
+
+</LinearLayout>

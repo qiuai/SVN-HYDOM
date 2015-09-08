@@ -1,0 +1,85 @@
+ul{
+	list-style: none;
+}
+/*h4{
+	margin-right: 10px;
+	margin-left: 10px;
+	height: 30px;
+	border-bottom: 1px solid #eaeaea;
+}*/
+.header{
+	clear: both;
+}
+/* Search input */
+#search {
+	z-index: 25;
+	top: 6px;
+	right:10px;
+}
+#search input[type=text] {
+	padding: 5px 10px 5px;
+	width: 100px;
+	border: 1px solid #eee;
+}
+#search button {
+	border: 0;
+	margin-left:-5px; 
+	margin-top: 2px;
+	background:#eee;
+	border: 1px solid #eee;
+	padding: 5.4px 10px 4px;
+}
+#search button i {
+	opacity: 0.8;
+}
+#search button:hover i, #search button:active i {
+	opacity: 1;
+}
+
+.biaoqian ul li{
+	margin-left: 20px;
+}
+table td a{
+	width: 15px;
+	height: auto;
+	display: inline-block;
+	margin-right: 10px;
+}
+.options-pull select{
+	height: 34px;
+	border-sizing:border-box;
+	color: #555;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+}
+.options-pull select option{
+	height: 34px;
+	border-sizing:border-box;
+	color: #555;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	background: #fff;
+	line-height: 34px;
+}
+.btns{
+	margin-top: 20px;
+}
+.zidingyi span{
+	margin-right: 15px;
+}
+.panel-title-name{
+	height: 38px;
+}
+.panel-title-name button{
+	margin-top: -8px;
+	/* margin-left: -5px; */
+}
+.table_title thread{
+	position: relative;!important
+}
+.pull_btn button{
+	position: absolute;!important
+	top:15px;!important
+	right:15px;!important
+	color:red;
+}

@@ -1,0 +1,74 @@
+1.命名规范
+(0)英文翻译命名，命名含义优于长度。
+(1)java类采取驼峰式命名。
+(2)java实体类映射数据表规则：以"t_"开头，后接小写化的类名。
+(3)业务层接口：以"实体类名+Service"进行命名。
+(4)业务层接口实现：以"实体类名+ServiceBean"进行命名。
+(5)控制层前端：以"实体类名+Action"进行命名。
+(6)控制层后端：以"实体类名+FrontAction"进行命名。
+(7)控制层方法定义：add/save; /edit/update ; list; delete。
+(8)页面定义："实体类名+对应的控制层方法名"。
+(9)后台管理URI定义：/manage/模块/控制层相应方法。
+
+2.开发流程
+(0)基本的业务场景分析，数据关系分析
+(1)根据相关业务建立实体
+(2)定义业务层(接口扩展)
+(2)控制层：根据相关业务增加相关控制方法
+(3)页面编写
+
+3.模块约定
+(0)account：后台管理帐户及权限
+(1)core：系统核心功能模块
+	-product：商品相关模块
+	-server：服务相关模块
+	-order:订单模块
+(2)user：用户及积分相关模块
+(3)util：工具类定义
+	-dao：DAO层相关定义
+	-sfl：servlet/filter/listener定义
+	-api：移动端接口调用定义
+....	
+
+4.tomcat约定
+(1)tomcat编码设定为UTF-8：
+	<Connector useBodyEncodingForURI="true" URIEncoding="UTF-8"connectionTimeout="20000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
+(2)作为根项目开发：
+	<Context  docBase="cbms"  path=""   reloadable="true"></Context>  
+
+
+
+-----------
+会员价：优先优惠券、名称统一为“优惠价”
+上下班记录：时间、电话、姓名查询
+
+以上规范仅作规范参考，实际以协商原则为准。
+
+
+###################################################################
+CREATE FUNCTION [dbo].[fnGetDistance]
+( @LatBegin AS real ,
+  @LngBegin AS real ,
+  @LatEnd AS real ,
+  @LngEnd AS real 
+)
+RETURNS int
+WITH RETURNS NULL ON NULL INPUT 
+AS
+BEGIN
+  --距离(千米)
+  DECLARE @Distance REAL
+  DECLARE @EARTH_RADIUS REAL
+  SET @EARTH_RADIUS = 6378.137 
+  DECLARE @RadLatBegin REAL,@RadLatEnd REAL,@RadLatDiff REAL,@RadLngDiff REAL
+  SET @RadLatBegin = @LatBegin *PI()/180.0 
+  SET @RadLatEnd = @LatEnd *PI()/180.0 
+  SET @RadLatDiff = @RadLatBegin - @RadLatEnd 
+  SET @RadLngDiff = @LngBegin *PI()/180.0 - @LngEnd *PI()/180.0  
+  SET @Distance = 2 *ASIN(SQRT(POWER(SIN(@RadLatDiff/2), 2)+COS(@RadLatBegin)*COS(@RadLatEnd)*POWER(SIN(@RadLngDiff/2), 2)))
+  SET @Distance = @Distance * @EARTH_RADIUS 
+  --SET @Distance = Round(@Distance * 10000) / 10000 
+  RETURN @Distance
+END
+
+SELECT id,dbo.fnGetDistance(120.388714,36.074258,lat,lng) FROM t_service_store  ORDER BY dbo.fnGetDistance(120.388714,36.074258,lat,lng)

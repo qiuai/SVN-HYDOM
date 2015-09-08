@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+	<title>智慧教育</title>
+	<link rel="stylesheet" type="text/css" href="./ace.min.css">
+    <link rel="stylesheet" href="./bootstrap.min.css" type="text/css">
+    <script type="text/javascript" src="./jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="./bootstrap.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="./mathquill0408.css">
+	<script type="text/javascript" src="./mathjax/MathJax.js?config=TeX-AMS_HTML-full"></script>
+	<script type="text/javascript">
+		MathJax.Hub.Config({
+			//TeX: { extensions: ["autoload-all.js"] },
+			//tex2jax: {inlineMath: [["$","$"],["\\(","\\)"]]}
+		});
+	</script>
+	<style>
+		.mathquill-editor {
+			padding-top:3px;
+			padding-bottom:5px;
+			width:100%;
+			font-size: 2em;
+			display: inline-block;
+		}
+		.textarea textarea{
+			position: absolute;
+			left:-9999px;
+		}
+		body{
+			overflow-x: auto;
+		}
+		#sizeChange{
+			position: relative;
+			left:0px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="sizeChange" class="content" style="width:100%;padding-left: 5px;padding-top: 2px">
+		<span id="mathquill-editor" class="mathquill-editor">\frac{d}{dx}\sqrt{x}B</span>
+	</div>
+<script type="text/javascript" src="./mathquill.js"></script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("#mathquill-editor").mathquill('editable');
+	});
+	//获取根节点
+	function getRoot(){
+		return $("#mathquill-editor");
+	}
+	//插入公式
+	function insertCmd(cmd){
+		var root = getRoot();
+		root.mathquill('cmd',cmd);
+	}
+	//插入字符串
+	function insertText(text){
+		var root = getRoot();
+		root.mathquill('write',text);
+	}
+	//android 调用
+	function setAndroidLatex(){
+		window.handler.postLatexContent(getLatex());
+	}
+	//获取输入结果  //上下滑动
+	function getLatex(){
+		var root = getRoot();
+		return root.mathquill('latex');
+	}
+	//退格 backspace
+	function backspace(){
+		var root = getRoot();
+		root.mathquill('backspace');
+	}
+</script>
+</body>
+</html>

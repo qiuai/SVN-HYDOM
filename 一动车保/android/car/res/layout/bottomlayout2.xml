@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/bottom_tabhost"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blue_00A0EA"
+        android:orientation="horizontal"
+        android:visibility="visible" >
+
+        <LinearLayout
+            android:id="@+id/after_landing_bottom_bj1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:orientation="vertical" >
+
+            <com.carinsurance.my_view.PaoPao_Button
+                android:id="@+id/after_landing_bottom_paoPaobtn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="1dp" >
+            </com.carinsurance.my_view.PaoPao_Button>
+
+            <TextView
+                android:id="@+id/after_landing_botton_text1"
+                style="@style/style_white_e_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="1dp"
+                android:text="@string/shouye" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/after_landing_bottom_bj2"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:orientation="vertical" >
+
+            <com.carinsurance.my_view.PaoPao_Button
+                android:id="@+id/after_landing_bottom_paoPaobtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="1dp" >
+            </com.carinsurance.my_view.PaoPao_Button>
+
+            <TextView
+                android:id="@+id/after_landing_botton_text2"
+                style="@style/style_white_e_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="1dp"
+                android:text="@string/find" />
+        </LinearLayout>
+
+      
+        <LinearLayout
+            android:id="@+id/after_landing_bottom_bj4"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:layout_weight="0.2"
+            android:orientation="vertical" >
+
+            <com.carinsurance.my_view.PaoPao_Button
+                android:id="@+id/after_landing_bottom_paoPaobtn4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="1dp" >
+            </com.carinsurance.my_view.PaoPao_Button>
+
+            <TextView
+                android:id="@+id/after_landing_botton_text4"
+                style="@style/style_white_e_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="1dp"
+                android:text="@string/mendian" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/after_landing_bottom_bj5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:orientation="vertical" >
+
+            <com.carinsurance.my_view.PaoPao_Button
+                android:id="@+id/after_landing_bottom_paoPaobtn5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="1dp" >
+            </com.carinsurance.my_view.PaoPao_Button>
+
+            <TextView
+                android:id="@+id/after_landing_botton_text5"
+                style="@style/style_white_e_10sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="1dp"
+                android:text="@string/wode" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

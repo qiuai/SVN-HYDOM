@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8" />
+	<title>一动车保首页</title>
+	<link href="css/style.css" type="text/css" rel="stylesheet" />	
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/function.js"></script>
+	<style type="text/css">
+		/******form*******/
+		.divselectcon {clear: both; padding: 10px 0 20px; position: relative; }
+		.divselect {float: left; }
+		.divselectcon input {width:238px; height: 35px; margin: 0 20px; position:relative; z-index:10000; border: 1px solid #b1b1b1; border-top: 2px solid #b1b1b1; line-height:35px; display:inline-block; color:#807a62; font-style:normal; background:url(images/corners2.png) no-repeat right center;}
+		.divselectcon input.input1 {border:1px solid #ffae00; border-top: 2px solid #ffae00; margin-left: 0; width: 228px; height:35px;line-height:35px; display:inline-block; color:#807a62; font-style:normal; background:url(images/corners1.png) no-repeat right center;}
+		#button2 button {float: right; width: 169px; height: 43px; background: url(images/go.png) 0 0 no-repeat; border: none; position: absolute; top: 9px;  cursor: pointer; }
+		.bdsug_copy{display:none;}		
+	</style>
+</head>
+
+<body>
+<!--上部开始-->
+<div class="top">
+	<div class="top_header box0">
+		<div class="logo"><img src="images/top_logo.png" alt="logo" /></div>
+		<ul class="top_right">
+			<li class="lis1">[<a href="#">会员ydcb001</a>]<b class="b11"></b></li>
+			<li class=""><a href="#">新闻动态</a><b class="b22"></b></li>
+			<li class=""><a href="#">服务范围</a><b class="b33"></b></li>
+			<li class=""><a href="#">APP下载</a><b class="b44"></b></li>
+		</ul>
+	</div>
+	<!--box banner start-->
+	<!--box banner end-->
+</div>
+<!--上部结束-->
+<hr>
+<!--中部开始-->
+<div class="box3">
+<div class="mid box0">
+	<div class="steward1-content">
+		<div class="steward1-menu" id="steward1-menu">
+			<div class="menu-title menu-order active">
+				<h3>订单中心</h3>
+			</div>
+			<ul class="menu-list">
+				<li class="menu-item myOrder on">
+					<a href="#">我的订单</a>
+				</li>
+				<li class="menu-item cancelOrder">
+					<a href="#">已取消的订单</a>
+				</li>
+				<li class="menu-item myCoupon">
+					<a href="#">我的优惠券</a>
+				</li>
+			</ul>
+			<div class="menu-title menu-home">
+				<h3>我的车管家</h3>
+			</div>
+			<ul class="menu-list">
+				<li class="menu-item myCarModel">
+					<a href="#">我的车型库</a>
+				</li>
+			</ul>
+			<div class="menu-title menu-center">
+				<h3>账户中心</h3>
+			</div>
+			<ul class="menu-list">
+				<li class="menu-item accountBal">
+					<a href="#">账户余额</a>
+				</li>
+				<li class="menu-item basicInfo">
+					<a href="#">基本信息</a>
+				</li>
+				<li class="menu-item changePass">
+					<a href="#">修改密码</a>
+				</li>
+				<li class="menu-item feedBack">
+					<a href="#">意见反馈</a>
+				</li>
+			</ul>
+		</div>
+		<div class="steward1-detail" id="steward1-detail">
+			<div id="myOrderContent" class="myOrderContent myOrderDetail" style="border: none; ">
+				<div class="orderDetails">
+					<div class="orderDetailsTop">
+						<div class="left">
+							<a href="#"><img src="images/steward_4.png" /></a><span class="span1">|</span><span>订单详情</span>
+						</div>
+						<div class="right"><a href="#">返回订单列表&gt;&gt;</a></div>
+					</div>
+					<div class="orderDetailsContent">
+						<div class="left"><a href="#"><img src="images/orderDetails1.png" /></a></div>
+						<div class="right">
+							<ul>
+								<li><b>订单编号：</b>2015072115000236</li>
+								<li><b>订单状态：</b>交易成功</li>
+								<li><b>下单时间：</b>2015-07-21 15:00:12</li>
+							</ul>
+							<ul>
+								<li><b>服务车型：</b>奥迪 Q7（进口） 3.0T（35TFSI） 2013年产</li>
+								<li><b>车身颜色：</b>白色</li>
+								<li><b>车&nbsp;牌&nbsp;&nbsp;号：</b>贵A 88888</li>
+							</ul>
+							<ul>
+								<li><b>支付方式：</b>支付宝支付</li>
+								<li><b>商品金额：</b><i>￥900.00</i></li>
+								<li><b>服务费用：</b><i>￥50.00</i></li>
+								<li><b>优&nbsp;惠&nbsp;&nbsp;券：</b><i>-￥10.00</i>（满30元 减10元）</li>
+								<li><b>实付金额：</b><i>￥940.00</i></li>
+							</ul>
+							<ul>
+								<li><b>服务方式：</b>上门服务</li>
+								<li><b>预约时间：</b>2015年7月8日&nbsp;&nbsp;15:00-17:00</li>
+								<li><b>服务地址：</b>贵阳市云岩区大营坡汪家湾路口（鹿冲关斜对面）</li>
+							</ul>
+							<ul>
+								<li><b>服务评分：</b><em ></em><em></em><em></em><em></em><em class="no"></em></li>
+								<li><b>服务评论：</b>服务态度很好</li>
+							</ul>							
+							<ul>
+								<li><b>商品名称：</b>Shell壳牌机油蓝喜力蓝壳HX7 5W-40 SN 4L半合成汽车机油润滑油</li>
+								<li><b>价&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;格：</b>￥900.00</li>
+								<li><b>数&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;量：</b>1</li>
+							</ul>
+							<ul>
+								<li><b>商品评分：</b><em ></em><em></em><em></em><em></em><em class="no"></em></li>
+								<li><b>商品评论：</b>商品质量不错，很值得购买</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="cancelOrderContent" class="cancelOrderContent myOrderDetail">111111111111111111111111</div>
+			<div id="myCouponContent" class="myCouponContent myOrderDetail">22222222222222222222222222</div>
+			<div id="myCarModelContent" class="myCarModelContent myOrderDetail">333333333333333333333333333</div>
+			<div id="accountBalContent" class="accountBalContent myOrderDetail">444444444444444444444444444-1-1-1-1--1-1-1-1-1</div>
+			<div id="basicInfoContent" class="basicInfoContent myOrderDetail">55555555555555555555555555555555555555555555555444444444444</div>
+			<div id="changePassContent" class="changePassContent myOrderDetail">66666666666666666666666666666666666666666666665555555555555555555555555555555555555555555555</div>
+			<div id="feedBackContent" class="feedBackContent myOrderDetail">777777777777777777777777777777777777777777777-2-2-2-2-2-2-2--2-2-2-2</div>
+		</div>
+	</div>
+	
+	<script>
+	$(function(){
+	function tabs(tabTit,on,active,tabCon){ 
+		$(tabCon).each(function(){ 
+			$(this).children().eq(0).show();  
+		});
+		$(tabTit).each(function(){
+			//$(this).children().eq(0).addClass(on);
+		});
+		$(tabTit).children().click(function(){ 
+			$(this).addClass(on).siblings().removeClass(on);
+			var index = $(tabTit).children().index(this);
+			$(tabCon).children().eq(index).show().siblings().hide();
+			$(this).siblings().addClass(on);			
+			$(this).siblings().removeClass(on);
+			$(this).parent().siblings().children().removeClass(on);
+			
+			$(this).parent().siblings().removeClass(active);
+			$(this).parent().prev().addClass(active);			
+		});
+	}	
+	tabs(".menu-list","on","active","#steward1-detail");
+	})
+
+
+	$(function(){
+		function tabs(tabTit,liSelected,tabCon){ 
+			$(tabCon).each(function(){ 
+				$(this).children().eq(0).show();  
+			});
+			$(tabTit).each(function(){
+				//$(this).children().eq(0).addClass(liSelected);
+			});
+			$(tabTit).children().click(function(){ 
+				$(this).addClass(liSelected).siblings().removeClass(liSelected);
+				var index = $(tabTit).children().index(this);
+				$(tabCon).children().eq(index).show().siblings().hide();
+				$(this).siblings().addClass(liSelected);			
+				$(this).siblings().removeClass(liSelected);
+				$(this).parent().siblings().children().removeClass(liSelected);				
+			});
+		}
+		tabs(".totalTitle","liSelected",".orderListsContent");
+	})
+	
+	
+	
+			
+	$(document).ready(function(){
+		$(".selectInput").focus(function(){
+			$(this).addClass("selected");
+		});
+		$(".selectInput").blur(function(){
+			$(this).removeClass("selected");
+		});
+	});
+		
+	$(function(){  
+ 
+		//判断浏览器是否支持placeholder属性
+		supportPlaceholder='placeholder'in document.createElement('input'),
+ 
+		placeholder=function(input){
+	 
+			var text = input.attr('placeholder'),
+			defaultValue = input.defaultValue;
+		 
+			if(!defaultValue){
+		 
+			  input.val(text).addClass("phcolor");
+			}
+	 
+			input.focus(function(){
+		 
+			  if(input.val() == text){
+		   
+				$(this).val("");
+			  }
+			});
+	 
+	  
+			input.blur(function(){
+		 
+			  if(input.val() == ""){
+			   
+				$(this).val(text).addClass("phcolor");
+			  }
+			});
+	 
+			//输入的字符不为灰色
+			input.keydown(function(){
+		  
+			  $(this).removeClass("phcolor");
+			});
+		  };
+ 
+		  //当浏览器不支持placeholder属性时，调用placeholder函数
+		  if(!supportPlaceholder){
+		 
+			$('input').each(function(){
+		 
+			  text = $(this).attr("placeholder");
+		 
+			  if($(this).attr("type") == "text"){
+		 
+				placeholder($(this));
+			  }
+			});
+		  }
+ 
+	});	
+	</script>
+</div>
+</div>
+<!--中部结束-->
+<!--底部开始-->
+<div class="down">	
+	<div class="span5">
+		<div class="box0">
+			<div class="span5l">
+				<div class="down_pic"><img src="images/down_pic.png" alt="" />
+				</div>
+				<div class="down_txt">
+					<ul>
+						<li><a href="#">一动车保</a>|</li>
+						<li><a href="#">关于我们</a>|</li>
+						<li><a href="#">服务简介</a>|</li>
+						<li><a href="#">市场合作</a>|</li>
+						<li><a href="#">联系我们</a></li>
+					</ul>
+					<p>&copy;2015&nbsp;www.YIDONGCHEBAO.com&nbsp; 贵ICP备18888888号</p>
+				</div>
+			</div>
+			<div class="span5r">
+				<ul>
+					<li class="l1">咨询热线：400-855-9999</li>
+					<li class="l2">咨询QQ：4008559999</li>
+					<li class="l3">公司地址：贵州省贵阳市高新区688号</li>
+				</ul>
+				<div class="weixin">
+					<img src="images/code.png" alt="" />
+					<p>扫一扫有惊喜！</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--底部结束-->
+</body>
+</html>

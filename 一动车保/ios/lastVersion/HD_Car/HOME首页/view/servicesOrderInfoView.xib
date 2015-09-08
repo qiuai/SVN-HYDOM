@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="servicesOrderInfoView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="130"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XAd-vc-QbW">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="40"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上门洗车" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A4D-0C-JbY">
+                            <rect key="frame" x="20" y="0.0" width="60" height="40"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="60" id="QBR-7z-j1y"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="A4D-0C-JbY" firstAttribute="leading" secondItem="XAd-vc-QbW" secondAttribute="leading" constant="20" id="1tC-5c-TN2"/>
+                        <constraint firstItem="A4D-0C-JbY" firstAttribute="top" secondItem="XAd-vc-QbW" secondAttribute="top" id="5Vo-0T-ZiV"/>
+                        <constraint firstAttribute="height" constant="40" id="AmE-Me-MOB"/>
+                        <constraint firstAttribute="bottom" secondItem="A4D-0C-JbY" secondAttribute="bottom" id="vzi-me-LEk"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jfO-kQ-Tdd" userLabel="介绍View">
+                    <rect key="frame" x="0.0" y="40" width="320" height="90"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="a123.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="CTs-s8-uKO">
+                            <rect key="frame" x="20" y="13" width="65" height="65"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="65" id="2uX-BZ-y7Z"/>
+                                <constraint firstAttribute="height" constant="65" id="Mf5-bz-0Af"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="￥0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DRq-sW-p1M">
+                            <rect key="frame" x="110" y="53" width="110" height="25"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="25" id="LfC-Tb-hZ2"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="1" green="0.21592364280000001" blue="0.077848395779999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eQZ-rE-Bwa" userLabel="介绍View预留">
+                            <rect key="frame" x="110" y="13" width="195" height="40"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <constraints>
+                        <constraint firstItem="eQZ-rE-Bwa" firstAttribute="top" secondItem="CTs-s8-uKO" secondAttribute="top" id="0kl-0N-L0a"/>
+                        <constraint firstAttribute="trailing" secondItem="DRq-sW-p1M" secondAttribute="trailing" constant="100" id="NAU-wJ-kAT"/>
+                        <constraint firstItem="CTs-s8-uKO" firstAttribute="leading" secondItem="jfO-kQ-Tdd" secondAttribute="leading" constant="20" id="Ri6-nz-TCp"/>
+                        <constraint firstItem="DRq-sW-p1M" firstAttribute="leading" secondItem="eQZ-rE-Bwa" secondAttribute="leading" id="Spi-9m-EmM"/>
+                        <constraint firstItem="DRq-sW-p1M" firstAttribute="top" secondItem="eQZ-rE-Bwa" secondAttribute="bottom" id="TrD-C9-8da"/>
+                        <constraint firstItem="DRq-sW-p1M" firstAttribute="bottom" secondItem="CTs-s8-uKO" secondAttribute="bottom" id="ZHH-px-TEO"/>
+                        <constraint firstAttribute="centerY" secondItem="CTs-s8-uKO" secondAttribute="centerY" id="b3g-4b-uYa"/>
+                        <constraint firstAttribute="height" constant="90" id="fBS-a5-Jp8"/>
+                        <constraint firstAttribute="trailing" secondItem="eQZ-rE-Bwa" secondAttribute="trailing" constant="15" id="nf2-xD-TZo"/>
+                        <constraint firstItem="DRq-sW-p1M" firstAttribute="leading" secondItem="CTs-s8-uKO" secondAttribute="trailing" constant="25" id="yes-R6-k7a"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="XAd-vc-QbW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="T0T-uf-qv4"/>
+                <constraint firstItem="XAd-vc-QbW" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Tqx-Me-kL6"/>
+                <constraint firstItem="jfO-kQ-Tdd" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="40" id="b8R-iz-9Zm"/>
+                <constraint firstAttribute="trailing" secondItem="jfO-kQ-Tdd" secondAttribute="trailing" id="neV-5X-l2n"/>
+                <constraint firstAttribute="trailing" secondItem="XAd-vc-QbW" secondAttribute="trailing" id="nvk-JW-4sP"/>
+                <constraint firstItem="jfO-kQ-Tdd" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="sYY-8V-BNg"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="serviceImageView" destination="CTs-s8-uKO" id="U8u-Cq-gwk"/>
+                <outlet property="servicePrices" destination="DRq-sW-p1M" id="q6u-06-fF2"/>
+                <outlet property="servicesInfoView" destination="eQZ-rE-Bwa" id="hPL-du-5x7"/>
+            </connections>
+            <point key="canvasLocation" x="195" y="303"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="a123.jpg" width="1024" height="721"/>
+    </resources>
+</document>

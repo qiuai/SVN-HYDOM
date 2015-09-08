@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/gray"
+    >
+    
+    
+    <include
+        android:id="@id/title_with_back_btn_bk"
+        layout="@layout/title_with_back_btn" />
+    
+    <EditText 
+        android:id="@+id/ok"
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:hint="拒绝原因"
+        android:gravity="top|left"
+        android:background="@color/white"
+        />
+
+</LinearLayout>

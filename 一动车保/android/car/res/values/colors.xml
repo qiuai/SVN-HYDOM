@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="blue_00A0EA">#00A0EA</color>
+    <color name="white">#ffffff</color>
+    <color name="blue_00a2d0">#00a2d0</color>
+    <color name="blue_32B3ED">#32B3ED</color>
+    <color name="orange_ED7403">#ED7403</color>
+    <color name="black">#000000</color>
+    <color name="gray_6">#666666</color>
+    <color name="fengexian_color_d3d2d3">#D3D2D3</color>
+    <color name="bj_f0f0f0">#f0f0f0</color>
+    <color name="textcolor__343434">#343434</color>
+ <color name="gray_D5D5D5">#D5D5D5</color>
+    <!-- 新的tabhost -->
+    <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="background_window">#FFE5E5E5</color>
+    <color name="tesxtColor">#575757</color>
+    <color name="fenge_line_color">#DFDFDF</color>
+    <color name="gray_F0EFF5">#F0EFF5</color>
+    <color name="bg">#F0F0F0</color>
+    <color name="rea_FD0002">#FD0002</color>
+    <color name="item_bg">#f6f6f8</color>
+    <color name="divider_line_color">#f0f0f0</color>
+    <color name="divider_line_color_1">#d8d8d8</color>
+    <color name="text_color_1">#545456</color>
+    <!-- 纯蓝 -->
+    <color name="blue">#2ba1fb</color>
+    
+    <color name="youhuijuan_green">#00AF81</color>
+    <color name="youhuijuan_blue">#00AF81</color>
+    <color name="youhuijuan_red">#D7584F</color>
+    
+    <!-- 热卖商品分类 -->
+    <color name="hot_category_left_bg">#E5E5E5</color>
+    <color name="hot_category_right_bg">#ffffff</color>
+    <color name="red">#ff0000</color>
+    
+      <color name="list_select">#00a2d0</color>
+     <color name="list_divider">#DCDCDC</color>
+        <color name="navpage">#FFE1E8EB</color>
+</resources>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="#F2F2F2"
+    >
+    
+    <RelativeLayout
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blue_00A0EA" >
+
+        <TextView
+            android:id="@+id/return_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/return_btn" />
+
+        <TextView
+            android:id="@id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="选择服务"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/queding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:text="确认" 
+            android:textColor="@color/white"
+            />
+    </RelativeLayout>
+    
+      <FrameLayout
+        android:id="@+id/btn_tv_shipeichexing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" 
+        android:layout_marginBottom="10dp"
+        android:padding="3dp">
+
+        <ImageView
+            android:layout_width="10dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/youjiantou_x"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tv_shipeichexing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:text="适配车型：无"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+    </FrameLayout>
+    
+         
+
+             <RelativeLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content" >
+
+                 <View
+                     android:layout_width="match_parent"
+                     android:layout_height="1px"
+                     android:layout_alignParentRight="true"
+                     android:background="#b2b2b2" />
+             </RelativeLayout>
+
+             <ListView
+                 android:id="@+id/listView"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:divider="@color/bj_f0f0f0"
+                 android:dividerHeight="1dp"
+                  >
+             </ListView>
+        
+</LinearLayout>

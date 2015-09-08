@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
+	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
+	<classpathentry kind="lib" path="libs/jpush-sdk-release1.8.0.jar"/>
+	<classpathentry kind="lib" path="libs/Android_Location_V1.3.3.jar"/>
+	<classpathentry kind="lib" path="libs/Android_Map_V2.5.0.jar"/>
+	<classpathentry kind="lib" path="libs/litepal-1.2.0-src.jar"/>
+	<classpathentry kind="lib" path="libs/gson-1.6.jar"/>
+	<classpathentry kind="lib" path="libs/xUtils-2.6.14.jar"/>
+	<classpathentry kind="lib" path="libs/Msc.jar"/>
+	<classpathentry kind="lib" path="libs/NavigationApi_1.2.0.jar"/>
+	<classpathentry kind="lib" path="libs/universal-image-loader-1.8.7-snapshot-with-sources.jar"/>
+	<classpathentry kind="lib" path="libs/android-support-v4.jar"/>
+	<classpathentry kind="output" path="bin/classes"/>
+</classpath>

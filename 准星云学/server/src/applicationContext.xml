@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>    
+<beans xmlns="http://www.springframework.org/schema/beans"    
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"   
+    xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:aop="http://www.springframework.org/schema/aop"   
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:jee="http://www.springframework.org/schema/jee"  
+    xmlns:tx="http://www.springframework.org/schema/tx"  
+    xsi:schemaLocation="    
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd  
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd  
+        http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd  
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">    
+    <!-- 设置需要进行Spring注解扫描的类包 -->
+    <context:component-scan base-package="com.hydom" />  
+    
+    <!-- 加载数据库属性配置文件 -->  
+    <context:property-placeholder location="classpath:jdbc.properties" />  
+  
+	<!-- 数据源配置  -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<!-- 设置JDBC驱动名称 -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<!-- 设置JDBC连接URL -->
+		<property name="url" value="${jdbc.url}" />
+		<!-- 设置数据库用户名 -->
+		<property name="username" value="${jdbc.username}" />
+		<!-- 设置数据库密码 -->
+		<property name="password" value="${jdbc.password}" />
+		<!-- 自动建表 
+		<property name="hbm2ddl.auto">none</property>  -->
+		<!-- 设置连接池初始值 -->
+		<property name="initialSize" value="5" />
+		<!-- 设置连接池最大值 -->
+		<property name="maxActive" value="100" />
+		<!-- 设置连接池最小空闲值 -->
+		<property name="minIdle" value="20" />
+		<!-- 设置连接池最大空闲值 -->
+		<property name="maxIdle" value="50" />
+		<!-- 超时等待时间以毫秒为单位 -->
+		<property name="maxWait" value="10000"/>
+		<!-- 是否自动回收超时连接 -->
+		<property name="removeAbandoned" value="true"/>
+		<!-- 设置被遗弃的连接的超时的时间（以秒数为单位），即当一个连接被遗弃的时间超过设置的时间，则它会自动转换成可利用的连接。默认的超时时间是300秒 -->
+		<property name="removeAbandonedTimeout" value="60"/>
+		<!-- 是否在自动回收超时连接的时候打印连接的超时错误  -->
+		<property name="logAbandoned" value="true"/>
+		<!-- 给出一条简单的sql语句进行验证   -->
+		<property name="validationQuery" value="select 1"/>
+		<!-- 在取出连接时进行有效验证 -->
+		<property name="testOnBorrow" value="true"/>
+	</bean>
+	<!-- session工厂 -->  
+    <bean id="sessionFactory"  
+        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        <!-- 配置Hibernate拦截器,自动填充数据的插入、更新时间 -->
+		<property name="entityInterceptor" ref="entityInterceptor" />
+        
+        <property name="dataSource">  
+            <ref bean="dataSource" />  
+        </property>  
+        <property name="configLocation" value="classpath:hibernate.cfg.xml"/>  
+        <!-- 自动扫描注解方式配置的hibernate类文件 -->  
+        <property name="packagesToScan">  
+            <list>  
+                <value>com.hydom.zxy.entity</value>
+            </list>  
+        </property>  
+    </bean>
+    
+    <!-- 配置事务管理器 -->  
+    <bean id="transactionManager"  
+        class="org.springframework.orm.hibernate4.HibernateTransactionManager">  
+        <property name="sessionFactory" ref="sessionFactory" />  
+    </bean>  
+  
+	<tx:advice id="txAdvice" transaction-manager="transactionManager"> 
+	    <tx:attributes> 
+	        <tx:method name="save*" propagation="REQUIRED" /> 
+	        <tx:method name="add*" propagation="REQUIRED" /> 
+	        <tx:method name="create*" propagation="REQUIRED" /> 
+	        <tx:method name="insert*" propagation="REQUIRED" /> 
+	        <tx:method name="update*" propagation="REQUIRED" /> 
+	        <tx:method name="merge*" propagation="REQUIRED" /> 
+	        <tx:method name="del*" propagation="REQUIRED" /> 
+	        <tx:method name="remove*" propagation="REQUIRED" /> 
+	        <tx:method name="put*" propagation="REQUIRED" /> 
+	        <tx:method name="use*" propagation="REQUIRED"/> 
+	        <!--hibernate4必须配置为开启事务 否则 getCurrentSession()获取不到--> 
+	        <tx:method name="get*" propagation="REQUIRED" read-only="true" /> 
+	        <tx:method name="count*" propagation="REQUIRED" read-only="true" /> 
+	        <tx:method name="find*" propagation="REQUIRED" read-only="true" /> 
+	        <tx:method name="list*" propagation="REQUIRED" read-only="true" /> 
+	        <tx:method name="*" propagation="REQUIRED" read-only="true" /> 
+	    </tx:attributes> 
+	</tx:advice>
+
+      
+    <!-- 应用普通类获取bean    
+    <bean id="appContext" class="com.soanl.util.tool.ApplicationUtil"/>-->  
+  
+    <!-- 配置事务切面 -->  
+    <aop:config>  
+        <aop:pointcut id="serviceOperation"  
+            expression="execution(* com.hydom..service..*.*(..))" />  
+        <aop:advisor advice-ref="txAdvice" pointcut-ref="serviceOperation" />  
+    </aop:config>
+</beans>  

@@ -1,0 +1,43 @@
+body{
+}
+.tanchuang_main{
+	width:230px;
+	height:auto;
+	float:left;
+	position:fixed;
+	right:20px;
+	bottom:20px;
+	background:#ecf4fc;
+	border-radius:5px;
+	-moz-border-radius: 5px; /* Firefox */
+    -webkit-border-radius: 5px; /* Safari and Chrome */
+	border:1px solid #92bfee;
+	z-index:999;
+	display:none;
+	
+}
+.wenxintishi{
+	width:90%;
+	margin-left:5%;
+	display:inline;
+	float:left;
+	line-height:35px;
+	font-size:14px;
+	color:#4184d3;
+	border-bottom:1px solid #92bfee;
+	font-weight:bold;
+	text-align:left;
+}
+.tishixinxi{
+	width:90%;
+	height:auto;
+	margin-left:5%;
+	display:inline;
+	float:left;
+	line-height:22px;
+	font-size:14px;
+	color:#4184d3;
+	margin-top:15px;
+	margin-bottom:15px;
+	text-align:left;
+}

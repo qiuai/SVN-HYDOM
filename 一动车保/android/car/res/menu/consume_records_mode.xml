@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+     >
+
+    <item
+        android:id="@+id/consume_records_mode_all"
+        android:title="全部">
+    </item>
+    <item
+        android:id="@+id/consume_records_mode_charge"
+        android:title="充值">
+    </item>
+    <item
+        android:id="@+id/consume_records_mode_consume"
+        android:title="消费">
+    </item>
+
+</menu>

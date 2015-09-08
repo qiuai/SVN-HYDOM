@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bj_f0f0f0"
+    android:orientation="vertical" >
+    
+ <FrameLayout
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blue_00A0EA" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="服务范围"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/return_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/return_btn" />
+    </FrameLayout>
+
+ <TextView
+     android:id="@+id/content"
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:layout_marginBottom="10dp"
+     android:layout_marginLeft="10dp"
+     android:layout_marginRight="10dp"
+     android:layout_marginTop="10dp"
+     android:text=""
+     android:textAppearance="?android:attr/textAppearanceMedium"
+     android:textColor="@color/textcolor__343434" />
+
+</LinearLayout>

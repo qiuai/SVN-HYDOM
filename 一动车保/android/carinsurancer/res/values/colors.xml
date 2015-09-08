@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- 纯蓝 -->
+    <color name="blue">#2ba1fb</color>
+    <!-- 白色 -->
+    <color name="white">#ffffff</color>
+    <!-- 灰色背景 -->
+    <color name="gray">#F2F2F2</color>
+    <!-- 红色 -->
+    <color name="red">#FD0002</color>
+    
+    <color name="black">#000000</color>
+    
+    <color name="background_tab_pressed">#6633B5E5</color>
+    
+    <color name="choose_eara_item_press_color">#f4f4f4</color>
+    <color name="no_color">#00000000</color>
+    
+    <!-- 浅灰色 -->
+    <color name="light_gray">#D3D3D3</color>
+</resources>

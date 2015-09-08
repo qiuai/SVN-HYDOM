@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="appserver" namespace="/app" extends="struts-default">
+		<action name="signup" class="appServer" method="signup">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="signin" class="appServer" method="signin">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="signout" class="appServer" method="signout">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="fetch_note" class="appServer" method="fetchNote">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="post_note" class="appServer" method="postNote">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="break_note" class="appServer" method="breakNote">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="syn_note" class="appServer" method="synNote">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="list_trophy" class="appServer" method="listTrophy">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="exchange_trophy" class="appServer" method="exchangeTrophy">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="list_history" class="appServer" method="listHistory">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="clear_history" class="appServer" method="clearHistory">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="count_exchange" class="appServer" method="countExchange">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="count_score" class="appServer" method="countScore">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="today_top" class="appServer" method="todayTop">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="update_profile" class="appServer" method="updateProfile">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="reset_password" class="appServer" method="resetPassword">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="update_password" class="appServer" method="updatePassword">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="list_message" class="appServer" method="listMessage">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="delete_message" class="appServer" method="deleteMessage">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="fetch_about" class="appServer" method="fetchAbout">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="fetch_phone" class="appServer" method="fetchPhone">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="score_manual" class="appServer" method="manual">
+			<result>/app/resource/manual.jsp</result>
+		</action>
+		<action name="about_us" class="appServer" method="about">
+			<result>/app/resource/about.jsp</result>
+		</action>
+		<action name="post_sense" class="appServer" method="postSense">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="update" class="appServer" method="update">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="send_code" class="appServer" method="sendCode">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+
+	<package name="dataserver" namespace="/data" extends="struts-default">
+		<action name="assignTaskQuestion" class="dataServer" method="assignTaskQuestion">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="recycleTaskByQuestion" class="dataServer"
+			method="recycleTaskByQuestion">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 工单反馈，测试调用  -->
+		<action name="backTaskByQuestion" class="dataServer" method="backTaskByQuestion">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+</struts>

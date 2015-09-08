@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/bj_f0f0f0"
+    >
+    
+   <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dip"
+        android:paddingLeft="10dip"
+        android:paddingTop="10dip" >
+        
+        <ImageView
+            android:id="@+id/near_icon" 
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/login_default_avatar"           
+            />
+
+        <TextView android:id="@+id/near_kind"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="20dp"
+            android:background="@drawable/indent"
+            />
+
+        <TextView
+            android:id="@+id/near_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/near_icon"
+            android:layout_alignLeft="@+id/near_name"
+            android:layout_marginBottom="22dp"
+            android:textColor="@color/rea_FD0002"
+            android:text="￥248.00" />
+
+        <TextView
+            android:id="@+id/near_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/near_kind"
+            android:layout_centerHorizontal="true"
+            android:text="马牌轮胎" />
+
+        <com.carinsurance.my_view.GoodsCounter
+            android:id="@+id/goods_num_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/near_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/near_content"
+            android:layout_toRightOf="@+id/near_name" >
+
+        </com.carinsurance.my_view.GoodsCounter>
+ 
+        </RelativeLayout>
+        <LinearLayout 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginLeft="10dp"
+            >
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="服务费:"
+                />
+            <TextView 
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="￥99"
+                />
+            
+        </LinearLayout>
+
+   
+    
+</LinearLayout>

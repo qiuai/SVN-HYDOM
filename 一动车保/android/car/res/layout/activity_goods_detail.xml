@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+     <FrameLayout
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blue_00A0EA" >
+
+        <ImageView
+            android:id="@+id/return_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/return_btn" />
+
+        <TextView
+            android:id="@id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="商品详情"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+
+
+    </FrameLayout>
+
+     <ExpandableListView
+         android:id="@+id/expandableListView1"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:layout_weight="1" >
+
+     </ExpandableListView>
+
+     <ListView
+         android:id="@+id/listView1"
+         android:layout_width="match_parent"
+         android:layout_height="0dp"
+         android:layout_weight="1" >
+
+     </ListView>
+
+</LinearLayout>

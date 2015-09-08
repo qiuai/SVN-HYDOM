@@ -1,0 +1,1 @@
+PODS_FSMEDIAPICKER_OTHER_LDFLAGS = -framework "MobileCoreServices" -framework "UIKit"

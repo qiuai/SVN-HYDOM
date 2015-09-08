@@ -1,0 +1,122 @@
+.previewContainer {
+	position: relative;
+	float: left;
+	width: 81px;
+	height: 80px;
+	padding: 10px;
+	margin: 5px 10px 5px 0px;
+	background: url(../images/upload_image_preview_bg.gif) no-repeat 0 0;
+}
+
+.previewContainer:hover{
+	background: url(../images/upload_image_preview_hover_bg.gif) no-repeat 0 0;
+}
+
+.uploadImageRemove {
+	position: absolute;
+	right: 5px;
+	top: 5px;
+	height: 8px;
+	width: 8px;
+	cursor: pointer;
+	background: url(../images/upload_image_remove.gif) no-repeat center;
+}
+
+.progressWrapper {
+	width: 357px;
+	overflow: hidden;
+}
+
+.progressContainer {
+	margin-top: 5px;
+	padding: 4px;
+	border: solid 1px #E8E8E8;
+	background-color: #F7F7F7;
+	overflow: hidden;
+}
+/* Message */
+.message {
+	margin: 1em 0;
+	padding: 10px 20px;
+	border: solid 1px #FFDD99;
+	background-color: #FFFFCC;
+	overflow: hidden;
+}
+/* Error */
+.red {
+	border: solid 1px #B50000;
+	background-color: #FFEBEB;
+}
+
+/* Current */
+.green {
+	border: solid 1px #DDF0DD;
+	background-color: #EBFFEB;
+}
+
+/* Complete */
+.blue {
+	border: solid 1px #CEE2F2;
+	background-color: #F0F5FF;
+}
+
+.progressName {
+	font-size: 12px;
+	font-weight: 700;
+	color: #555;
+	width: 323px;
+	height: 20px;
+	text-align: left;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.progressBarInProgress,
+.progressBarComplete,
+.progressBarError {
+	font-size: 12px;
+	width: 0%;
+	height: 2px;
+	background-color: blue;
+	margin-top: 2px;
+}
+
+.progressBarComplete {
+	width: 100%;
+	background-color: green;
+	visibility: hidden;
+}
+
+.progressBarError {
+	width: 100%;
+	background-color: red;
+	visibility: hidden;
+}
+
+.progressBarStatus {
+	margin-top: 2px;
+	width: 337px;
+	font-size: 12px;
+	font-family: Arial;
+	text-align: left;
+	white-space: nowrap;
+}
+
+a.progressCancel {
+	font-size: 0;
+	display: block;
+	height: 14px;
+	width: 14px;
+	background-image: url(../images/upload_cancel_button.gif);
+	background-repeat: no-repeat;
+	background-position: -14px 0px;
+	float: right;
+}
+
+a.progressCancel:hover {
+	background-position: 0px 0px;
+}
+#thumbnails {
+	height: auto;
+	font-size: 0px;
+}

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" 
+    android:background="@color/white"
+    >
+
+    <TextView
+        android:id="@+id/button2"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:text="订单管理" />
+    
+    <TextView
+        android:id="@+id/button1"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/button2"
+        android:gravity="center"
+        android:text="修改密码" />
+    
+    <TextView
+        android:id="@+id/button3"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/button1"
+        android:gravity="center"
+        android:text="退出" />
+    
+    <TextView
+        android:id="@+id/button4"
+        android:layout_width="150dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/button3"
+        android:gravity="center"
+        android:text="v.0.67" />
+
+</RelativeLayout>

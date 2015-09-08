@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bj_f0f0f0">
+
+    <FrameLayout
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blue_00A0EA" 
+        android:layout_alignParentTop="true">
+		
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="评价"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/return_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/return_btn" />
+    </FrameLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" 
+        android:layout_below="@id/top_view"
+        android:paddingBottom="80dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" 
+            android:orientation="vertical">
+
+            <com.miloisbadboy.view.SupportScrollViewListView
+                android:id="@+id/goods_list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+               android:divider="#E9E9E9"
+               android:dividerHeight="1dp" >
+            </com.miloisbadboy.view.SupportScrollViewListView>
+            
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_marginTop="20dp"
+                android:padding="10dp">
+               <LinearLayout android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:orientation="horizontal"
+                   android:gravity="center_vertical"
+                   android:paddingTop="3dp"
+                   android:paddingBottom="3dp">
+                    <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="评价:"
+                    android:textSize="16sp"
+                    android:textColor="@color/black"/>
+                    <!-- 星级表标签 -->
+                    <RatingBar style="@style/roomRatingBar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:id="@+id/score"/>
+               </LinearLayout>
+               <View android:layout_width="match_parent"
+                   android:layout_height="1dp"
+                   android:background="#f0f0f0"/>
+               <EditText android:layout_width="match_parent"
+                   android:layout_height="100dp"
+                   android:hint="对于该商品的评价"
+                   android:background="@color/white"
+                   android:gravity="left|top"
+                   android:textSize="14sp"
+                   android:layout_marginTop="3dp"
+                   android:id="@+id/edt_discuss_content"
+                   />
+               <com.miloisbadboy.view.SupportScrollViewGridView 
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:id="@+id/pics_sel"
+                   android:listSelector="@android:color/transparent"
+                   android:numColumns="auto_fit"
+                   android:horizontalSpacing="5dp"
+                   android:columnWidth="60dp"
+                   android:verticalSpacing="5dp"
+                   >
+               </com.miloisbadboy.view.SupportScrollViewGridView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+	
+    <Button android:id="@+id/btn_commit_discuss"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_height="40dp"
+        android:text="提交"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/selector_btn_blue_solid"/>
+</RelativeLayout>

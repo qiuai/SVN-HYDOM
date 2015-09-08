@@ -1,0 +1,112 @@
+//
+//  Global.pch
+//  HD_InsuranceCar
+//
+//  Created by cc on 15/6/13.
+//  Copyright (c) 2015年 HD JARVAN. All rights reserved.
+//
+
+
+
+#ifdef __OBJC__
+#import "UIView+MJ.h"
+#import "UIButton+extension.h"
+#import "UtilityMethod.h"
+#endif
+//打印
+#ifdef DEBUG
+#   define DLOG(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__);
+#else
+#   define DLOG(...)
+#endif
+
+#define _po(o) DLOG(@"%@", (o))
+#define _pn(o) DLOG(@"%d", (o))
+#define _pf(o) DLOG(@"%f", (o))
+#define _ps(o) DLOG(@"CGSize: {%.0f, %.0f}", (o).width, (o).height)
+#define _pr(o) DLOG(@"NSRect: {{%.0f, %.0f}, {%.0f, %.0f}}", (o).origin.x, (o).origin.x, (o).size.width, (o).size.height)
+
+
+
+#if 0
+#define rootUrl  @"http://192.168.0.234:8080"
+#define zhiFuBaoOrderURL @"http://qq826552818.imwork.net:57702/cbms/web/pay/alipay_return"
+#define zhiFuBaoPayURL @"http://qq826552818.imwork.net:57702/cbms/web/pay/alipay_recharge_return"
+
+#else
+#define zhiFuBaoOrderURL @"http://www.yidongchebao.com/web/pay/alipay_return"
+#define zhiFuBaoPayURL @"http://www.yidongchebao.com/web/pay/alipay_recharge_return"
+#define rootUrl  @"http://www.yidongchebao.com"
+#endif
+
+
+
+//G－C－D
+#define BACK(block) dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block)
+#define MAIN(block) dispatch_async(dispatch_get_main_queue(),block)
+
+//屏幕宽高
+#define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
+#define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
+
+
+//颜色RGB
+#define COLOR(R, G, B, A) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:A]
+
+//随机色
+#define randomColor [UIColor colorWithRed:arc4random_uniform(255)\
+/255.0 green:arc4random_uniform(255)/255.0 blue:arc4random_uniform(255)\
+/255.0 alpha:1.0]
+
+//常用颜色
+#define BLACKCOLOR [UIColor blackColor]
+#define WHITECOLOR [UIColor whiteColor]
+//清除背景色
+#define CLEARCOLOR [UIColor clearColor]
+//字体大小
+#define FONT14 [UIFont systemFontOfSize:14]
+
+#define FONT12 [UIFont systemFontOfSize:12]
+
+//加粗
+#define BOLDFont(m) [UIFont fontWithName:@"Helvetica-Bold" size:m]
+
+//IOS 6 7
+#define os7 [UIDevice currentDevice].systemVersion.floatValue>6.0
+//防止循环引用 weakSelf
+#define WEAKSELF typeof(self) __weak weakSelf = self;
+
+//rect make 
+#define CGRM(_X,_Y,_W,_H) CGRectMake(_X, _Y, _W, _H)
+
+
+//全局应用主题
+
+//背景色
+#define ShareBackColor [UIColor colorWithRed:0 green:160.0/255.0 blue:234.0/255.0 alpha:1.0]
+//填充色
+#define HDfillColor [UIColor colorWithRed:234.0/255.0 green:234.0/255.0 blue:234.0/255.0 alpha:1.0]
+
+//占位图片
+#define FillImage   @"appFillImage"
+
+
+//全局价格保留两位
+#define globalPrices(prices)   [NSString stringWithFormat:@"%.2f",[(prices) doubleValue]]
+
+
+
+//提示MBProgressHUD
+#define warn(text)   \
+[self.view addSubview:self.HUD];\
+self.HUD.labelText =text;\
+self.HUD.mode=MBProgressHUDModeText;\
+[self.HUD showAnimated:YES whileExecutingBlock:^{\
+    sleep(2); \
+} completionBlock:^{ \
+    [self.HUD removeFromSuperview]; \
+}]
+
+
+//展示菊花
+#define showHUD MBProgressHUD * hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES]

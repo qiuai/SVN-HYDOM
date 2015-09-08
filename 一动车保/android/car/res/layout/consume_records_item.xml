@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp" >
+
+        <TextView
+            android:id="@+id/consume_records_item_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="#1CA6EA"
+            android:textSize="18sp" 
+            android:singleLine="true"
+            android:layout_marginLeft="5dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/consume_records_item_money"
+            android:orientation="vertical" 
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/consume_records_item_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" 
+                android:textColor="#3D3D3D"
+                android:singleLine="true"
+                android:textSize="18sp"/>
+
+            <TextView
+                android:id="@+id/consume_records_item_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:textColor="#8E8E8E"
+                android:textSize="16sp"
+                android:singleLine="true" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</LinearLayout>

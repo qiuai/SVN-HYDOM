@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- 标题 -->
+    <item name="title_with_back_btn_bk" type="id"/>
+    
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_pressed="true"><shape>
+
+            <!-- 圆角 -->
+            <corners android:radius="10dp" />
+
+            <solid android:color="@color/background_tab_pressed" />
+        </shape></item>
+    <!-- 蓝色按钮 -->
+    <item><shape>
+            <corners android:radius="10dp"></corners>
+
+            <solid android:color="@color/blue" />
+        </shape></item>
+
+</selector>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/white"
+    >
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingBottom="10dip"
+        android:paddingTop="10dip" >
+
+        <ImageView
+            android:id="@+id/order_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/login_default_avatar"
+            android:scaleType="fitXY" />
+
+        <TextView
+            android:id="@+id/order_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@+id/order_image"
+            android:text="本田二代飞度专用扶手箱" />
+
+        <TextView
+            android:id="@+id/prder_pric"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/order_name"
+            android:layout_below="@+id/order_name"
+            android:layout_marginTop="16dp"
+            android:textColor="#B8B8B8"
+            android:text="1244人购买" />
+
+        <TextView
+            android:id="@+id/order_mun"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/order_state"
+            android:layout_alignBottom="@+id/order_state"
+            android:layout_marginLeft="22dp"
+            android:layout_toRightOf="@+id/prder_pric"
+            android:text="234评价"
+            android:textColor="#B8B8B8" />
+
+        <TextView
+            android:id="@+id/order_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/order_image"
+            android:layout_alignLeft="@+id/prder_pric"
+            android:text="￥699.00"
+            android:textColor="@color/rea_FD0002" />
+
+    </RelativeLayout>
+    </LinearLayout>
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EAEAEA"
+        />
+
+</LinearLayout>

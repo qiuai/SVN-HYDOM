@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="DAO-I6-bgc" userLabel="JVCommonSelectCarView" customClass="JVCommonSelectCarView">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="适配车型：" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qBq-ax-lgf">
+                    <rect key="frame" x="0.0" y="0.0" width="160" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C4T-Rj-HkE">
+                    <rect key="frame" x="160" y="0.0" width="160" height="30"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="奥迪" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xlb-td-ftM">
+                            <rect key="frame" x="0.0" y="0.0" width="160" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="&gt;" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtU-Uo-Q4H">
+                            <rect key="frame" x="125" y="0.0" width="20" height="30"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="20" id="rwu-3L-kXg"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="DtU-Uo-Q4H" secondAttribute="trailing" constant="15" id="1fQ-7W-16j"/>
+                        <constraint firstItem="xlb-td-ftM" firstAttribute="leading" secondItem="C4T-Rj-HkE" secondAttribute="leading" id="3ep-Xc-mBJ"/>
+                        <constraint firstItem="DtU-Uo-Q4H" firstAttribute="top" secondItem="C4T-Rj-HkE" secondAttribute="top" id="CdE-16-zYr"/>
+                        <constraint firstAttribute="bottom" secondItem="xlb-td-ftM" secondAttribute="bottom" id="JJD-fh-jKK"/>
+                        <constraint firstItem="xlb-td-ftM" firstAttribute="top" secondItem="C4T-Rj-HkE" secondAttribute="top" id="UT7-Yq-AyB"/>
+                        <constraint firstAttribute="trailing" secondItem="xlb-td-ftM" secondAttribute="trailing" id="dsi-fO-9bk"/>
+                        <constraint firstAttribute="bottom" secondItem="DtU-Uo-Q4H" secondAttribute="bottom" id="liJ-Y8-oJg"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="C4T-Rj-HkE" secondAttribute="trailing" id="2Ec-K3-IoA"/>
+                <constraint firstItem="qBq-ax-lgf" firstAttribute="leading" secondItem="DAO-I6-bgc" secondAttribute="leading" id="CEb-Z8-6gW"/>
+                <constraint firstAttribute="bottom" secondItem="qBq-ax-lgf" secondAttribute="bottom" id="HTd-5G-ksb"/>
+                <constraint firstItem="C4T-Rj-HkE" firstAttribute="width" secondItem="qBq-ax-lgf" secondAttribute="width" id="N0u-z1-7NJ"/>
+                <constraint firstItem="C4T-Rj-HkE" firstAttribute="height" secondItem="qBq-ax-lgf" secondAttribute="height" id="aqg-7u-kx5"/>
+                <constraint firstItem="C4T-Rj-HkE" firstAttribute="top" secondItem="DAO-I6-bgc" secondAttribute="top" id="h1q-0F-TrP"/>
+                <constraint firstItem="C4T-Rj-HkE" firstAttribute="leading" secondItem="qBq-ax-lgf" secondAttribute="trailing" id="w9Y-4m-YuH"/>
+                <constraint firstItem="qBq-ax-lgf" firstAttribute="top" secondItem="DAO-I6-bgc" secondAttribute="top" id="zAX-6G-qXv"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="carNameLabel" destination="xlb-td-ftM" id="y1y-oN-JnF"/>
+                <outlet property="rightLabel" destination="DtU-Uo-Q4H" id="ZBH-Ws-e7i"/>
+                <outlet property="tapChangeCarView" destination="C4T-Rj-HkE" id="mMb-sH-vsT"/>
+            </connections>
+            <point key="canvasLocation" x="226" y="-8"/>
+        </view>
+    </objects>
+</document>

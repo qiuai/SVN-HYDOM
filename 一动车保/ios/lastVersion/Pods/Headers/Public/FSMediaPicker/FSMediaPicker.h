@@ -1,0 +1,1 @@
+link ../../../FSMediaPicker/Pod/Classes/FSMediaPicker.h

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="credit" namespace="/manage/credit" extends="pub-package">
+		<!-- 奖品分类相关 -->
+		<action name="trophyType_list" class="trophyTypeAction" method="list">
+			<result>/WEB-INF/page/credit/trophyType_list.jsp</result>
+		</action>
+		<action name="trophyType_add" class="trophyTypeAction" method="add">
+			<result type="redirectAction">
+				<param name="actionName">trophyType_list</param>
+			</result>
+		</action>
+		<action name="trophyType_edit" class="trophyTypeAction" method="edit">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="trophyType_delete" class="trophyTypeAction"
+			method="delete">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 奖品相关 -->
+		<action name="trophy_list" class="trophyAction" method="list">
+			<result>/WEB-INF/page/credit/trophy_list.jsp</result>
+		</action>
+		<action name="trophy_addUI" class="trophyAction" method="addUI">
+			<result>/WEB-INF/page/credit/trophy_add.jsp</result>
+		</action>
+		<action name="trophy_add" class="trophyAction" method="add">
+			<result type="redirectAction">
+				<param name="actionName">trophy_list</param>
+			</result>
+			<interceptor-ref name="allStack">
+				<param name="fileUpload.maximumSize">1024*9024</param>
+				<param name="fileUpload.allowedTypes">
+					image/bmp,image/jpeg,image/gif,image/png
+				</param>
+			</interceptor-ref>
+		</action>
+		<action name="trophy_editUI" class="trophyAction" method="editUI">
+			<result>/WEB-INF/page/credit/trophy_edit.jsp</result>
+		</action>
+		<action name="trophy_edit" class="trophyAction" method="edit">
+			<result type="redirectAction">
+				<param name="actionName">trophy_list</param>
+			</result>
+			<interceptor-ref name="allStack">
+				<param name="fileUpload.maximumSize">5*1024*1024</param>
+				<param name="fileUpload.allowedTypes">
+					image/bmp,image/jpeg,image/gif,image/png
+				</param>
+			</interceptor-ref>
+		</action>
+		<action name="trophy_show" class="trophyAction" method="show">
+			<result>/WEB-INF/page/credit/trophy_show.jsp</result>
+		</action>
+		<action name="trophy_delete" class="trophyAction" method="delete">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 积分相关 -->
+		<action name="scoreRecord_list" class="scoreRecordAction"
+			method="list">
+			<result>/WEB-INF/page/credit/scoreRecord_list.jsp</result>
+		</action>
+		<action name="showTrophyRecord" class="scoreRecordAction"
+			method="showTrophyRecord">
+			<result>/WEB-INF/page/credit/scoreRecord_trophyRecordShow.jsp
+			</result>
+		</action>
+		<action name="showTaskRecord" class="scoreRecordAction" method="showTaskRecord">
+			<result>/WEB-INF/page/credit/scoreRecord_taskRecordShow.jsp</result>
+		</action>
+		<action name="scoreRecord_listuse" class="scoreRecordAction"
+			method="listUse">
+			<result>/WEB-INF/page/credit/scoreRecord_list_use.jsp</result>
+		</action>
+		<action name="scoreRecord_listheap" class="scoreRecordAction"
+			method="listHeap">
+			<result>/WEB-INF/page/credit/scoreRecord_list_heap.jsp</result>
+		</action>
+		<!-- 积分兑换相关 -->
+		<action name="trophyRecord_list" class="trophyRecordAction"
+			method="list">
+			<result>/WEB-INF/page/credit/trophyRecord_list.jsp</result>
+		</action>
+		<action name="trophyRecord_process" class="trophyRecordAction"
+			method="process">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+	</package>
+</struts>

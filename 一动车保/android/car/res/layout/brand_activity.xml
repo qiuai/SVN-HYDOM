@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/white"
+    >
+    
+   <FrameLayout
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blue_00A0EA" >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="服务订单"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/return_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/return_btn"
+            android:clickable="true" />
+    </FrameLayout>
+    
+   <LinearLayout
+        android:id="@+id/btn_tv_shipeichexing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#65C6F1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_shipeichexing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:text="适配车型：奥迪-A4L"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+    </LinearLayout>
+    
+   <LinearLayout
+       android:id="@+id/home_shop_radiogroup"
+       android:layout_width="match_parent"
+       android:layout_height="35dp"
+       android:gravity="center"
+       android:orientation="horizontal" >
+
+        <Spinner
+            android:id="@+id/all"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:spinnerMode="dropdown"
+            android:background="@drawable/xiala"
+            android:checked="false"
+            android:text="全部品牌" />
+        
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/interlayer"
+            />
+
+        <Spinner
+            android:id="@+id/not_spending"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="5dp"
+            android:spinnerMode="dropdown"
+            android:layout_weight="1"
+            android:background="@drawable/xiala"
+            android:text="全部类型" />
+       
+        <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/interlayer"
+            />
+        </LinearLayout>
+        <TextView 
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="#666666"
+            />
+        
+        <LinearLayout 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+            <com.carinsurance.xlistview.XListView
+                android:id="@+id/myListView"
+                android:layout_width="match_parent"
+                android:descendantFocusability="afterDescendants"
+                android:layout_height="match_parent" >
+            </com.carinsurance.xlistview.XListView>
+        </LinearLayout>
+    
+</LinearLayout>

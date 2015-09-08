@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.configuration.xml.reload" value="true" />
+	<constant name="struts.devMode" value="false" />
+	<constant name="struts.action.extension" value="action" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+	<constant name="struts.ui.theme" value="simple" />
+	<!-- 指定允许上传的文件最大字节数：这里设置为50MB-->
+	<constant name="struts.multipart.maxSize" value="52428800" />
+
+
+	<package name="signin_up" namespace="/" extends="struts-default">
+		<action name="signin" class="loginAndExitAction" method="signin">
+			<result type="redirectAction">
+				<param name="actionName">job_list</param>
+				<param name="namespace">/manage/task</param>
+			</result>
+			<result name="fail">/signin.jsp</result>
+		</action>
+		<action name="signout" class="loginAndExitAction" method="signout">
+			<result>/signin.jsp</result>
+		</action>
+	</package>
+
+	<package name="manage" namespace="/manage" extends="struts-default">
+		<action name="index">
+			<result>/WEB-INF/page/common/index.jsp</result>
+		</action>
+	</package>
+
+	<package name="pub-package" extends="struts-default" abstract="true">
+		<!-- 把权限拦截器加入到全局默认拦截器栈中 -->
+		<interceptors>
+			<interceptor-stack name="depStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="partInt"></interceptor-ref>
+			</interceptor-stack>
+			<interceptor-stack name="allStack">
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+				<interceptor-ref name="partInt"></interceptor-ref>
+			</interceptor-stack>
+			<interceptor name="partInt"
+				class="com.hydom.util.sfl.ParticularInterceptor">
+			</interceptor>
+		</interceptors>
+		<default-interceptor-ref name="depStack" />
+		<global-results>
+			<result name="error">/error.jsp</result>
+			<result name="unauth">/WEB-INF/page/common/unAuth.jsp</result>
+		</global-results>
+	</package>
+
+	<include file="account.xml"></include>
+	<include file="credit.xml"></include>
+	<include file="task.xml"></include>
+	<include file="server.xml"></include>
+	<include file="extra.xml"></include>
+
+</struts>

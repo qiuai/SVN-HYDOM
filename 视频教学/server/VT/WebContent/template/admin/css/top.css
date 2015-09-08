@@ -1,0 +1,91 @@
+/* CSS Document */
+*{
+	margin:0;
+	padding:0;
+}
+.top_main{
+	width:100%;
+	height:87px;
+	float:left;
+}
+.logo{
+	background:url(../images/logo.png) no-repeat;
+	background-position:20px 20px;
+	width:400px;
+	height:87px;
+	float:left;
+}
+.top_wenzi{
+	width:300px;
+	height:auto;
+	float:right;
+	margin-right:20px;
+}
+.top_right_01{
+	background:url(../images/user.png) no-repeat;
+	background-position:220px 7px;
+	width:300px;
+	height:30px;
+	float:left;
+	line-height:30px;
+	text-align:right;
+	font-size:12px;
+	color:#333333;
+	margin-top:20px;
+}
+.top_right_02{
+	width:300px;
+	height:20px;
+	float:left;
+	line-height:20px;
+	text-align:right;
+	font-size:12px;
+	color:#333333;
+}
+.top_right_02 a:link,.top_right_02 a:visited{
+	color:#333333;
+	text-decoration:none;
+}
+.top_right_02 a:hover,.top_right_02 a:active{
+	color:#ec6800;
+	text-decoration:none;
+}
+.map{
+	background-color:#edf6fa;
+	width:100%;
+	height:41px;
+	float:left;
+	border-top:1px solid #d7e4ea;
+	border-bottom:1px solid #d7e4ea;
+	position:fixed;
+	top:87px;
+}
+.pro_search{
+	background:url(../images/glinco.png) no-repeat;
+	background-position:15px 12px;
+	background-color:#d4e7f0;
+	width:190px;
+	height:40px;
+	float:left;
+	border-top:3px solid #5ab8ef;
+	border-bottom:1px solid #b9cad3;
+	font-size:14px;
+	color:#333333;
+	line-height:40px;
+	font-weight:bold;
+	text-indent:40px;
+	border-right:1px solid #b7d5df;
+}
+.pro_map{
+	background:url(../images/map_wz.png) no-repeat;
+	background-position:20px 13px;
+	width:auto;
+	height:40px;
+	float:left;
+	line-height:40px;
+	color:#515151;
+	font-size:12px;
+	font-weight:bold;
+	text-indent:40px;
+	
+}

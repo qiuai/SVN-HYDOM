@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<package name="extra" namespace="/manage/extra" extends="pub-package">
+		<!--系统设置-->
+		<action name="config_show" class="systemConfigAction" method="show">
+			<result>/WEB-INF/page/extra/systemconfig_show.jsp</result>
+		</action>
+		<action name="config_editUI" class="systemConfigAction" method="editUI">
+			<result>/WEB-INF/page/extra/systemconfig_edit.jsp</result>
+		</action>
+		<action name="config_edit" class="systemConfigAction" method="edit">
+			<result type="redirectAction">
+				<param name="actionName">config_show?scid=${scid}</param>
+			</result>
+		</action>
+		<!--消息管理-->
+		<action name="message_list" class="messageAction" method="list">
+			<result>/WEB-INF/page/extra/message_list.jsp</result>
+		</action>
+		<action name="message_add" class="messageAction" method="add">
+			<result type="redirectAction">
+				<param name="actionName">message_list</param>
+			</result>
+		</action>
+		<action name="message_delete" class="messageAction" method="delete">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- 意见反馈 -->
+		<action name="sense_list" class="senseAction" method="list">
+			<result>/WEB-INF/page/extra/sense_list.jsp</result>
+		</action>
+		<action name="sense_delete" class="senseAction" method="delete">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<!-- App版本管理  -->
+		<action name="appversion_list" class="appVersionAction" method="list">
+			<result>/WEB-INF/page/extra/appversion_list.jsp</result>
+		</action>
+		<action name="appversion_add" class="appVersionAction" method="add">
+			<result type="redirectAction">
+				<param name="actionName">appversion_list</param>
+			</result>
+			<interceptor-ref name="allStack">
+				<param name="fileUpload.maximumSize">50*1024*1024</param>
+			</interceptor-ref>
+		</action>
+		<action name="appversion_editUI" class="appVersionAction"
+			method="editUI">
+			<result>/WEB-INF/page/extra/appversion_edit.jsp</result>
+		</action>
+		<action name="appversion_edit" class="appVersionAction" method="edit">
+			<result type="redirectAction">
+				<param name="actionName">appversion_list</param>
+			</result>
+			<interceptor-ref name="allStack">
+				<param name="fileUpload.maximumSize">50*1024*1024</param>
+			</interceptor-ref>
+		</action>
+			<action name="appversion_delete" class="appVersionAction" method="delete">
+			<result type="stream">
+				<param name="contentType">text/html</param>
+				<param name="inputName">inputStream</param>
+			</result>
+		</action>
+		<action name="app_download" class="appDownLoadAction">
+			<result type="stream">
+				<param name="contentType">
+					application/octet-stream
+				</param>
+				<param name="inputName">inputStream</param>
+				<param name="contentDisposition">
+					attachment;filename=${fileName}
+				</param>
+				<param name="bufferSize">4096</param>
+			</result>
+		</action>
+	</package>
+</struts>

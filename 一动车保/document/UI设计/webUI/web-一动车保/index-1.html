@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8" />
+	<title>一动车保首页</title>
+	<link href="css/style.css" type="text/css" rel="stylesheet" />	
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/function.js"></script>
+	<style type="text/css">
+		/******form*******/
+		.divselectcon {clear: both; padding: 10px 0 20px; position: relative; }
+		.divselect {float: left; }
+		.divselectcon input {width:238px; height: 35px; margin: 0 20px; position:relative; z-index:10000; border: 1px solid #b1b1b1; border-top: 2px solid #b1b1b1; line-height:35px; display:inline-block; color:#807a62; font-style:normal; background:url(images/corners2.png) no-repeat right center;}
+		.divselectcon input.input1 {border:1px solid #ffae00; border-top: 2px solid #ffae00; margin-left: 0; width: 228px; height:35px;line-height:35px; display:inline-block; color:#807a62; font-style:normal; background:url(images/corners1.png) no-repeat right center;}
+		#button2 button {float: right; width: 169px; height: 43px; background: url(images/go.png) 0 0 no-repeat; border: none; position: absolute; top: 9px;  cursor: pointer; }
+		.bdsug_copy{display:none;}		
+	</style>
+</head>
+
+<body>
+<!--上部开始-->
+<div class="top">
+	<div class="top_header box0">
+		<div class="logo"><img src="images/top_logo.png" alt="logo" /></div>
+		<ul class="top_right">
+			<li><a href="#">[<span>登录</span>|<span>注册</span>]</a><b class="b1"></b></li>
+			<li><a href="#">新闻动态</a><b class="b22"></b></li>
+			<li><a href="#">服务范围</a><b class="b33"></b></li>
+			<li class=""><a href="#">APP下载</a><b class="b44"></b></li>
+		</ul>
+	</div>
+	<!--box banner start-->
+	<!--box banner end-->
+</div>
+<!--上部结束-->
+<hr>
+<!--中部开始-->
+<div class="mid box1">
+	<div class="span1">
+		<div class="sel_title"><h2>请选择您的车型</h2><b class="b4"></b><b class="car3"></b></div>
+		<ul class="ul0">
+			<li class="hot">热门搜索:</li>
+			<li><a href="#">别克</a></li>
+			<li><a href="#">本田</a></li>
+			<li><a href="#">大众</a></li>
+			<li><a href="#">丰田</a></li>
+			<li><a href="#">福特</a></li>
+			<li><a href="#">起亚</a></li>
+			<li><a href="#">现代</a></li>
+			<li><a href="#">雪铁龙</a></li>
+		</ul>		
+		
+		<div class="divselectcon">
+			<div class="divselect">
+				<input type="text" size="40" baiduSug="2" placeholder="选择品牌" class="input1" />
+				<input type="text" size="40" baiduSug="2" placeholder="选择车系" />
+				<input type="text" size="40" baiduSug="2" placeholder="选择车型" />
+			</div>
+			<script charset="gbk" src="js/opensug.js"></script>
+			<script>
+			$(function(){
+				//判断浏览器是否支持placeholder属性
+				supportPlaceholder='placeholder'in document.createElement('input'), 
+  placeholder=function(input){
+ 
+    var text = input.attr('placeholder'),
+    defaultValue = input.defaultValue;
+ 
+    if(!defaultValue){
+ 
+      input.val(text).addClass("phcolor");
+    }
+ 
+    input.focus(function(){
+ 
+      if(input.val() == text){
+   
+        $(this).val("");
+      }
+    });
+ 
+  
+    input.blur(function(){
+ 
+      if(input.val() == ""){
+       
+        $(this).val(text).addClass("phcolor");
+      }
+    });
+ 
+    //输入的字符不为灰色
+    input.keydown(function(){
+  
+      $(this).removeClass("phcolor");
+    });
+  };
+ 
+  //当浏览器不支持placeholder属性时，调用placeholder函数
+  if(!supportPlaceholder){
+ 
+    $('input').each(function(){
+ 
+      text = $(this).attr("placeholder");
+ 
+      if($(this).attr("type") == "text"){
+ 
+        placeholder($(this));
+      }
+    });
+  }
+ 
+});
+			</script>
+			
+			<div id="button2"><button class="button"></button></div>
+		</div>		
+	</div>
+	<div class="span2">
+		<div class="charact_left">
+			<dl class="icon1">
+				<dt><a href="#">创新</a></dt>
+				<dd>保养时间地点由您做主&nbsp;&nbsp;智能保养爱车养护无忧&nbsp;&nbsp;平均价格比4S店低40%</dd>
+			</dl>
+			<dl class="icon2">
+				<dt><a href="#">正品</a></dt>
+				<dd>原厂品质&nbsp;&nbsp;正品配件深厚的产业背景和厂商资源&nbsp;&nbsp;严格控制进货渠道&nbsp;&nbsp;杜绝一切假冒伪劣配件</dd>
+			</dl>
+		</div>
+		<div class="charact_right">
+			<dl class="icon3">
+				<dt><a href="#">专业</a></dt>
+				<dd>十年经验专业汽车团队&nbsp;&nbsp;一动车保五级质量保证体系&nbsp;&nbsp;阶梯式保养顾问服务</dd>
+			</dl>
+			<dl class="icon4">
+				<dt><a href="#">便捷</a></dt>
+				<dd>标准化流程省时省心&nbsp;&nbsp;随时随地在线预约&nbsp;&nbsp;微信预约&nbsp;&nbsp;电话预约&nbsp;&nbsp;下单&nbsp;&nbsp;上门提供服务</dd>
+			</dl>
+		</div>
+	</div>
+</div>
+<!--中部结束-->
+<!--底部开始-->
+<div class="down">
+	<div class="span4">
+		<img class="span41" src="images/down_img.png" alt="" />
+		<div class="span42">
+			<h2>全天24小时洗车</h2>
+			<p>一动车保的洗车师傅数量最多，合作门店数量最多，提供给车主的选择最多。全面支持微信公众号及APP客户端注册，动几下手指，即可轻松搞定预约、查询、支付等环节。一动车保统一行业标准，设置高标准服务流程，并对所有洗车师傅和合作门店进行背景调查和面试，确保车主全程无忧。充值返利常态化，一动车保以超低的价格为车主提供洗车服务。</p>
+		</div>
+	</div>
+	<div class="span5">
+		<div class="box0">
+			<div class="span5l">
+				<div class="down_pic"><img src="images/down_pic.png" alt="" />
+				</div>
+				<div class="down_txt">
+					<ul>
+						<li><a href="#">一动车保</a>|</li>
+						<li><a href="#">关于我们</a>|</li>
+						<li><a href="#">服务简介</a>|</li>
+						<li><a href="#">市场合作</a>|</li>
+						<li><a href="#">联系我们</a></li>
+					</ul>
+					<p>&copy;2015&nbsp;www.YIDONGCHEBAO.com&nbsp; 贵ICP备18888888号</p>
+				</div>
+			</div>
+			<div class="span5r">
+				<ul>
+					<li class="l1">咨询热线：400-855-9999</li>
+					<li class="l2">咨询QQ：4008559999</li>
+					<li class="l3">公司地址：贵州省贵阳市高新区688号</li>
+				</ul>
+				<div class="weixin">
+					<img src="images/code.png" alt="" />
+					<p>扫一扫有惊喜！</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--底部结束-->
+</body>
+</html>

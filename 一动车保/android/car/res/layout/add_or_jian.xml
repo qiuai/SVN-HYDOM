@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/ll_jia_or_jian"
+    android:orientation="vertical" >
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical" >
+
+                        <ImageView
+                            android:id="@+id/jian"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:clickable="true"
+                            android:onClick="OnClicks"
+                            android:src="@drawable/jian" />
+
+                        <TextView
+                            android:id="@+id/number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:text="1"
+                            android:textColor="@color/blue_00A0EA" />
+
+                        <ImageView
+                            android:id="@+id/jia"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:clickable="true"
+                            android:onClick="OnClicks"
+                            android:src="@drawable/jia" />
+                    </LinearLayout>
+</LinearLayout>

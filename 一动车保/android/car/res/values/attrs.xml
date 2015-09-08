@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="CircleImageView">
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <attr name="border_overlay" format="boolean" />
+    </declare-styleable>
+    <!--
+tab 下面的移动条     pstsIndicatorColor颜色  
+   pstsUnderlineColor 移动条下面那一条横线的颜色
+   
+pstsDividerColor tab左右分割線的顏色
+    -->
+
+    <declare-styleable name="PagerSlidingTabStrip">
+
+        <!-- 自己加的字段，选中的tab的颜色 -->
+        <attr name="pstsSelectTabsColor" format="color" />
+        <!-- tab下面的移动条的颜色 -->
+        <attr name="pstsIndicatorColor" format="color" />
+        <!-- 移动条下面那一条横线的颜色 -->
+        <attr name="pstsUnderlineColor" format="color" />
+        <!--  tab左右分割線的顏色-->
+        <attr name="pstsDividerColor" format="color" />
+        
+        
+        <attr name="pstsIndicatorHeight" format="dimension" />
+        <attr name="pstsUnderlineHeight" format="dimension" />
+        <attr name="pstsDividerPadding" format="dimension" />
+        <attr name="pstsTabPaddingLeftRight" format="dimension" />
+        <attr name="pstsScrollOffset" format="dimension" />
+        <attr name="pstsTabBackground" format="reference" />
+        <!-- 是否填充父类的宽 -->
+        <attr name="pstsShouldExpand" format="boolean" />
+        <attr name="pstsTextAllCaps" format="boolean" />
+    </declare-styleable>
+
+</resources>

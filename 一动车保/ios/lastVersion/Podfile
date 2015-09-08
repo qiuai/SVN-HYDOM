@@ -1,0 +1,8 @@
+platform :ios, '7.0' 
+pod 'AMap2DMap'
+pod 'AMapSearch'
+pod "AFNetworking", "~> 2.0"
+pod 'SDWebImage', '~>3.7'
+pod 'MJRefresh'
+pod 'MBProgressHUD'
+pod 'FSMediaPicker'

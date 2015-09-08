@@ -1,0 +1,89 @@
+INSERT into t_privilege_category (id,name,lv) VALUES('1','商品管理',1)
+INSERT into t_privilege_category (id,name,lv) VALUES('2','车型管理',2)
+INSERT into t_privilege_category (id,name,lv) VALUES('3','服务管理',3)
+INSERT into t_privilege_category (id,name,lv) VALUES('4','帐号管理',4)
+INSERT into t_privilege_category (id,name,lv) VALUES('5','订单管理',5)
+INSERT into t_privilege_category (id,name,lv) VALUES('6','地区管理',6)
+INSERT into t_privilege_category (id,name,lv) VALUES('7','会员管理',7)
+INSERT into t_privilege_category (id,name,lv) VALUES('8','优惠券管理',8)
+INSERT into t_privilege_category (id,name,lv) VALUES('9','车队技师管理',9)
+INSERT into t_privilege_category (id,name,lv) VALUES('10','新闻管理',10)
+INSERT into t_privilege_category (id,name,lv) VALUES('11','广告管理',11)
+INSERT into t_privilege_category (id,name,lv) VALUES('12','系统设置',12)
+INSERT into t_privilege_category (id,name,lv) VALUES('13','用户反馈',13)
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('101','商品管理',101,'manage/product/list','1'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('102','商品分类',102,'manage/productCategory/list','1'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('103','商品筛选属性',103,'manage/productAttribute/list','1'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('104','商品参数',104,'manage/parameterGroup/list','1'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('105','商品品牌',105,'manage/productBrand/list','1'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('106','商品规格',106,'manage/specification/list','1'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('107','商品标签',107,'manage/productLabel/list','1'); 
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('201','品牌管理',201,'manage/carBrand/list','2'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('202','车系管理',202,'manage/carType/list','2'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('203','车型管理',203,'manage/car/list','2'); 
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('301','服务列表',301,'manage/serviceType/list','3'); 
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('401','系统帐号管理',401,'manage/account/list','4'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('402','角色定义',402,'manage/account/group/list','4'); 
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('501','订单管理',501,'manage/order/list','5'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('502','已完结订单',502,'manage/order/list#endOrder=true','5'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('503','市场部带审核列表',503,'manage/order/market_list','5'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('504','财务部带审核列表',504,'manage/order/finance_list','5'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('505','退款成功列表',505,'manage/order/cancel_list','5'); 
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('601','地区列表',601,'manage/area/list','6'); 
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('701','会员列表',701,'manage/member/list','7'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('702','会员等级',702,'manage/memberRank/list','7'); 
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('801','优惠券管理','801','manage/coupon/list','8'); 
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('901','车队管理','901','manage/carTeam/list','9'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('902','车队技师管理','902','manage/technician/list','9'); 
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('1001','新闻管理','1001','manage/news/list','10'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('1002','新增新闻','1002','manage/news/add','10'); 
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('1101','广告管理','1101','manage/advert/list','11'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('1102','新增广告','1102','manage/advert/add','11');
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('1201','系统参数','1201','manage/system/view','12'); 
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('1202','关于我们','1202','manage/server/list','12'); 
+
+INSERT INTO t_privilege (id,name,lv,url,privilege_category_id) VALUES('1301','用户反馈','1301','manage/feedback/list','13');
+
+#######################################################
+CREATE FUNCTION [dbo].[fnGetDistance]
+( @LatBegin AS real ,
+  @LngBegin AS real ,
+  @LatEnd AS real ,
+  @LngEnd AS real 
+)
+RETURNS int
+WITH RETURNS NULL ON NULL INPUT 
+AS
+BEGIN
+  --距离(千米)
+  DECLARE @Distance REAL
+  DECLARE @EARTH_RADIUS REAL
+  SET @EARTH_RADIUS = 6378.137 
+  DECLARE @RadLatBegin REAL,@RadLatEnd REAL,@RadLatDiff REAL,@RadLngDiff REAL
+  SET @RadLatBegin = @LatBegin *PI()/180.0 
+  SET @RadLatEnd = @LatEnd *PI()/180.0 
+  SET @RadLatDiff = @RadLatBegin - @RadLatEnd 
+  SET @RadLngDiff = @LngBegin *PI()/180.0 - @LngEnd *PI()/180.0  
+  SET @Distance = 2 *ASIN(SQRT(POWER(SIN(@RadLatDiff/2), 2)+COS(@RadLatBegin)*COS(@RadLatEnd)*POWER(SIN(@RadLngDiff/2), 2)))
+  SET @Distance = @Distance * @EARTH_RADIUS 
+  --SET @Distance = Round(@Distance * 10000) / 10000 
+  RETURN @Distance
+END 
+
+一动车保 服务器
+IP:112.74.105.28
+120.24.100.194
+用户名：administrator 
+密码：WENxin0851 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="#00000000"
+    android:gravity="top"
+    >
+    <RadioGroup
+        android:id="@+id/sex_group"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        >
+        <RadioButton 
+            android:id="@+id/man"
+            style="@style/radiobutton_s"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="已接受"
+            android:gravity="center"
+            />
+         <TextView 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/interlayer"
+            />
+        <RadioButton 
+            android:id="@+id/woman"
+            style="@style/radiobutton_s"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="已拒绝"
+            />
+    </RadioGroup>
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/light_gray"
+        />
+    
+</LinearLayout>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dip"
+    android:layout_height="35dip"
+     >
+
+    <ImageView
+        android:id="@+id/decrease_goods_num"
+        android:layout_width="45dip"
+        android:layout_height="45dip"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/jian"
+        android:clickable="true" />
+    <!-- android:numeric="integer" 设置输入法为数值 -->
+
+    <EditText
+        android:id="@+id/goods_num"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@null"
+        android:focusable="false"
+        android:gravity="center"
+        android:maxEms="2"
+        android:text="1"
+        android:textColor="@color/rea_FD0002" />
+
+    <ImageView
+        android:id="@+id/increase_goods_num"
+        android:layout_width="45dip"
+        android:layout_height="45dip"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/jia"
+        android:clickable="true"
+        android:scaleType="center"
+        android:src="@null" />
+
+</RelativeLayout>

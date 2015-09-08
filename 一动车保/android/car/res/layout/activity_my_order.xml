@@ -1,0 +1,115 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eaeaea"
+    tools:context="com.carinsurance.activity.MyOrderActivity" >
+
+    <FrameLayout
+        android:id="@+id/top_view"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/blue_00A0EA" >
+
+        <ImageView
+            android:id="@+id/return_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/return_btn" />
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="我的订单"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center"
+            android:layout_marginRight="10dp"
+            android:text="取消的订单"
+            android:textColor="@color/white" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp" >
+
+        <com.carinsurance.pagerslidingtabstrip.PagerSlidingTabStrip
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="48dip"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/background_tabs"
+            app:pstsDividerColor="#EAEAEA"
+            app:pstsIndicatorColor="#00a2d0"
+            android:visibility="gone"
+            app:pstsSelectTabsColor="#00a2d0"
+            app:pstsShouldExpand="true"
+            app:pstsUnderlineColor="#00a2d0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="vertical" >
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center" >
+
+                    <RadioGroup
+                        android:id="@+id/radioGroup1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal" >
+
+                        <RadioButton
+                            android:id="@+id/radio0"
+                            android:layout_width="wrap_content"
+                            android:layout_height="38dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/checked_my_sz_btn_left"
+                            android:button="@null"
+                            android:checked="true"
+                            android:text="进行中"
+                            android:textColor="@drawable/checked_text_white_blue" />
+
+                        <RadioButton
+                            android:id="@+id/radio1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="38dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/checked_my_sz_btn_right"
+                            android:button="@null"
+                            android:text="已完结"
+                            android:textColor="@drawable/checked_text_white_blue" />
+                    </RadioGroup>
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/colors"
+            android:layout_below="@+id/tabs"
+            android:layout_marginTop="50dp"
+            tools:context=".MainActivity" />
+    </FrameLayout>
+
+</FrameLayout>

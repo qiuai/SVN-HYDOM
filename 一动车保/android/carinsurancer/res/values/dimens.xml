@@ -1,0 +1,14 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="size_1">18dip</dimen>
+    <dimen name="size_2">14dip</dimen>
+    <dimen name="size_3">16dip</dimen>
+    <dimen name="size_4">15dip</dimen>
+    <dimen name="size_5">12dip</dimen>
+    
+    <dimen name="expand_tab_item_height">45dp</dimen>
+    <dimen name="expand_tab_eara_height">380dp</dimen>
+</resources>

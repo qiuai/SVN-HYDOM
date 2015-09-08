@@ -1,0 +1,88 @@
+.list td{
+    height: 29px;
+    line-height:29px;
+    text-align: center;
+    border-left : none;
+    border-bottom:none;
+    border-top: 1px solid #E4E4E4; 
+    border-right: 1px solid #E4E4E4;
+}
+.list td a{
+      text-decoration: none;
+      color: #424242;
+}
+.list th{
+    height: 45px;
+    line-height:45px;
+    color: #3f3f3f;
+    background-color: #E1E1E1;
+    border-top: 1px solid #E4E4E4;
+    border-right: 1px solid #E4E4E4;
+    border-bottom: 1px solid #4d4d4d;
+    font-size: 16px;
+}
+.list table{
+/*     border: 1px solid #E4E4E4; */
+	border-bottom: 1px solid #E4E4E4;
+	border-left:1px solid #E4E4E4;
+	border-right:none;
+	
+    color: #636363;
+}
+
+.list TABLE {
+	border-spacing: 0px;
+	border-collapse: separate;
+}
+.list TABLE TD {
+	padding: 8px;
+	font-size: 14px;
+	word-break: break-all;
+	border-bottom: 1px solid #f0f0f0;
+}
+
+.list TR TD a:ACTIVE {
+	color: #893121;
+}
+.list tr td a:hover{
+    color: red;
+}
+.list tr:hover{
+	background-color: #ffffd4
+}
+
+.list TH {
+	padding-left:4px;
+	border-left:1px solid #FFFFFF;
+}
+
+/* .list table td { */
+/* 	height: 29px; */
+/* 	line-height: 29px; */
+/* 	padding-left: 15px; */
+/* 	font-size: 14px; */
+/* 	color: #666666; */
+/* } */
+
+.list td a {
+	color: #336699;
+	cursor: pointer;
+}
+
+.list td a:hover {
+	color: #ff6600;
+	cursor: pointer;
+}
+
+.list TABLE .left {
+	text-align: left;	
+}
+
+.list TABLE .right {
+	text-align: right;
+}
+
+.list TABLE .center {
+	text-align: center;
+}
+

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true">
+        <shape>
+            <!-- 圆角 -->
+            <corners android:radius="10dp" />
+            <solid android:color="#888800" />
+        </shape>
+    </item>
+    <!-- 蓝色按钮 -->
+    <item>
+        <shape>
+            <solid android:color="#00a2d0" />
+            <corners android:radius="10dp" />
+            <stroke android:color="@color/white"
+                    android:width="2dp"
+                />
+        </shape>
+    </item>
+</selector>

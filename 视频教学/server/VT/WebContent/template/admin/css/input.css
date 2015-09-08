@@ -1,0 +1,353 @@
+@charset "utf-8";
+
+.input .body {
+	padding-bottom: 30px;
+}
+
+.input ul.tab {
+	height: 29px;
+	padding-left: 161px;
+	background: url(../images/input_x_bg.gif) 0px -30px repeat-x;
+}
+
+.input ul.tab li {
+	float: left;
+}
+
+.input ul.tab li input {
+	width: 100px;
+	height: 29px;
+	line-height: 29px;
+	display: block;
+	text-align: center;
+	font-weight: bold;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	background: url(../images/input_bg.gif) -100px 0px no-repeat;
+}
+
+.input ul.tab li input.current {
+	background: url(../images/input_bg.gif) 0px 0px no-repeat;
+}
+
+.input .inputBar {
+	height: 29px;
+	line-height: 29px;
+	background: url(../images/input_x_bg.gif) 0px 0px repeat-x;
+}
+
+.input .inputBar h1 {
+	height: 29px;
+	line-height: 29px;
+	font-size: 12px;
+	color: #555555;
+}
+
+.input .inputBar .icon {
+	width: 29px;
+	height: 29px;
+	line-height: 29px;
+	display: inline-block;
+	display: -moz-inline-stack;
+	zoom: 1;
+	*display: inline;
+	background: url(../images/input_bg.gif) 0px -30px no-repeat;
+}
+
+.input table.inputTable {
+	width: 100%;
+}
+
+.input table.inputTable th {
+	width: 150px;
+	line-height: 25px;
+	padding: 5px 10px 5px 0px;
+	text-align: right;
+	color: #333333;
+	border-bottom: 1px solid #e1e1e1;
+	background-color: #f8f8f8;
+}
+
+.input table.inputTable tr:hover th {
+	background-color: #eeeeee;
+}
+
+.input table.inputTable tr.title th {
+	text-align: left;
+	padding-left: 10px;
+}
+
+.input table.inputTable td {
+	line-height: 25px;
+	padding: 5px 0px 5px 10px;
+	color: #666666;
+	border-bottom: 1px solid #e1e1e1;
+}
+
+.input table.inputTable .input_add{
+	padding-right: 15px;
+	padding-top: 1px;
+	background: url(../images/add.png) no-repeat;
+}
+
+.input table.inputTable .input_link{
+	padding-right: 15px;
+	padding-top: 1px;
+	margin-left: 10px;
+	background: url(../images/link_go.png) no-repeat;
+}
+
+.input .buttonArea {
+	padding: 10px 0px 10px 170px;
+	line-height: 25px;
+}
+
+.productImageArea {
+	height: 180px;
+}
+
+.productImageArea .example {
+	width: 130px;
+	height: 130px;
+	float: left;
+	margin-right: 10px;
+	background: url(../images/input_bg.gif) no-repeat -270px 0px;
+}
+
+.productImageArea .prev {
+	width: 8px;
+	height: 130px;
+	display: block;
+	float: left;
+	margin-right: 5px;
+	outline: none;
+	border: 1px solid #ededed;
+	background: url(../images/input_bg.gif) -210px 0px #fafafa no-repeat;
+}
+
+.productImageArea .prev:hover {
+	border: 1px solid #cccccc;
+	background-color: #f3f3f3;
+}
+
+.productImageArea .next {
+	width: 8px;
+	height: 130px;
+	display: block;
+	float: left;
+	margin-left: 5px;
+	outline: none;
+	border: 1px solid #ededed;
+	background: url(../images/input_bg.gif) -240px 0px #fafafa no-repeat;
+}
+
+.productImageArea .next:hover {
+	border: 1px solid #cccccc;
+	background-color: #f3f3f3;
+}
+
+.productImageArea .scrollable {
+	width: 502px;
+	height: 130px;
+	line-height: 130px;
+	float: left;
+	overflow: hidden;
+	position: relative;
+	border: 1px solid #cccccc;
+}
+
+.productImageArea .items {
+	width: 20000em;
+	position: absolute;
+}
+
+.productImageArea li {
+	width: 90px;
+	height: 90px;
+	display: block;
+	float: left;
+	margin: 5px;
+	text-align: center;
+}
+
+.productImageArea .productImageBox {
+	position: relative;
+}
+
+.productImageArea .productImageBox .productImagePreview {
+	width: 90px;
+	height: 90px;
+	line-height: 90px;
+	color: #969696;
+	overflow: hidden;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 0;
+	filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale);
+	border: 1px solid #cfcfcf;
+}
+
+.productImageArea .productImageBox .productImagePreview:hover {
+	border: 1px solid #ffc097;
+}
+
+.productImageArea .productImageBox .productImagePreview img {
+	width: 90px;
+	height: 90px;
+}
+
+.productImageArea .productImageBox .productImageOperate {
+	width: 90px;
+	height: 25px;
+	display: none;
+	padding-top: 3px;
+	padding-left: 13px;
+	position: absolute;
+	top: 66px;
+	left: 1px;
+	z-index: 1;
+	background: url(../images/product_image_operate_bg.png) no-repeat 0px 0px;
+}
+
+.productImageArea .productImageBox .productImageOperate .left {
+	width: 19px;
+	height: 19px;
+	display: block;
+	float: left;
+	margin-right: 1px;
+	overflow: hidden;
+	outline: none;
+}
+
+.productImageArea .productImageBox .productImageOperate .right {
+	width: 19px;
+	height: 19px;
+	display: block;
+	float: left;
+	margin-right: 1px;
+	overflow: hidden;
+	outline: none;
+}
+
+.productImageArea .productImageBox .productImageOperate .delete {
+	width: 19px;
+	height: 19px;
+	display: block;
+	float: left;
+	overflow: hidden;
+	outline: none;
+}
+
+.productImageArea .productImageBox .productImageUploadButton {
+	width: 74px;
+	height: 22px;
+	line-height: 22px;
+	display: block;
+	overflow: hidden;
+	position: relative;
+	top: 97px;
+	left: 0px;
+	outline: none;
+	cursor: pointer;
+	border: none;
+	background: url(../images/input_bg.gif) no-repeat 0px -60px;
+}
+
+.productImageArea .productImageBox .productImageUploadButton input {
+	width: 74px;
+	height: 22px;
+	line-height: 22px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	font-size: 40px;
+	direction: rtl;
+	cursor: pointer;
+}
+
+.productImageArea .productImageBox .productImageUploadButton div {
+	width: 74px;
+	height: 22px;
+	line-height: 22px;
+	text-align: center;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 0;
+	cursor: pointer;
+}
+.background { 
+display: block; 
+width: 100%; 
+height: 100%; 
+opacity: 0.4; 
+filter: alpha(opacity=40); 
+background:#fff; 
+position: absolute; 
+top: 0; 
+left: 0; 
+z-index: 2000; 
+}
+
+.progressBar {
+display: block; 
+width: 148px; 
+height: 28px; 
+position: fixed; 
+top: 50%; 
+left: 50%; 
+margin-left: -74px; 
+margin-top: -14px; 
+padding: 10px 10px 10px 50px; 
+text-align: left; 
+line-height: 27px; 
+font-weight: bold; 
+position: absolute; 
+z-index: 2001; 
+}
+div.requireField {
+	width: 20px;
+	height: 22px;
+	line-height: 24px;
+	padding-top: 2px;
+	float: left;
+	color: red;
+	text-align: center;
+}
+
+span.requireField {
+	height: 24px;
+	line-height: 24px;
+	padding-left: 4px;
+	color: red;
+}
+
+span.validateError {
+	margin-left: 3px;
+	height: 23px;
+	width: 165px;
+	line-height: 23px;
+	background: url(../images/validate_bg.png) no-repeat 1px;
+	padding-left: 23px;
+	color: #D79014;
+	position: absolute;
+	z-index: 1;
+	float: left;
+}
+span.validateErrorShort {
+	margin-left: 3px;
+	height: 28px;
+	width: 165px;
+	line-height: 28px;
+	background: url(../images/validate_short_bg.png) left center no-repeat;
+	padding-left: 23px;
+	color: #D79014;
+	position: absolute;
+	z-index: 1;
+	float: left;
+}

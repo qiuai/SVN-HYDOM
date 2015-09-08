@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=8" />
+	<title>一动车保首页</title>
+	<link href="css/style.css" type="text/css" rel="stylesheet" />	
+	<script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/function.js"></script>
+	<style type="text/css">
+		/******form*******/
+		.divselectcon {clear: both; padding: 10px 0 20px; position: relative; }
+		.divselect {float: left; }
+		.divselectcon input {width:238px; height: 35px; margin: 0 20px; position:relative; z-index:10000; border: 1px solid #b1b1b1; border-top: 2px solid #b1b1b1; line-height:35px; display:inline-block; color:#807a62; font-style:normal; background:url(images/corners2.png) no-repeat right center;}
+		.divselectcon input.input1 {border:1px solid #ffae00; border-top: 2px solid #ffae00; margin-left: 0; width: 228px; height:35px;line-height:35px; display:inline-block; color:#807a62; font-style:normal; background:url(images/corners1.png) no-repeat right center;}
+		#button2 button {float: right; width: 169px; height: 43px; background: url(images/go.png) 0 0 no-repeat; border: none; position: absolute; top: 9px;  cursor: pointer; }
+		.bdsug_copy{display:none;}		
+	</style>
+</head>
+
+<body>
+<!--上部开始-->
+<div class="top">
+	<div class="top_header box0">
+		<div class="logo"><img src="images/top_logo.png" alt="logo" /></div>
+		<ul class="top_right">
+			<li><a href="#">[<span>登录</span>|<span>注册</span>]</a><b class="b1"></b></li>
+			<li class=""><a href="#">新闻动态</a><b class="b22"></b></li>
+			<li class=""><a href="#">服务范围</a><b class="b33"></b></li>
+			<li class=""><a href="#">APP下载</a><b class="b44"></b></li>
+		</ul>
+	</div>
+	<!--box banner start-->
+	<!--box banner end-->
+</div>
+<!--上部结束-->
+<hr>
+<!--中部开始-->
+<div class="mid box0">
+	<div class="shopping">
+		<ul class="steps_2">
+			<li class="b_li1"><a href="#"><span>01.</span>确定您的车型</a></li>
+			<li class="b_li2"><a href="#"><span>02.</span>选择保养项目和产品</a></li>
+			<li class="b_li3"><a href="#"><span>03.</span>确定服务类型</a></li>
+		</ul>
+		<div class="shopping_con">
+			<div class="main_1">
+				<h2>请选择安装方式</h2>
+				<div class="main_11"><span class="main_span1 main_11_1">安装方式：</span><a href="#"><img src="images/ma_1.png" alt="" /></a><a class="a2" href="#"><img src="images/ma_2.png" alt="" /></a></div>
+				<div class="main_12"><span class="main_span2 main_11_1">预约时间：</span><div class="div3"><div>2015年7月8日<b class="b12_1"></b></div><div>14:00<b class="b12_2"></b></div></div></div>
+				
+				
+				<div class="main_13"><span class="main_span3 main_11_1">所在地区：</span>
+					<div class="ma_divselect">
+						<input type="text" size="40" baiduSug="2" placeholder="贵阳市" class="input1" />
+						<input type="text" size="40" baiduSug="2" placeholder="南明区" />
+						<input type="text" size="40" baiduSug="2" placeholder="民田街" />
+					</div>
+					<!--<script>
+			$(function(){
+				//判断浏览器是否支持placeholder属性
+				supportPlaceholder='placeholder'in document.createElement('input'), 
+  placeholder=function(input){
+ 
+    var text = input.attr('placeholder'),
+    defaultValue = input.defaultValue;
+ 
+    if(!defaultValue){
+ 
+      input.val(text).addClass("phcolor");
+    }
+ 
+    input.focus(function(){
+ 
+      if(input.val() == text){
+   
+        $(this).val("");
+      }
+    });
+ 
+  
+    input.blur(function(){
+ 
+      if(input.val() == ""){
+       
+        $(this).val(text).addClass("phcolor");
+      }
+    });
+ 
+    //输入的字符不为灰色
+    input.keydown(function(){
+  
+      $(this).removeClass("phcolor");
+    });
+  };
+ 
+  //当浏览器不支持placeholder属性时，调用placeholder函数
+  if(!supportPlaceholder){
+ 
+    $('input').each(function(){
+ 
+      text = $(this).attr("placeholder");
+ 
+      if($(this).attr("type") == "text"){
+ 
+        placeholder($(this));
+      }
+    });
+  }
+ 
+});
+						</script>-->
+				</div>
+				<div class="main_14">
+					<span class="main_span4 main_11_1">安装门店：</span>
+					<ul class="ma_lists">
+						<li>
+							<dl>
+								<dt><a href="#"><img src="images/ma_5.png" alt="" /></a></dt>
+								<dd>贵阳市南明区骏成和轮胎</dd>
+								<dd><a href="#">贵阳南明区富源北路七星酒店一楼</a></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><a href="#"><img src="images/ma_5.png" alt="" /></a></dt>
+								<dd>贵阳市南明区骏成和轮胎</dd>
+								<dd><a href="#">贵阳南明区富源北路七星酒店一楼</a></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><a href="#"><img src="images/ma_5.png" alt="" /></a></dt>
+								<dd>贵阳市南明区骏成和轮胎</dd>
+								<dd><a href="#">贵阳南明区富源北路七星酒店一楼</a></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><a href="#"><img src="images/ma_6.png" alt="" /></a></dt>
+								<dd>贵阳市南明区骏成和轮胎</dd>
+								<dd><a href="#">贵阳南明区富源北路七星酒店一楼</a></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><a href="#"><img src="images/ma_5.png" alt="" /></a></dt>
+								<dd>贵阳市南明区骏成和轮胎</dd>
+								<dd><a href="#">贵阳南明区富源北路七星酒店一楼</a></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><a href="#"><img src="images/ma_5.png" alt="" /></a></dt>
+								<dd>贵阳市南明区骏成和轮胎</dd>
+								<dd><a href="#">贵阳南明区富源北路七星酒店一楼</a></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><a href="#"><img src="images/ma_5.png" alt="" /></a></dt>
+								<dd>贵阳市南明区骏成和轮胎</dd>
+								<dd><a href="#">贵阳南明区富源北路七星酒店一楼</a></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><a href="#"><img src="images/ma_5.png" alt="" /></a></dt>
+								<dd>贵阳市南明区骏成和轮胎</dd>
+								<dd><a href="#">贵阳南明区富源北路七星酒店一楼</a></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><a href="#"><img src="images/ma_5.png" alt="" /></a></dt>
+								<dd>贵阳市南明区骏成和轮胎</dd>
+								<dd><a href="#">贵阳南明区富源北路七星酒店一楼</a></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dt><a href="#"><img src="images/ma_5.png" alt="" /></a></dt>
+								<dd>贵阳市南明区骏成和轮胎</dd>
+								<dd><a href="#">贵阳南明区富源北路七星酒店一楼</a></dd>
+							</dl>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="mian_20">
+				<div class="mian_2">
+				<h2>联系人信息</h2>
+				<div><span>用户姓名：</span><input type="text" name="user" class="user" /></div>
+				<div><span>联系电话：</span><input type="text" name="tel" class="tel" /></div>
+				</div>
+			</div>
+		
+		
+			<div class="shopping_con_bottom box2">				
+				<h2 class="ma_h2">商品清单</h2>
+				<ul class="ma_buy_title">
+					<li><span>商品</span></li>
+					<li class="ma_buy_title_li1"><span>详情</span></li>
+					<li><span>价格</span></li>
+					<li><span>数量</span></li>
+					<li><span>小计</span></li>
+				</ul>
+				<ul class="ma_buy_con">
+					<li class="ma_buy_con_li1">机油</li>
+					<li class="ma_buy_con_li2"><a href="javascript:;" id="buy_con_li2">Shell壳牌机油蓝喜力蓝壳HX7 5W-40 SN 4L半合成汽车机油润滑油</a></li>
+					<li class="ma_buy_con_li3"><span>￥995.00</span></li>
+					<li class="ma_buy_con_li4"><a href="#">1</a></li>
+					<li class="ma_buy_con_li5"><a href="#">￥995.00</a></li>
+				</ul>				
+			</div>
+			<div class="ma_buy_total0">
+				<div class="ma_buy_total_left">
+					<h2>支付方式</h2>
+					<form>
+						<ul>
+							<li><input type="radio" checked name="pay" /><img src="images/ma_9.png" alt="" />
+							</li>
+							<li><input type="radio" name="pay" /><img src="images/ma_10.png" alt="" />
+							</li>
+							<li><input type="radio" name="pay" /><img src="images/ma_11.png" alt="" />
+							</li>
+						</ul>
+					</form>
+				</div>
+				<div class="ma_buy_total_right">
+					<p><span class="ma_buy_1 ma_buy_11">商品总金额：</span><span class="ma_buy_2">￥995.00</span></p>
+					<p><span class="ma_buy_1 ma_buy_12">安装费（<a href="#">安装费用标准说明</a>）:</span><span class="ma_buy_2">￥50.001</span></p>
+				</div>
+			</div>
+			<div class="buy_total2">
+				<div class="buy_total2_right">
+					<p>合计金额：<span>￥1045.00</span></p>
+					<button type="button"></button>
+				</div>
+			</div>
+		</div>	
+	</div>
+	<!--商品详情开始-->
+	<div class="description">
+		<div class="description_head">
+			<div class="description_head_left"><a href="#"><img src="images/buy_more.png" alt="" /><span>更换商品</span></a></div>
+			<div class="description_head_right"><a href="#"><img src="images/login_2.png" alt="" /></a></div>
+		</div>
+		<div class="description_top">
+			<div class="description_top_left">
+				<ul class="ma5_select" id="ma5_select">
+					<li class="" onMouseOver="ma5Select(0)"><img src="images/ma5_2.png" alt="" /></li>
+					<li class="img-hover" onMouseOver="ma5Select(1)"><img src="images/ma5_3.png" alt="" /></li>
+					<li class="" onMouseOver="ma5Select(2)"><img src="images/ma5_4.png" alt="" /></li>
+					<li class="" onMouseOver="ma5Select(3)"><img src="images/ma5_5.png" alt="" /></li>
+				</ul>
+				<div class="ma5_select_pic" id="ma5_select_pic">
+					<img src="images/ma5_12.png" alt="" style="display: none;" />
+					<img src="images/ma5_1.png" alt="" />
+					<img src="images/ma5_12.png" alt="" style="display: none; " />
+					<img src="images/ma5_1.png" alt="" style="display: none; " />
+				</div>
+			</div>
+			<script>
+			//ma5左侧tab
+			function ma5Select(m) {
+				var li = document.getElementById("ma5_select").getElementsByTagName("li");
+				var img = document.getElementById("ma5_select_pic").getElementsByTagName("img");
+				for (i = 0; i <= li.length; i++) {
+					li[i].className = i==m ? "img-hover":"";
+					img[i].style.display = i==m ? "block":"none";
+				}
+			}
+			</script>
+			<div class="description_top_right">
+				<h2>Shell壳牌机油蓝喜力蓝壳HX7 5W-40 SN 4L半合成汽车机油润滑油</h2>
+				<div class="detail">
+					<div class="detail_left">
+						<p>品牌：<strong>Shell壳牌</strong></p>
+						<p>包装尺寸：<strong>1升</strong></p>
+						<p>粘稠度：<strong>5W-40</strong></p>
+						<p>基础油级别：<strong>半合成机油</strong></p>
+					</div>
+					<div class="detail_right">
+						<p>重量：<strong>0.92</strong></p>
+						<p>机油等级：<strong>SN/CF</strong></p>
+						<p>适配发动机：<strong>汽车发动机/柴油发动机</strong></p>
+					</div>
+				</div>
+				<div class="fen">
+					<ul>
+						<li>价格</li>
+						<li class="price">￥995.00</li>
+						<li><del>￥1095.00</del></li>
+						<li class="ma5_right_fen"><a href="#"><img src="images/ma5_right_fen.png" alt="" /></a></li>
+					</ul>
+				</div>
+				<div class="product_size">
+					<h2>产品尺寸：</h2>
+					<ul>
+						<li>12瓶/箱（1L装）</li>
+						<li class="selected">1升</li>
+						<li>4升</li>
+						<li>4瓶/箱（4L装）</li>
+						<li>13瓶/箱（1L装）</li>
+						<li>2升</li>
+						<li>5升</li>
+						<li>14瓶/箱（4L装）</li>
+						<li>115瓶/箱（1L装）</li>
+						<li>3升</li>
+						<li>4升</li>
+					</ul>
+					<div class="clearfloat"></div>
+				</div>
+				<script>			
+				$(document).ready(function(){
+					$(".product_size ul li").click(function(){
+						$(this).toggleClass("selected");
+					});
+				});
+				</script>
+				<div class="product_color">
+					<h2>产品颜色：</h2>
+					<ul id="productColor">
+						<li class="selected"><img src="images/ma5_8.png" alt="" /></li>
+						<li><img src="images/ma5_7.png" alt="" /></li>
+						<li><img src="images/ma5_6.png" alt="" /></li>
+						<li><img src="images/ma5_8.png" alt="" /></li>
+						<li><img src="images/ma5_7.png" alt="" /></li>
+						<li><img src="images/ma5_6.png" alt="" /></li>
+						<li><img src="images/ma5_8.png" alt="" /></li>
+						<li><img src="images/ma5_7.png" alt="" /></li>
+						<li><img src="images/ma5_6.png" alt="" /></li>
+						<li><img src="images/ma5_8.png" alt="" /></li>
+					</ul>
+					<div class="clearfloat"></div>
+				</div>
+				<script>				
+				$(document).ready(function(){
+					$(".product_color ul li").click(function(){
+						$(this).toggleClass("selected");
+					});
+				});
+				</script>
+				<div class="quantity">
+					<h2>购买数量：</h2>
+					<div class="quantity1">
+						<input type="input" id="spin1" value="1" style="border: 1px solid #ddd; width: 80px; height: 26px; "/>
+					</div>
+					<script src="js/jquery-spin.js"></script>
+				<script>
+				$(document).ready(function(){
+					$.spin.imageBasePath = './images/';
+					$('#spin1').spin();
+					$('#spin2').spin({
+					interval: 5
+					});
+				});
+				</script>
+				</div>
+				<button class="button5">更换</button>
+			</div>
+		</div>
+		<div class="description_bottom">
+			<ul class="description_bottom_nav" id="description_bottom_nav">
+				<li class="tab-hover" onclick="tab2(0)">商品详情</li>
+				<li class="" onclick="tab2(1)">商品参数</li>
+				<li class="" onclick="tab2(2)">商品评论（<span>566</span>）</li>
+			</ul>
+			<div id="des_con">
+				<div class="description_bottom_con">
+					<ul class="description1">
+						<li>
+							<dl>
+								<dd>品牌：<strong>Shell壳牌</strong></dd>
+								<dd>包装尺寸：<strong>1升</strong></dd>
+								<dd>粘稠度：<strong>5W-40</strong></dd>
+							</dl>
+						</li>
+						<li class="li2">
+							<dl>
+								<dd>重量：<strong>0.92</strong></dd>
+								<dd>机油等级：<strong>SN/CF</strong></dd>
+								<dd>适配发动机：<strong>汽车发动机/柴油发动机</strong></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dd>型号：<strong>喜力HX6</strong></dd>
+								<dd>基础油级别：<strong>半合成机油</strong></dd>
+							</dl>
+						</li>
+					</ul>
+					<dl class="description2">
+						<dd><a href="#"><img src="images/ma5_10.png" alt="" /></a></dd>
+						<dd><a href="#"><img src="images/ma5_11.png" alt="" /></a></dd>
+					</dl>
+				</div>
+				<div class="description_bottom_con" style="display: none; ">
+					<ul class="description1">
+						<li>
+							<dl>
+								<dd>品牌：<strong>Shell壳牌</strong></dd>
+								<dd>包装尺寸：<strong>1升</strong></dd>
+								<dd>粘稠度：<strong>5W-40</strong></dd>
+							</dl>
+						</li>
+						<li class="li2">
+							<dl>
+								<dd>重量：<strong>0.92</strong></dd>
+								<dd>机油等级：<strong>SN/CF</strong></dd>
+								<dd>适配发动机：<strong>汽车发动机/柴油发动机</strong></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dd>型号：<strong>喜力HX6</strong></dd>
+								<dd>基础油级别：<strong>半合成机油</strong></dd>
+							</dl>
+						</li>
+					</ul>
+					<dl class="description2">
+						<dd><a href="#"><img src="images/ma5_123.png" alt="" /></a></dd>
+						<dd><a href="#"><img src="images/ma5_11.png" alt="" /></a></dd>
+					</dl>
+				</div>
+				<div class="description_bottom_con" style="display: none; ">
+					<form class="form2">
+						<label><input type="radio" name="comment" checked />全部</label>
+						<label><input type="radio" name="comment" />仅显示有照片的评论（<span>56</span>）</label>
+					</form>
+					<div class="comment1">
+						<div class="comment11">
+							<table class="comment1_con">
+								<tbody>
+									<tr>
+										<td>
+											<div>
+												<p>评价：<span>感觉不错，手机下单很方便，总体比4S店便宜不少，也不用等，按自己预约时间去即可。</span></p>
+												<p>回复：<span>谢谢光临一动车保。</span></p>
+												<b>2015-07-12</b>
+											</div>
+										</td>
+										<td class="fr">
+											<div>会员：<span>139****6655</span></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="comment12">
+							<table class="comment1_con">
+								<tbody>
+									<tr>
+										<td>
+											<div>
+												<p>评价：<span>感觉不错，手机下单很方便，总体比4S店便宜不少，也不用等，按自己预约时间去即可。</span></p>
+												<p>回复：<span>谢谢光临一动车保。</span></p>
+												<b>2015-07-12</b>
+											</div>
+										</td>
+										<td class="fr">
+											<div>会员：<span>139****6655</span></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="comment13">
+							<table class="comment1_con">
+								<tbody>
+									<tr>
+										<td>
+											<div>
+												<p>评价：<span>感觉不错，手机下单很方便，总体比4S店便宜不少，也不用等，按自己预约时间去即可。</span></p>
+												<a href="#" class="comment_pic"><img src="images/ma5_12.png" /></a>
+												<a href="#" class="comment_pic"><img src="images/ma5_13.png" /></a>
+												<a href="#" class="comment_pic"><img src="images/ma5_14.png" /></a>
+												<b>2015-07-12</b>
+											</div>
+										</td>
+										<td class="fr">
+											<div>会员：<span>139****6655</span></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<div class="comment14">
+							<table class="comment1_con">
+								<tbody>
+									<tr>
+										<td>
+											<div>
+												<p>评价：<span>感觉不错，手机下单很方便，总体比4S店便宜不少，也不用等，按自己预约时间去即可。</span></p>
+												<p>回复：<span>谢谢光临一动车保。</span></p>
+												<b>2015-07-12</b>
+											</div>
+										</td>
+										<td class="fr">
+											<div>会员：<span>139****6655</span></div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<ul class="comment2">
+						<li class="pre"><a href="#">&lt;&lt;上一页</a></li>
+						<li class="lihover"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li class="next"><a href="#">&gt;&gt;下一页</a></li>
+					</ul>
+					<!-- <ul class="description1">
+						<li>
+							<dl>
+								<dd>品牌：<strong>Shell壳牌</strong></dd>
+								<dd>包装尺寸：<strong>1升</strong></dd>
+								<dd>粘稠度：<strong>5W-40</strong></dd>
+							</dl>
+						</li>
+						<li class="li2">
+							<dl>
+								<dd>重量：<strong>0.92</strong></dd>
+								<dd>机油等级：<strong>SN/CF</strong></dd>
+								<dd>适配发动机：<strong>汽车发动机/柴油发动机</strong></dd>
+							</dl>
+						</li>
+						<li>
+							<dl>
+								<dd>型号：<strong>喜力HX6</strong></dd>
+								<dd>基础油级别：<strong>半合成机油</strong></dd>
+							</dl>
+						</li>
+					</ul>
+					<dl class="description2">
+						<dd><a href="#"><img src="images/ma5_10.png" alt="" /></a></dd>
+						<dd><a href="#"><img src="images/ma5_11.png" alt="" /></a></dd>
+					</dl> -->
+				</div>
+			</div>
+			<script>
+			function tab2(m){
+				var li = document.getElementById("description_bottom_nav").getElementsByTagName("li");
+				var div = document.getElementById("des_con").getElementsByTagName("div");
+				for (i = 0; i < li.length; i++){
+					li[i].className = i==m ? "tab-hover" : "" ;
+					div[i].style.display = i==m ? "block" : "none";				
+				}
+			}
+			</script>
+		</div>
+	</div>
+	<div id="bg51"></div>
+	<!--商品详情结束-->
+</div>
+<!--中部结束-->
+<!--底部开始-->
+<div class="down">	
+	<div class="span5">
+		<div class="box0">
+			<div class="span5l">
+				<div class="down_pic"><img src="images/down_pic.png" alt="" />
+				</div>
+				<div class="down_txt">
+					<ul>
+						<li><a href="#">一动车保</a>|</li>
+						<li><a href="#">关于我们</a>|</li>
+						<li><a href="#">服务简介</a>|</li>
+						<li><a href="#">市场合作</a>|</li>
+						<li><a href="#">联系我们</a></li>
+					</ul>
+					<p>&copy;2015&nbsp;www.YIDONGCHEBAO.com&nbsp; 贵ICP备18888888号</p>
+				</div>
+			</div>
+			<div class="span5r">
+				<ul>
+					<li class="l1">咨询热线：400-855-9999</li>
+					<li class="l2">咨询QQ：4008559999</li>
+					<li class="l3">公司地址：贵州省贵阳市高新区688号</li>
+				</ul>
+				<div class="weixin">
+					<img src="images/code.png" alt="" />
+					<p>扫一扫有惊喜！</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--底部结束-->
+</body>
+</html>

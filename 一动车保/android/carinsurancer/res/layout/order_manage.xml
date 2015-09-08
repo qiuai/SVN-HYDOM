@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+    android:background="@color/gray"
+    >
+    
+
+    <include
+        android:id="@id/title_with_back_btn_bk"
+        layout="@layout/title_with_back_btn" />
+    
+      <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/white"
+        >
+  <TextView
+      android:id="@+id/menuViewPopWindow"
+      android:layout_weight="1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="全部订单"
+      android:gravity="center"
+      />
+  <View 
+      android:layout_width="1px"
+      android:layout_height="match_parent"
+      android:background="@color/gray"
+      />
+   <TextView
+      android:id="@+id/menuViewFragment"
+      android:layout_weight="1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="接受订单"
+      android:gravity="center"
+      />
+</LinearLayout>
+
+   <View 
+    android:layout_width="match_parent"
+    android:layout_height="1px"
+    android:background="@color/gray"
+    />
+      
+    <com.carinsuran.car.widget.XListView
+        android:id="@+id/near_listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        ></com.carinsuran.car.widget.XListView>
+</LinearLayout>

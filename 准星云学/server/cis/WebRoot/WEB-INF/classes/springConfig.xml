@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd">
+
+	<context:annotation-config />
+	<context:component-scan base-package="com.hydom" />
+	<context:property-placeholder location="classpath:dbcp.properties" />
+
+	<tx:annotation-driven transaction-manager="jpaTransactionManager" />
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="initialSize" value="${initialSize}" />
+		<property name="maxActive" value="${maxActive}" />
+		<property name="maxIdle" value="${maxIdle}" />
+		<property name="minIdle" value="${minIdle}" />
+	</bean>
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="loadTimeWeaver">
+			<bean
+				class="org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver">
+			</bean>
+		</property>
+	</bean>
+
+	<!-- 配置JPA事务管理器 -->
+	<bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+
+	<!-- 重置分配数-->
+	<bean id="resetMatchTask"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject" ref="taskServiceBean" />
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod" value="resetMatchTask" />
+	</bean>
+	<!-- 设置执行时间 -->
+	<bean id="resetMatchTaskTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="resetMatchTask" />
+		<!-- cron表达式 --><!-- 每隔1分钟执行一次-->
+		<property name="cronExpression" value="0 0/1 * * * ?" />
+	</bean>
+
+	<!-- 定时提交失败的工单-->
+	<bean id="postFailJob"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject" ref="jobServiceBean" />
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod" value="feedbackTimer" />
+	</bean>
+	<!-- 设置执行时间 -->
+	<bean id="postFailJobTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="postFailJob" />
+		<!-- cron表达式 --><!-- 每隔10分钟执行一次-->
+		<property name="cronExpression" value="0 0/10 * * * ?" />
+	</bean>
+
+	<!-- 每2小时更新当天积分榜单-->
+	<bean id="updateScoreTop"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject" ref="scoreTopServiceBean" />
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod" value="generate" />
+	</bean>
+	<!-- 设置执行时间 -->
+	<bean id="updateScoreTopTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="updateScoreTop" />
+		<!-- cron表达式 --><!-- 每隔2小时执行一次-->
+		<property name="cronExpression" value="0 0 0/2 * * ?" />
+	</bean>
+
+	<!-- 每天夜间1点更新昨天积分榜单：保证昨日积分榜单的准确性，以使用得到的“上升/下降”更准确-->
+	<bean id="updateYestoadyScoreTop"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<!-- 调用的类 -->
+		<property name="targetObject" ref="scoreTopServiceBean" />
+		<!-- 调用类中的方法 -->
+		<property name="targetMethod" value="updateYestoady" />
+	</bean>
+	<!-- 设置执行时间 -->
+	<bean id="updateYestoadyScoreTopTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="updateYestoadyScoreTop" />
+		<!-- cron表达式 --><!-- 每天夜间1点执行更新-->
+		<property name="cronExpression" value="0 0 1 * * ?" />
+	</bean>
+
+	<!--设置调度  总控制类 -->
+	<bean id="startQuertz" lazy-init="false" autowire="no"
+		class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+		<property name="triggers">
+			<list>
+				<!-- 
+				 -->
+				<ref bean="resetMatchTaskTrigger" />
+				<ref bean="postFailJobTrigger" />
+				<ref bean="updateScoreTopTrigger" />
+				<ref bean="updateYestoadyScoreTopTrigger" />
+			</list>
+		</property>
+	</bean>
+</beans>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>5969D9B0-C69B-4B75-AE22-A66E5B8E1055</string>
+	<key>IDESourceControlProjectName</key>
+	<string>HD_Car</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>b512e996-db97-6546-9dcd-2a2c7e849525++64</key>
+		<string>http://192.168.0.216:81/svn/java/2015/%25252525252525252525252525E4%25252525252525252525252525B8%2525252525252525252525252580%25252525252525252525252525E5%252525252525252525252525258A%25252525252525252525252525A8%25252525252525252525252525E8%25252525252525252525252525BD%25252525252525252525252525A6%25252525252525252525252525E4%25252525252525252525252525BF%252525252525252525252525259D/ios/HD_Car%25252525252525252525252525E6%252525252525252525252525259C%2525252525252525252525252580%25252525252525252525252525E6%2525252525252525252525252596%25252525252525252525252525B0%25252525252525252525252525E7%2525252525252525252525252589%2525252525252525252525252588</string>
+		<key>b512e996-db97-6546-9dcd-2a2c7e849525++8446</key>
+		<string>http://192.168.0.216:81/svn/java/2015/%252525252525252525252525E4%252525252525252525252525B8%25252525252525252525252580%252525252525252525252525E5%2525252525252525252525258A%252525252525252525252525A8%252525252525252525252525E8%252525252525252525252525BD%252525252525252525252525A6%252525252525252525252525E4%252525252525252525252525BF%2525252525252525252525259D/ios/lastVersion</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>HD_Car.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>b512e996-db97-6546-9dcd-2a2c7e849525++64</key>
+		<string>../../HD_Car%E6%9C%80%E6%96%B0%E7%89%88</string>
+		<key>b512e996-db97-6546-9dcd-2a2c7e849525++8446</key>
+		<string>..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>b512e996-db97-6546-9dcd-2a2c7e849525++64</key>
+		<string>http://192.168.0.216:81/svn/java</string>
+		<key>b512e996-db97-6546-9dcd-2a2c7e849525++8446</key>
+		<string>http://192.168.0.216:81/svn/java</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>http://192.168.0.216:81/svn/java/2015/%252525252525252525252525E4%252525252525252525252525B8%25252525252525252525252580%252525252525252525252525E5%2525252525252525252525258A%252525252525252525252525A8%252525252525252525252525E8%252525252525252525252525BD%252525252525252525252525A6%252525252525252525252525E4%252525252525252525252525BF%2525252525252525252525259D/ios/lastVersion/HD_Car.xcworkspace</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>b512e996-db97-6546-9dcd-2a2c7e849525++8446</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>b512e996-db97-6546-9dcd-2a2c7e849525++64</string>
+			<key>IDESourceControlWCCName</key>
+			<string>HD_Car%E6%9C%80%E6%96%B0%E7%89%88</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>b512e996-db97-6546-9dcd-2a2c7e849525++8446</string>
+			<key>IDESourceControlWCCName</key>
+			<string>lastVersion</string>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	 <link href="bootstrap/css/bootstrap.css" rel="stylesheet" media="screen">
+	 <link rel="stylesheet" href="res/font/css/font-awesome.min.css">
+     <link rel="stylesheet" href="res/font/css/font-awesome-ie7.min.css"> 
+     <link rel="stylesheet" href="res/font/css/font-style.css"> 
+	 <link href="./res/css/MyHome.css" rel="stylesheet" media="screen">
+</head>
+<body>
+	<div class="top">
+		<div class="companyLogo">
+			<label for="">XXX系统</label>
+		</div>
+		<ul class="nav">
+			<li><a href="#"><i class="fa fa-home fa-3"></i> 首页</a></li>	
+			<li><a href="#"><i class="fa fa-user"></i> 客户</a></li>	
+			<li><a href="#"><i class="fa fa-archive"></i> 文档</a></li>	
+			<li><a href="#"><i class="fa fa-th"></i> 设置</a></li>	
+			<li><a href="#"><i class="fa fa-desktop"></i> 岗位</a></li>	
+		</ul>
+
+	</div>
+	<div class="complexBox">
+		<div class="left_nav">
+			<div class="userinfo">
+				<div class="userHeader">
+					<a href=""></a>
+				</div>
+				<div class="userName">
+					<span>张三</span>
+					<span>经理</span>
+
+				</div>
+
+				<ul>
+					<li style="border-top:1px solid #e7e7e7;"><a href="#">
+					<i class="fa fa-user fa-4"></i>  个人资料</a></li>
+					<li><a href="#"><i class="fa fa-arrow-circle-o-left fa-5"></i> <span>我的事件</span> </a></li>
+					<li><a href="#"> <i class="fa fa-arrow-circle-right fa-5"></i> <span>他人事件</span></a></li>
+					
+				</ul>
+			</div>
+		</div>
+
+		<div class="content">
+			<ul class="time">
+				<li style="margin-left:15px;"><a href="#">全部</a> <i>>></i></li>
+				<li><a href="#">日期</a> <i>>></i></li>
+				<li class="input-append">
+				  <input class="span2" id="appendedInputButton" type="text">
+				  <button class="btn" type="button">搜索</button>
+			    </li>
+			</ul>
+		</div>
+		<div class="page-content">
+			<div class="info-mainBox">
+				<div class="infoTime">
+					今天
+				</div>
+				<div class="setp">
+					<p>
+						<label for=""> 张三 </label>
+						<label for="" style="padding-top:10px;">和<span> XX </span>客户进行初级接洽</label>
+					</p>
+					<div class="talk">
+						<ul>
+							<li>
+								<a href="javascript:void(0);">@王五、</a>
+								<a href="javascript:void(0);">总经理</a>
+								</li>
+							<li >
+								<label for="">客户：<span>重庆XX责任有限公司</span></label>
+								<label for="" class="position"></label>
+								<div style="clear:both;"></div>
+							</li>
+							<li>
+								<label for="">联系人：<span>李总，</span><span>张总，</span><span>刘总</span></label>
+								<label for="">
+
+									<a href="javascript:void(0);">招待、</a>
+									<a href="javascript:void(0);">发报价、</a>
+									<a href="javascript:void(0);">客服拜访</a>
+								</label>
+								<div style="clear:both;"></div>
+							</li>	
+							<li class="talkContent">
+								<p>本次接洽初步定了一下三方面：</p>
+								<p>1、本次接洽初步定了一下三方面本次接洽初步定了一下三方面本次接洽初步定了一下三方面本次接洽初步定了一下三方面本次接洽初步定了一下三方面</p>
+								<p>2、本次接洽初步定了一下三方面本次接洽初步定了一下三方面本次接洽初步定了一下三方面本次接洽初步定了一下三方面本次接洽初步定了一下三方面</p>
+								<p>3、本次接洽初步定了一下三方面本次接洽初步定了一下三方面本次接洽初步定了一下三方面本次接洽初步定了一下三方面本次接洽初步定了一下三方面</p>
+								<div class="img">
+									<div>
+										
+									</div>
+									<div>
+										
+									</div>
+									<div>
+										
+									</div>
+									<div>
+										
+									</div>
+								</div>
+							</li>
+							<li>
+								<label for="">18:38</label>
+								<label>
+									<a href="javascript:void(0);">编辑</a>
+									<a href="javascript:void(0);">分享</a>
+									<a href="javascript:void(0);">删除</a>
+							   </label>
+								<div style="clear:both;"></div>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div style="clear:both;"></div>
+			</div>
+
+		</div>
+
+		<!-- 客户 -->
+		<div class="customer">
+				<div class="form-search selAdd" style="display:none;">
+					  <div class="input-append" style="margin-left:40px;">
+					    <input type="text" class="span2 search-query">
+					    <button type="submit" class="btn">Search</button>
+					  </div>
+					  <a href="">意向客户</a>
+					  <a href="">已签单</a>
+					  <a href="">无意向</a>
+					  <a href="" style="float:right; margin-right:40px; margin-top:5px;">新建客户>></a>
+				</div>
+
+				<div class="userList" style="display:none;">
+					<table class="table table-striped table-bordered table-hover">
+			              <thead>
+			                <tr>
+			                  <th>First Name</th>
+			                  <th>客服名称</th>
+			                  <th>电话</th>
+			                  <th>城市</th>
+			                  <th>状态</th>
+			                  <th>行业</th>
+			                  <th>创建时间</th>
+			                  <th>负责人</th>
+			                  <th>联系次数</th>
+			                  <th>操作</th>
+			                </tr>
+			              </thead>
+			              <tbody>
+			                <tr>
+			                	<td></td>
+			                	<td>苏州杜维自动化科技有限公司</td>
+			                	<td>0757-348756666</td>
+			                	<td>苏州市</td>
+			                	<td>有意向</td>
+			                	<td>机械及行业设备</td>
+			                	<td>2014-11-1</td>
+			                	<td>张三</td>
+			                	<td>5</td>			                	
+			                	<td></td>
+			                </tr>
+			                 <tr>
+			                	<td></td>
+			                	<td>苏州杜维自动化科技有限公司</td>
+			                	<td>0757-348756666</td>
+			                	<td>苏州市</td>
+			                	<td>有意向</td>
+			                	<td>机械及行业设备</td>
+			                	<td>2014-11-1</td>
+			                	<td>张三</td>
+			                	<td>5</td>			                	
+			                	<td></td>
+			                </tr>
+			                <tr>
+			                	<td></td>
+			                	<td>苏州杜维自动化科技有限公司</td>
+			                	<td>0757-348756666</td>
+			                	<td>苏州市</td>
+			                	<td>有意向</td>
+			                	<td>机械及行业设备</td>
+			                	<td>2014-11-1</td>
+			                	<td>张三</td>
+			                	<td>5</td>			                	
+			                	<td></td>
+			                </tr>
+			                <tr>
+			                	<td></td>
+			                	<td>苏州杜维自动化科技有限公司</td>
+			                	<td>0757-348756666</td>
+			                	<td>苏州市</td>
+			                	<td>有意向</td>
+			                	<td>机械及行业设备</td>
+			                	<td>2014-11-1</td>
+			                	<td>张三</td>
+			                	<td>5</td>			                	
+			                	<td></td>
+			                </tr>
+			                <tr>
+			                	<td></td>
+			                	<td>苏州杜维自动化科技有限公司</td>
+			                	<td>0757-348756666</td>
+			                	<td>苏州市</td>
+			                	<td>有意向</td>
+			                	<td>机械及行业设备</td>
+			                	<td>2014-11-1</td>
+			                	<td>张三</td>
+			                	<td>5</td>			                	
+			                	<td></td>
+			                </tr>
+			                <tr>
+			                	<td></td>
+			                	<td>苏州杜维自动化科技有限公司</td>
+			                	<td>0757-348756666</td>
+			                	<td>苏州市</td>
+			                	<td>有意向</td>
+			                	<td>机械及行业设备</td>
+			                	<td>2014-11-1</td>
+			                	<td>张三</td>
+			                	<td>5</td>			                	
+			                	<td></td>
+			                </tr>			     
+			              </tbody>
+		            </table>
+
+		            <div class="share-btn">
+		            	  <button class="btn btn-large btn-primary" type="button">分享</button>
+  						  <button class="btn btn-large" type="button">删除</button>
+
+
+	  				   <div class="pagination pagination-right">
+			              <ul>
+			                <li><a href="#">«</a></li>
+			                <li><a href="#">1</a></li>
+			                <li><a href="#">2</a></li>
+			                <li><a href="#">3</a></li>
+			                <li><a href="#">4</a></li>
+			                <li><a href="#">5</a></li>
+			                <li><a href="#">»</a></li>
+			              </ul>
+	            		</div>
+	            		<div style="clear:both;"></div>
+		            </div>		            
+				</div>
+				<!-- 统计 -->
+				<div class="statistical">
+					<ul>
+						<li><label for="">关键字：</label> <input type="text"></li>
+						<li class="data"><label for="">日期：</label> <input type="text"> 至 <input type="text"></li>
+						<li class="conact"><label for="">客户：</label> <input type="text"></li>
+						<li class="conact"><label for="">联系人：</label>  <input type="text"></li>
+						<li class="pie"><label for="">统计方式：</label> <input type="radio"> 按员工  <input type="radio"> 按客户</li>
+						<li class="btn-statis" style="padding-top:30px;">
+							<button type="button" class="screening">员工筛选</button>
+							<div class="eprot">
+								<button type="button">导出</button>
+								<button type="button">查看分布</button>
+								<button type="button">查看明细</button>
+							</div>
+							
+						</li>
+						<div class="empTable">
+							<table class="table table-striped table-bordered table-hover">
+					              <thead>
+					                <tr style="background:#428BCA; color:#fff;">
+					                  <th>First Name</th>
+					                  <th>客户拜访</th>
+					                  <th>电话联系</th>
+					                  <th>发报价</th>
+					                  <th>招待</th>
+					                  <th>发邮件</th>
+					                </tr>
+					              </thead>
+					              <tbody>
+				              		<tr>
+				              			<td>张三</td>
+				              			<td>3次</td>
+				              			<td>5次</td>
+				              			<td>2次</td>
+				              			<td>1次</td>
+				              			<td>4次</td>
+				              		</tr>
+				              		<tr>
+				              			<td>张三</td>
+				              			<td>3次</td>
+				              			<td>5次</td>
+				              			<td>2次</td>
+				              			<td>1次</td>
+				              			<td>4次</td>
+				              		</tr>
+				              		<tr>
+				              			<td>张三</td>
+				              			<td>3次</td>
+				              			<td>5次</td>
+				              			<td>2次</td>
+				              			<td>1次</td>
+				              			<td>4次</td>
+				              		</tr>
+				              		<tr>
+				              			<td>张三</td>
+				              			<td>3次</td>
+				              			<td>5次</td>
+				              			<td>2次</td>
+				              			<td>1次</td>
+				              			<td>4次</td>
+				              		</tr>
+				              		<tr>
+				              			<td>张三</td>
+				              			<td>3次</td>
+				              			<td>5次</td>
+				              			<td>2次</td>
+				              			<td>1次</td>
+				              			<td>4次</td>
+				              		</tr>
+					              </tbody>
+				             </table>
+						</div>
+					</ul>
+				</div>
+
+				<!-- 文档 -->
+				<div class="document">
+					<div class="docScree">
+						 <label for="" style="float:left;"><i class="fa fa-file-text" style="font-size:20px; color:#fff;"></i> </label> <label for=""><i class="fa fa-search"></i><input type="text" class="search-query span2" placeholder="请输入搜索内容"></label><a href="javascript:void(0);"></a> 
+					</div>
+					<table class="table table-striped table-bordered table-hover">
+					              <thead>
+					                <tr style="">
+					                  <th></th>
+					                  <th>文档名称</th>
+					                  <th>事件</th>
+					                  <th style="text-align:center;">创建日期</th>
+					                  <th style="text-align:center;">操作</th>
+					                </tr>
+					              </thead>
+					              <tbody>
+				              		<tr>
+				              			<td><input type="checkbox"></td>
+				              			<td>(DOC)xxx项目说明文档</td>
+				              			<td>xx时间</td>
+				              			<td style="text-align:center;">2014-11-02</td>
+				              			<td style="text-align:center;"> <button type="button" class="btn btn-warning">作废</button>
+				      	  <button type="button" class="btn btn-success">下载</button></td>
+				              			
+				              		</tr>
+				              		<tr>
+				              			<td><input type="checkbox"></td>
+				              			<td>(DOC)xxx项目说明文档</td>
+				              			<td>xx时间</td>
+				              			<td style="text-align:center;">2014-11-02</td>
+				              			<td style="text-align:center;"> <button type="button" class="btn btn-warning">作废</button>
+				      	  <button type="button" class="btn btn-success">下载</button></td>
+				              			
+				              		</tr>
+				              		<tr>
+				              			<td><input type="checkbox"></td>
+				              			<td>(DOC)xxx项目说明文档</td>
+				              			<td>xx时间</td>
+				              			<td style="text-align:center;">2014-11-02</td>
+				              			<td style="text-align:center;"> <button type="button" class="btn btn-warning">作废</button>
+				      	  <button type="button" class="btn btn-success">下载</button></td>
+				              			
+				              		</tr>
+				              		<tr>
+				              			<td><input type="checkbox"></td>
+				              			<td>(DOC)xxx项目说明文档</td>
+				              			<td>xx时间</td>
+				              			<td style="text-align:center;">2014-11-02</td>
+				              			<td style="text-align:center;"> <button type="button" class="btn btn-warning">作废</button>
+				      	  <button type="button" class="btn btn-success">下载</button></td>
+				              			
+				              		</tr>
+				              		<tr>
+				              			<td><input type="checkbox"></td>
+				              			<td>(DOC)xxx项目说明文档</td>
+				              			<td>xx时间</td>
+				              			<td style="text-align:center;">2014-11-02</td>
+				              			<td style="text-align:center;"> <button type="button" class="btn btn-warning">作废</button>
+				      	  <button type="button" class="btn btn-success">下载</button></td>
+				              			
+				              		</tr>
+				              		
+					              </tbody>
+				             </table>
+				      
+				      	 <div class="down">
+				      	  <button type="button" class="btn btn-warning">作废</button>　　
+				      	  <button type="button" class="btn btn-success">下载</button>
+				      	  <div class="pagination pagination-small">				      	
+			              <ul>
+			                <li><a href="#">«</a></li>
+			                <li><a href="#">1</a></li>
+			                <li><a href="#">2</a></li>
+			                <li><a href="#">3</a></li>
+			                <li><a href="#">4</a></li>
+			                <li><a href="#">5</a></li>
+			                <li><a href="#">»</a></li>
+			              </ul>
+
+			            </div>
+			            <div style="clear:both;"></div>
+				           
+				      	 </div>
+				      	 
+				</div>
+
+
+				<div class="settings">
+					<div class="list1">					
+						<p>
+							<span> <b>客服分类标签>></b> </span> 
+
+						   <span class="new">
+						   	 <i class="fa fa-list" title="新增"></i>
+						   </span>
+
+						</p>
+
+						<div class="settingBox">
+							<ul>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+							</ul>
+						</div>
+					</div>
+					<div class="list1">					
+						<p>
+							<span> <b>客服分类标签>></b> </span> 
+
+						   <span class="new">
+						   	 <i class="fa fa-list" title="新增"></i>
+						   </span>
+
+						</p>
+
+						<div class="settingBox">
+							<ul>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+							</ul>
+						</div>
+					</div>
+					<div class="list1">					
+						<p>
+							<span> <b>客服分类标签>></b> </span> 
+
+						   <span class="new">
+						   	 <i class="fa fa-list" title="新增"></i>
+						   </span>
+
+						</p>
+
+						<div class="settingBox">
+							<ul>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+								<li><label for="">分类一</label> <a href="">删除</a> <div style="clear:both;"></div></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+
+				<div class="contact">
+					<div class="btn-contact">
+						<a href="#"><i class="fa fa-home" style="font-size:18px;"></i></a>
+						<a href="#" class="contactRecode"><i class="fa fa-envelope"></i> <span>25</span></a>
+						<a href="#">编辑</a>
+					</div>
+					<div class="basic-info">
+						<h5>基本信息</h5>
+						<ul>
+							<li>
+								<div class=""><label for="">姓名：</label> <span>李四</span></div>
+								<div class=""><label for="">职务：</label> <span>业务员</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">客户名称：</label> <span>XX科技有限公司</span></div>
+								<div class=""><label for="">部门：</label> <span>业务部</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">办公电话：</label> <span>023-78916666</span></div>
+								<div class=""><label for="">创建人：</label> <span>张三</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">手机：</label> <span>18867897654</span></div>
+								<div class=""><label for="">负责人：</label> <span>总经理</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">Email：</label> <span>32468624@qq.com</span></div>
+								<div class=""><label for="">创建时间：</label> <span></span></div>
+							</li>
+							<li>
+								<div class=""><label for="">qq：</label> <span>32468624</span></div>
+								<div class=""><label for="">修改时间：</label> <span></span></div>
+							</li>
+							<li>
+								<div class=""><label for="">标签：</label> <span>标签一</span> <span>标签二</span></div>
+							</li>
+						</ul>
+					</div>
+					<div class="btn-description">
+						<h5>描述信息</h5>
+						<p>
+							<label for="">备注：
+								<textarea name="" id="" cols="30" rows="5"></textarea>
+
+							</label>
+							<label for="" style="text-align:right;">
+								<button>提交</button>
+							</label>
+							
+
+						</p>
+						
+					</div>
+				</div>
+
+
+				<!-- 新增客户 -->
+
+				<div class="addUser">
+					<h5>基本信息     
+						<label for="">
+							<span><i class="fa fa-check"></i> 保 存</span> 
+							<span><i class="fa fa-times"></i> 取 消</span> 
+						</label>
+						<div style="clear:both;"></div>
+					</h5>
+					<div class="froms">
+						<ul>
+							<li>
+								<div><label for="">客户名称：</label> <input type="text"></div>
+								<div><label for="">电话：</label> <input type="text"></div>
+							</li>
+							<li>
+								<div><label for="">城市：</label> <input type="text"></div>
+								<div><label for="">地址：</label> <input type="text"></div>
+							</li>
+							<li>
+								<div><label for="">国籍：</label> <input type="text"></div>
+								<div><label for="">负责人：</label> 
+									<select name="" id="">
+										<option value="">张三</option>
+										<option value="">张三</option>
+										<option value="">张三</option>
+									</select>
+								</div>
+							</li>
+							<li>
+								<div class="type"><label for="">类型：</label> <input type="radio">　个体 　　　<input type="radio">　单位</div>
+								<div><label for="">行业：</label> 
+										
+								</div>
+							</li>
+							<li>
+								<div class="type"><label for="">状态：</label>
+											<select name="" id="">
+											<option value="">机械及行业设备</option>
+											<option value="">机械及行业设备</option>
+											<option value="">机械及行业设备</option>
+										</select>
+								 </div>
+							</li>
+						</ul>
+					</div>
+
+					<div class="addUser">
+					<h5>自定义信息</h5>
+					<div class="froms">
+						<ul>
+							<li class="tag">
+								<div><label for="">标签：</label> <input type="text"> <input type="text"> <input type="text"></div>
+								
+							</li>
+							<li>
+								<div><label for="">自定义字段：</label> 
+								<select name="" id=""> 
+									<option value="">文本</option> 
+									<option value="">文本</option> 
+									<option value="">文本</option> 
+								</select> <input type="text"></div>
+								<div class="addfield">
+									<label for="">
+										<i class="fa fa-plus"></i>
+									</label>
+								</div>
+							</li>
+							<li>
+								<div><label for="">自定义字段：</label> 
+								<select name="" id=""> 
+									<option value="">文本</option> 
+									<option value="">文本</option> 
+									<option value="">文本</option> 
+								</select> <input type="text"></div>
+								<div class="addfield">
+									
+								</div>
+							</li>
+							
+						</ul>
+					</div>
+					<h5>联系人信息</h5>
+					<div class="froms">
+						<ul>
+							<li>
+								<div><label for="">客户名称：</label> <input type="text"></div>
+								<div><label for="">职务：</label> <input type="text"></div>
+							</li>
+							<li>
+								<div><label for="">办公电话：</label> <input type="text"></div>
+								<div><label for="">部门：</label> <input type="text"></div>
+							</li>
+							<li>
+								<div><label for="">手机：</label> <input type="text"></div>
+								<div><label for="">张三：</label> 
+									<select name="" id="">
+										<option value="">张三</option>
+										<option value="">张三</option>
+										<option value="">张三</option>
+									</select>
+								</div>
+							</li>
+							<li>
+								<div class="type"><label for="">Email：</label> <input type="text"></div>
+								
+							</li>
+							
+						</ul>
+					</div>
+					<h5>描述信息</h5>
+					<div class="froms note">
+						<span for="">备注：</span>
+						<textarea name="" id="" cols="30" rows="10"></textarea>
+
+						<div class="btn-save">
+							<button>保存</button>
+							<button>取消</button>
+						</div>
+					</div>
+
+				</div>
+
+
+				<!-- 新增联系人 -->
+				<div class="addConact">
+					<div class="class">
+						<a href="">客户</a>
+						<a href="">联系人</a>
+						<a href="">客户池</a>
+					</div>
+					<h5>自定义信息</h5>
+					<ul>
+						<li>
+							<div><label for="">客户名称：</label> <input type="text"></div>
+							<div><label for="">职务：</label> <input type="text"></div>
+						</li>
+						<li>
+							<div><label for="">客户名称：</label> <input type="text" class="username">  <button>选择</button></div>
+							<div><label for="">手机：</label> <input type="text"></div>
+						</li>
+						<li>
+							<div><label for="">职务：</label> <input type="text"></div>
+							<div><label for="">Email：</label> <input type="text"></div>
+						</li>
+						<li>
+							<div><label for="">部门：</label> <input type="text"></div>
+							<div><label for="">QQ：</label> <input type="text"></div>
+						</li>
+						<li>
+							<div><label for="">首要联系人：</label> <input type="checkbox" class="chebox"> 选中代表是首要联系人</div>
+							<div><label for="">负责人：</label> 
+							 <select name="" id="">
+								<option value="">张三</option>
+								<option value="">张三</option>
+								<option value="">张三</option>
+							</select> 
+
+							</div>
+						</li>
+						<li>
+							<div><label for="">自定义标签：</label>
+								 <select name="" id="">
+								 	<option value="">1111111</option>
+								 	<option value="">2222222</option>
+								 	<option value="">3333333</option>
+								 </select>
+							 </div>
+						</li>
+					</ul>
+						<h5>描述信息</h5>
+					<div class="froms note">
+						<span for="">备注：</span>
+						<textarea name="" id="" cols="30" rows="10"></textarea>
+
+						<div class="btn-save">
+							<button>保存</button>
+							<button>取消</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- 客户详情 -->
+				<div class="user_details">
+					<div class="class">
+						<a href="">客户</a>
+						<a href="">联系人</a>
+						<a href="">客户池</a>
+						<a href="">统计</a>
+					</div>
+					<div class="sel-span">
+						<span>返回 </span> 
+						<span>联系人<i></i></span> 
+						<span>联系记录<i></i></span> 
+						<span>共享<i></i></span> 
+						<span>编辑<i></i></span> 
+						<span style="float:right;">修改记录<i></i></span> 
+					</div>
+					<div class="basic-info basic-info-user">
+						<h5>基本信息</h5>
+						<ul>
+							<li>
+								<div class=""><label for="">姓名：</label> <span>李四</span></div>
+								<div class=""><label for="">电话：</label> <span>023-87656666</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">机构代码：</label> <span>A000001</span></div>
+								<div class=""><label for="">地址：</label> <span>重庆市渝中区枣子岚垭正街</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">法人：</label> <span>张三</span></div>
+								<div class=""><label for="">负责人：</label> <span>张三</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">注册资本：</label> <span>1000W</span></div>
+								<div class=""><label for="">创建人：</label> <span>总经理</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">注册地址：</label> <span>重庆市渝中区枣子岚垭正街</span></div>
+								<div class=""><label for="">创建时间：</label> <span>2014-11-03 11:05:28</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">行业：</label> <span>机械及行业设备</span></div>
+								<div class=""><label for="">修改时间：</label> <span>2014-11-03 11:05:28</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">客户性质：</label> <span>单位</span></div>
+								<div class=""><label for="">状态：</label> <span>新客户</span></div>
+							</li>
+						</ul>
+					</div>
+					<div class="basic-info basic-info-user">
+						<h5>自定义信息</h5>
+						<ul>
+							<li>
+								<div class=""><label for="">标签：</label> <span>新客户</span> <span>企业单位</span> <span>有意向</span> </div>
+							</li>
+							<li>
+								<div class=""><label for="">法人：</label> <span>张三</span></div>
+								
+							</li>
+							<li>
+								<div class=""><label for="">经营范围：</label> <span>机械销售、</span>  <span>货物进出口、</span>  <span>技术开发</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">联系的主题：</label></div>
+							</li>
+							<li>
+								<div class="paper"><label for="">联系的摘要信息：</label><span>111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</span></div>
+							</li>
+							
+						</ul>
+						
+					</div>
+					<div class="basic-info basic-info-user">
+						<h5>最近联系</h5>
+						<ul>
+							<li>
+								<div class=""><label for="">首要联系人：</label> <span>李四</span></div>
+								<div class=""><label for="">职务：</label> <span>0业务员</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">办公电话：</label> <span>023-87656666</span></div>
+								<div class=""><label for="">部门：</label> <span>市场部</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">手机：</label> <span>张三</span></div>
+								<div class=""><label for="">负责人：</label> <span>张三</span></div>
+							</li>
+							<li>
+								<div class=""><label for="">Email:</label> <span>1000W</span></div>
+							</li>
+							
+						</ul>
+						
+					</div>
+					<div class="basic-info basic-info-user">
+						<h5>税务信息</h5>
+						<table class="table table-hover">
+			              <thead>
+			                <tr>
+			                  <th>税务好</th>
+			                  <th>单位名称</th>
+			                  <th>税务类型</th>
+			                  <th>备注</th>
+			                  <th>操作</th>
+			                </tr>
+			              </thead>
+              			<tbody>
+			                <tr>
+			                  <td>84432881</td>
+			                  <td>XX科技有限公司</td>
+			                  <td>地税</td>
+			                  <td>无</td>
+			                  <td><span><i class="fa fa-trash"></i></span>　<span><i class="fa fa-pencil-square-o"></i></span></td>
+			                </tr>
+			                <tr>
+			                 <td>84432881</td>
+			                  <td>XX科技有限公司</td>
+			                  <td>地税</td>
+			                  <td>无</td>
+			                  <td><span><i class="fa fa-trash"></i></span>　<span><i class="fa fa-pencil-square-o"></i></span></td>
+			                </tr>
+			                <tr>
+			                  <td>84432881</td>
+			                  <td>XX科技有限公司</td>
+			                  <td>地税</td>
+			                  <td>无</td>
+			                  <td><span><i class="fa fa-trash"></i></span>　<span><i class="fa fa-pencil-square-o"></i></span></td>
+			                </tr>
+			             </tbody>
+           			 </table>
+						
+					</div>
+				</div>
+				
+
+
+
+		</div>
+		<div style="clear:both;"></div>
+
+	</div>
+	<script type="text/javascript" src="res/js/jquery-1.9.1.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
