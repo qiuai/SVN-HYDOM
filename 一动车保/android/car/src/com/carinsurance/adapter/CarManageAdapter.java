@@ -66,7 +66,7 @@ public class CarManageAdapter extends AbstractBaseAdapter<MyCarInfosModel> {
 //		h.cbicon
 		h.cbname.setText("" + ci.getCbname());
 		if (!TextUtils.isEmpty(ci.getCsname()))
-			h.cbname.setText(ci.getCbname() + "-" + ci.getCsname());
+			h.cbname.setText(ci.getCsname());//ci.getCbname() + "-" + 
 		h.cmname.setText("" + ci.getCmname());
 		h.date.setText("" + ci.getDate());
 		h.engines.setText("" + ci.getEngines());

@@ -2,11 +2,13 @@ package com.carinsurance.activity;
 
 import java.util.HashMap;
 import java.util.List;
+
 import org.json.JSONObject;
 
 import com.carinsurance.abcpinying.SortModel;
 import com.carinsurance.adapter.AbstractBaseAdapter;
 import com.carinsurance.adapter.SelectServer1Adapter;
+import com.carinsurance.adapter.SelectServer1Adapter.OnclickDelete;
 import com.carinsurance.adapter.ViewHolder;
 import com.carinsurance.infos.MyCarInfosModel;
 import com.carinsurance.infos.ProductDefaultItemModel;
@@ -14,6 +16,7 @@ import com.carinsurance.infos.ProductDefaultModel;
 import com.carinsurance.infos.SeriverTypeitemModel;
 import com.carinsurance.net.NetUtils;
 import com.carinsurance.net.Task;
+import com.carinsurance.utils.DisplayUtil;
 import com.carinsurance.utils.JsonUtil;
 import com.carinsurance.utils.JumpUtils;
 import com.carinsurance.utils.StringUtil;
@@ -75,7 +78,25 @@ public class SelectServer1Activity extends BaseActivity {
 
 	@ViewInject(R.id.title)
 	TextView title;
-	String type = "-1";// 默认是-1，-1是走商品流程 , 0是看有商品订单不能改， 1是仅仅只是看无商品订单，也不能改
+	String type = "-1";// 默认是-1，-1是走保养商品流程 , 0是看有商品订单不能改， 1是仅仅只是看无商品订单，也不能改
+
+	// boolean is_zidingyipeijian=false;
+
+	@ViewInject(R.id.rl_fuwufei)
+	RelativeLayout rl_fuwufei;
+
+	@ViewInject(R.id.fuwumoney)
+	TextView fuwumoney;
+
+	public void getCunBaoYangJiaGe() {
+
+		HashMap<String, String> map = new HashMap<String, String>();
+
+		map.put("uid", Utils.getUid(SelectServer1Activity.this));
+		map.put("token", Utils.getToken(SelectServer1Activity.this));
+		NetUtils.getIns().post(Task.GET_PUREMAINTENANCE_PRICE, map, handler);
+
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +105,8 @@ public class SelectServer1Activity extends BaseActivity {
 		ViewUtils.inject(this);
 		// expan_ListView1.setAdapter(new )
 
+		getCunBaoYangJiaGe();
+		// is_zidingyipeijian=false;
 		sortModel = (SortModel) JumpUtils.getSerializable(this);
 		String nsr = sortModel.getCm_name();
 		if (!StringUtil.isNullOrEmpty(nsr)) {
@@ -104,7 +127,7 @@ public class SelectServer1Activity extends BaseActivity {
 			user_center_book_business.setVisibility(View.GONE);
 			title.setText("商品详情");
 		}
-
+		Log.v("aaa", "typesss===>" + type);
 		in_the_spark_plug.setChecked(false);
 		expan_ListView1.setVisibility(View.VISIBLE);
 		fuwu_list.setVisibility(View.GONE);
@@ -117,6 +140,9 @@ public class SelectServer1Activity extends BaseActivity {
 				expan_ListView1.setVisibility(View.GONE);
 				fuwu_list.setVisibility(View.VISIBLE);
 				initListView();
+
+				rl_fuwufei.setVisibility(View.VISIBLE);
+
 			}
 
 		} else if (type.equals("-1"))
@@ -127,12 +153,32 @@ public class SelectServer1Activity extends BaseActivity {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.user_center_book_business:
+			// Log.v("aaa","getShangPingNumber==>"+adapter.getShangPingNumber());
 			if (in_the_spark_plug.isChecked() == true) {
+
+				if (adapter.getShangPingNumber() == 0) {
+					in_the_spark_plug.setChecked(false);
+					adapter.setIs_zidingyipeijian(false);
+					
+					expan_ListView1.setVisibility(View.VISIBLE);
+					fuwu_list.setVisibility(View.GONE);
+					adapter.notifyDataSetChanged();
+					return ;
+				}
+
 				in_the_spark_plug.setChecked(false);
+				// is_zidingyipeijian=false;
+				rl_fuwufei.setVisibility(View.GONE);
+				adapter.setIs_zidingyipeijian(false);
+				adapter.notifyDataSetChanged();
 				expan_ListView1.setVisibility(View.VISIBLE);
 				fuwu_list.setVisibility(View.GONE);
 			} else {
 				in_the_spark_plug.setChecked(true);
+				// is_zidingyipeijian=true;
+				adapter.setIs_zidingyipeijian(true);
+				rl_fuwufei.setVisibility(View.VISIBLE);
+				adapter.notifyDataSetChanged();
 				expan_ListView1.setVisibility(View.GONE);
 				fuwu_list.setVisibility(View.VISIBLE);
 			}
@@ -224,11 +270,29 @@ public class SelectServer1Activity extends BaseActivity {
 					// try {
 					// initExpanAbleListView
 					productDefaultModel = JsonUtil.getEntityByJsonString(message, ProductDefaultModel.class);
+
 					initExpanAbleListView();
 					initListView();
 
 				} else {
 					Utils.showMessage(SelectServer1Activity.this, "服务器出错,错误码:" + result);
+				}
+
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				Log.v("aaa", "baocuo");
+				e.printStackTrace();
+			}
+		} else if (task.equals(Task.GET_PUREMAINTENANCE_PRICE)) {
+			try {
+				JSONObject js = new JSONObject(message);
+				String result = js.getString("result");
+
+				if (result.equals("001")) {
+					String price = js.getString("price");
+					fuwumoney.setText("￥" + price);
+				} else {
+					Utils.showMessage(SelectServer1Activity.this, "网络错误,错误码" + result);
 				}
 
 			} catch (Exception e) {
@@ -248,7 +312,41 @@ public class SelectServer1Activity extends BaseActivity {
 		else
 			adapter = new SelectServer1Adapter(SelectServer1Activity.this, sortModel, type);// ,
 
+		if (type.equals("-1")) {
+			if (productDefaultModel.getList().isEmpty()) {
+				adapter.setIs_zidingyipeijian(true);
+//				in_the_spark_plug.setChecked(true);
+				rl_fuwufei.setVisibility(View.VISIBLE);
+			} else {
+				adapter.setIs_zidingyipeijian(false);
+//				in_the_spark_plug.setChecked(false);
+				rl_fuwufei.setVisibility(View.GONE);
+			}
+		}
+		adapter.setOnDeleteShangpingClistener(new OnclickDelete() {
+
+			@Override
+			public void delete(List<SeriverTypeitemModel> modellist, int groupPosition, int childPosition, int number) {
+				// TODO Auto-generated method stub
+				if (number == 1)// 如果商品数量只剩一件的话
+				{
+					modellist.get(groupPosition).getProductDefaultItemModel_list().remove(childPosition);
+//					in_the_spark_plug.setChecked(true);
+					rl_fuwufei.setVisibility(View.VISIBLE);
+					adapter.setIs_zidingyipeijian(true);
+//					sdfsfsd
+					adapter.notifyDataSetChanged();
+				} else {
+					modellist.get(groupPosition).getProductDefaultItemModel_list().remove(childPosition);
+					adapter.notifyDataSetChanged();
+				}
+
+			}
+		});
 		expan_ListView1.setAdapter(adapter);
+		expan_ListView1.setDivider(getResources().getDrawable(R.color.bj_f0f0f0));
+		expan_ListView1.setChildDivider(getResources().getDrawable(R.color.bj_f0f0f0));
+		expan_ListView1.setDividerHeight((int) DisplayUtil.getDip(SelectServer1Activity.this, 1));
 		expan_ListView1.setGroupIndicator(null); // 去掉父类的箭头
 		// 展开所有
 		for (int i = 0, length = adapter.getGroupCount(); i < length; i++) {
@@ -279,14 +377,17 @@ public class SelectServer1Activity extends BaseActivity {
 				}
 				SeriverTypeitemModel p = getItem(position);
 
+				RelativeLayout rl_fuwufei = ViewHolder.get(convertView, R.id.rl_fuwufei);
+				rl_fuwufei.setVisibility(View.GONE);
 				ImageView pimage = ViewHolder.get(convertView, R.id.pimage);
 				new xUtilsImageLoader(SelectServer1Activity.this).display(pimage, p.getScimage());
 
 				TextView pname = ViewHolder.get(convertView, R.id.pname);
 				pname.setText("" + p.getScname());
-
-				TextView fuwu_fei = ViewHolder.get(convertView, R.id.fuwu_fei);
-				fuwu_fei.setText("￥" + p.getScprice());
+				// 服务费 （第一次需求更改，去掉了服务费）
+				// TextView fuwu_fei = ViewHolder.get(convertView,
+				// R.id.fuwu_fei);
+				// fuwu_fei.setText("￥" + p.getScprice());
 
 				return convertView;
 			}
@@ -321,6 +422,9 @@ public class SelectServer1Activity extends BaseActivity {
 					Log.v("aaa", "返回的p是" + p.toString());
 					int groupPosition = Integer.parseInt(gr);
 					sortModel.getSelectSeriverTypeitemList().get(groupPosition).getProductDefaultItemModel_list().add(p);
+					adapter.setIs_zidingyipeijian(false);
+					in_the_spark_plug.setChecked(false);
+					rl_fuwufei.setVisibility(View.GONE);
 					adapter.notifyDataSetChanged();
 				} catch (Exception e) {
 					// TODO: handle exception

@@ -164,7 +164,7 @@ public class MyPointsActivity extends BaseActivity {
 							return;
 						}
 
-						dialog.CreateDialog(MyPointsActivity.this, "", "你当前的积分是" + couponModel.getScore() + ",兑换该优惠卷需要" + c.getCpexscore() + "积分,是否兑换？");
+						dialog.CreateDialog(MyPointsActivity.this, "", "你当前的积分是" + couponModel.getScore() + ",兑换该优惠券需要" + c.getCpexscore() + "积分,是否兑换？");
 						dialog.setOnDialogClistener(new DialogClistener() {
 
 							@Override

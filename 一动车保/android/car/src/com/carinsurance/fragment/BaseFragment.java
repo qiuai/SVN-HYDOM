@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import org.json.JSONObject;
 
+import com.carinsurance.activity.BaseActivity;
+import com.carinsurance.activity.LoginActivity;
 import com.carinsurance.net.NetUtils;
 import com.carinsurance.net.Task;
 import com.carinsurance.utils.JumpUtils;
@@ -74,18 +76,31 @@ public abstract class BaseFragment extends Fragment {
 				JSONObject js = new JSONObject(message);
 				if (js.getString("result").equals("101")) {
 					Utils.showMessage(getActivity(), "你的账户已经被停用！");
-					Utils.setUid(getActivity(), "");
-					Utils.setToken(getActivity(), "");
-					Utils.setUserName(getActivity(), "");
-					Utils.setUid(getActivity(), "");
-					HashMap<String, String> map=new HashMap<String, String>();
-					map.put("is_to_souye", "1");
-//					close_0_sizejian1();
-//					JumpUtils.jumpto(BaseActivity.this, LoginActivity.class, map,true);
-					
+//					Utils.setUid(getActivity(), "");
+//					Utils.setToken(getActivity(), "");
+//					Utils.setUserName(getActivity(), "");
+//					Utils.setUid(getActivity(), "");
+//					HashMap<String, String> map = new HashMap<String, String>();
+//					map.put("is_to_souye", "1");
+					return ;
+					// close_0_sizejian1();
+					// JumpUtils.jumpto(BaseActivity.this, LoginActivity.class,
+					// map,true);
+
 					// exit();
 				} else if (js.getString("result").equals("102")) {
-					Utils.showMessage(getActivity(), "令牌失效,请重新登录！");
+					Utils.showMessage(getActivity(), "手机号不存在！");
+					return ;
+//					Utils.setUid(getActivity(), "");
+//					Utils.setToken(getActivity(), "");
+//					Utils.setUserName(getActivity(), "");
+//					Utils.setUid(getActivity(), "");
+//					HashMap<String, String> map = new HashMap<String, String>();
+//					map.put("is_to_souye", "1");
+//
+////					((BaseActivity) (getActivity())).exit();
+//					// close_0_sizejian1();
+//					JumpUtils.jumpto(getActivity(), LoginActivity.class, map, true);
 
 					// exit();
 				}

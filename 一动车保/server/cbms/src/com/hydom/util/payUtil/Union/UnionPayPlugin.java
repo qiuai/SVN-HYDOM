@@ -127,7 +127,7 @@ public class UnionPayPlugin{
 		// 接入类型，商户接入填0 0- 商户 ， 1： 收单， 2：平台商户
 		data.put("accessType", "0");
 		// 商户号码，请改成自己的商户号
-		data.put("merId", "898520173110129");
+		data.put("merId", "898111455330121");
 		// 商户订单号，8-40位数字字母
 		data.put("orderId", sn);
 		// 订单发送时间，取系统时间

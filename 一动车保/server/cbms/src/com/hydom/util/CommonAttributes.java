@@ -25,88 +25,94 @@ import com.hydom.util.bean.SystemBean;
 public final class CommonAttributes {
 
 	/** 日期格式配比 */
-	public static final String[] DATE_PATTERNS = new String[] { "yyyy", "yyyy-MM", "yyyyMM", "yyyy/MM", "yyyy-MM-dd", "yyyyMMdd", "yyyy/MM/dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMddHHmmss", "yyyy/MM/dd HH:mm:ss" };
+	public static final String[] DATE_PATTERNS = new String[] { "yyyy",
+			"yyyy-MM", "yyyyMM", "yyyy/MM", "yyyy-MM-dd", "yyyyMMdd",
+			"yyyy/MM/dd", "yyyy-MM-dd HH:mm:ss", "yyyyMMddHHmmss",
+			"yyyy/MM/dd HH:mm:ss" };
 
 	/** system.xml文件路径 */
 	public static final String SYSTEM_XML_PATH = "/system.xml";
 
 	/** config.properties文件路径 */
 	public static final String CONFIG_PROPERTIES_PATH = "/config.properties";
-	
+
 	private static CommonAttributes instance;
 	/**
 	 * 洗车服务ID
 	 */
 	private String cleanCar;
-	
+
 	private String systemId;
-	
-	private LinkedHashMap<String,DateMapBean> dateTimeMap = new LinkedHashMap<String,DateMapBean>();
-	
+
+	private LinkedHashMap<String, DateMapBean> dateTimeMap = new LinkedHashMap<String, DateMapBean>();
+
 	private static SystemBean systemBean;
-	
+
 	private String payURL;
-	
+
 	/**
 	 * 不可实例化
 	 */
 	private CommonAttributes() {
 	}
-	
-	public static CommonAttributes getInstance(){
-		if(instance == null){
+
+	public static CommonAttributes getInstance() {
+		if (instance == null) {
 			instance = new CommonAttributes();
 		}
 		return instance;
 	}
-	
-	
+
 	public void setSystemParam() {
-		// TODO Auto-generated method stub
-		SystemParamService systemParamService = (SystemParamService) SpringUtil.getBean("SystemParamService");
+		SystemParamService systemParamService = (SystemParamService) SpringUtil
+				.getBean("SystemParamService");
 		SystemParam param = systemParamService.find(this.getSystemId());
 		this.setSystemBean(conver2SystemParam(param));
 	}
-	
-	public SystemBean conver2SystemParam(SystemParam param){
+
+	public SystemBean conver2SystemParam(SystemParam param) {
 		SystemBean systemBean = new SystemBean();
 		String contentObj = param.getContent();
-		try{
+		try {
 			JSONObject obj = JSONObject.fromObject(contentObj);
-			if(obj.containsKey("startDate")){
+			if (obj.containsKey("startDate")) {
 				systemBean.setStartDate(obj.getString("startDate"));
-			}else{
+			} else {
 				systemBean.setStartDate("9:00");
 			}
 
-			if(obj.containsKey("endDate")){
+			if (obj.containsKey("endDate")) {
 				systemBean.setEndDate(obj.getString("endDate"));
-			}else{
+			} else {
 				systemBean.setEndDate("18:00");
 			}
 
-			if(obj.containsKey("content")){
+			if (obj.containsKey("content")) {
 				systemBean.setContent(obj.getString("content"));
-			}else{
+			} else {
 				systemBean.setContent("只支持贵阳地区");
 			}
-			
-		}catch(Exception e){
+			if (obj.containsKey("price")) {
+				systemBean.setPrice(obj.getString("price"));
+			} else {
+				systemBean.setPrice("1000");
+			}
+
+		} catch (Exception e) {
 			systemBean.setStartDate("9:00");
 			systemBean.setEndDate("18:00");
 			systemBean.setContent("只支持贵阳地区");
+			systemBean.setPrice("1000");
 		}
-		
-		if(StringUtils.isEmpty(param.getVersion())){
+
+		if (StringUtils.isEmpty(param.getVersion())) {
 			systemBean.setVersion("0.66");
-		}else{
+		} else {
 			systemBean.setVersion(param.getVersion());
 		}
 		return systemBean;
 	}
-	
-	
-	
+
 	public String getCleanCar() {
 		return cleanCar;
 	}
@@ -146,5 +152,5 @@ public final class CommonAttributes {
 	public void setPayURL(String payURL) {
 		this.payURL = payURL;
 	}
-	
+
 }

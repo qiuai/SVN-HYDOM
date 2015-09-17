@@ -325,13 +325,11 @@ public class MainActivity extends BaseHttpActivity implements OnClickListener,AM
 					work_status.setVisibility(View.VISIBLE);
 					work_state.setVisibility(View.VISIBLE);
 					post(HttpUrl.UPLOADIMAGE, createParamsWork());
-					
 				}else{
 					System.out.println("下班");
 					boo = false;
 					work_status.setVisibility(View.INVISIBLE);
 					work_state.setVisibility(View.INVISIBLE);
-//					Toast("你处于下班状态,不会收到任何服务订单");
 					post(HttpUrl.UPLOADIMAGE, createParamsWork());
 				}
 			}

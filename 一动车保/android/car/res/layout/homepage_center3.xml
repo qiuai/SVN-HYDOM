@@ -463,9 +463,48 @@
                     android:src="@drawable/youjiantou3" />
               
             </LinearLayout>
-
-              <LinearLayout
+ <LinearLayout
                   android:id="@+id/l4"
+                  android:layout_width="match_parent"
+                  android:layout_height="50dp"
+                  android:layout_marginTop="5dp"
+                  android:background="@drawable/layout_click_item"
+                  android:clickable="true" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/gift" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:text="会员卡"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/gray_6" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginRight="10dp"
+                    android:src="@drawable/youjiantou3" />
+              
+            </LinearLayout>
+              <LinearLayout
+                  android:id="@+id/l5"
                   android:layout_width="match_parent"
                   android:layout_height="50dp"
                   android:layout_marginTop="5dp"
@@ -506,7 +545,7 @@
             </LinearLayout>
 
               <LinearLayout
-                  android:id="@+id/l5"
+                  android:id="@+id/l6"
                   android:layout_width="match_parent"
                   android:layout_height="50dp"
                   android:layout_marginBottom="5dp"

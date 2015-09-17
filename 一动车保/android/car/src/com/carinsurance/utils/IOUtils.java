@@ -23,6 +23,7 @@ import android.content.pm.Signature;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore.MediaColumns;
 import android.util.Base64;
 import android.util.Log;
 
@@ -98,8 +99,7 @@ public class IOUtils {
 		 * @param filename
 		 * @return
 		 */
-		return (context.getApplicationContext().getFilesDir().getAbsolutePath()
-				+ "/" + filename);
+		return (context.getApplicationContext().getFilesDir().getAbsolutePath() + "/" + filename);
 	}
 
 	/**
@@ -118,8 +118,7 @@ public class IOUtils {
 		 * @param filename
 		 * @return
 		 */
-		return (context.getApplicationContext().getFilesDir().getAbsolutePath()
-				+ "/" + filename);
+		return (context.getApplicationContext().getFilesDir().getAbsolutePath() + "/" + filename);
 	}
 
 	/**
@@ -138,8 +137,7 @@ public class IOUtils {
 		 * @param filename
 		 * @return
 		 */
-		return (context.getApplicationContext().getFilesDir().getAbsolutePath()
-				+ "/" + filename);
+		return (context.getApplicationContext().getFilesDir().getAbsolutePath() + "/" + filename);
 	}
 
 	/**
@@ -382,8 +380,7 @@ public class IOUtils {
 	 * @return
 	 */
 	public static boolean hasSDcard() {
-		if (Environment.getExternalStorageState().equals(
-				Environment.MEDIA_MOUNTED)) {
+		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
 			return true;
 		} else {
 			return false;
@@ -398,8 +395,7 @@ public class IOUtils {
 	 * @return
 	 */
 	public static String UriToPath(Context context, Uri uri) {
-		Cursor cursor = context.getContentResolver().query(uri, null, null,
-				null, null);
+		Cursor cursor = context.getContentResolver().query(uri, null, null, null, null);
 		cursor.moveToFirst();
 		String url = cursor.getString(1);
 		// for (int i = 0; i < cursor.getColumnCount(); i++)
@@ -408,6 +404,19 @@ public class IOUtils {
 		// cursor.getString(i));
 		// }
 		return url;
+	}
+
+	// 根据Uri获取文件路径
+	private String getFilePathFromUri(Context context,Uri uri) {
+		String[] proj = { MediaColumns.DATA };
+
+		Cursor actualimagecursor = context.getContentResolver().query(uri, proj, null, null, null);
+
+		int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaColumns.DATA);
+		actualimagecursor.moveToFirst();
+		String img_path = actualimagecursor.getString(actual_image_column_index);
+		return img_path;
+
 	}
 
 	/**
@@ -438,14 +447,14 @@ public class IOUtils {
 	 * */
 	public static String showHashKey(Context context, String pageName) {// "com.badibadi.uniclubber"
 		try {
-			PackageInfo info = context.getPackageManager().getPackageInfo(
-					pageName, PackageManager.GET_SIGNATURES); // Your package
-																// name here
+			PackageInfo info = context.getPackageManager().getPackageInfo(pageName, PackageManager.GET_SIGNATURES); // Your
+																													// package
+																													// name
+																													// here
 			for (Signature signature : info.signatures) {
 				MessageDigest md = MessageDigest.getInstance("SHA");
 				md.update(signature.toByteArray());
-				Log.i("KeyHash:",
-						Base64.encodeToString(md.digest(), Base64.DEFAULT));
+				Log.i("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
 				return Base64.encodeToString(md.digest(), Base64.DEFAULT);
 			}
 		} catch (NameNotFoundException e) {

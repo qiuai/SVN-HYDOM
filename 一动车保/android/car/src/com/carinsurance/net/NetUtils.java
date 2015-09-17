@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.Header;
+
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -12,13 +14,16 @@ import android.util.Log;
 
 import com.carinsurance.utils.AsyncHttpHelp;
 import com.carinsurance.utils.StringUtil;
+import com.lidroid.xutils.BitmapUtils;
 import com.lidroid.xutils.HttpUtils;
+import com.lidroid.xutils.bitmap.core.BitmapSize;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.HttpHandler;
 import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.http.ResponseInfo;
 import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
+import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 public class NetUtils {
@@ -67,6 +72,15 @@ public class NetUtils {
 		return new NetUtils();
 	}
 
+	// public void ss(Context context)
+	// {
+	// BitmapSize bs=new BitmapSize(150, 150);
+	// BitmapUtils b=new BitmapUtils(context);
+	// b.configDefaultBitmapMaxSize(100, 100);
+	// b.configDefaultBitmapMaxSize(bs);
+	// }
+	
+	
 	/**
 	 * 
 	 * @param MethodName
@@ -369,7 +383,7 @@ public class NetUtils {
 		// params.addBodyParameter("phone", "15198183412");
 		HttpUtils th = new HttpUtils();
 		try {
-			Log.v("aaa", "提交的数据是" + requestParams.getEntity().getContent());
+			Log.v("sss1", "提交的数据是" + requestParams.getEntity().getContent());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -516,7 +530,7 @@ public class NetUtils {
 		// }).start();
 	}
 
-	public void post_async(final String MethodName, final com.loopj.android.http.RequestParams params, final Handler handler, final int Tag) {
+	public void post_async(final String MethodName, final com.loopj.android.http.RequestParams params, final Handler handler) {
 		// TODO Auto-generated method stub
 		// HttpUtils th = new HttpUtils();
 		try {
@@ -546,7 +560,7 @@ public class NetUtils {
 				Message msg = new Message();
 				msg.what = Net_SUCCESS;
 				Bundle bun = new Bundle();
-				bun.putInt(GET_TAG, Tag);
+				bun.putString(GET_TAG, MethodName);
 				bun.putString(GET_MSG, t);
 				msg.setData(bun);
 
@@ -561,7 +575,7 @@ public class NetUtils {
 				Message msg = new Message();
 				msg.what = Net_Failure;
 				Bundle bun = new Bundle();
-				bun.putInt(GET_TAG, Tag);
+				bun.putString(GET_TAG, MethodName);
 				String a = "";
 				try {
 					a = new String(arg2, "UTF-8");
@@ -585,13 +599,14 @@ public class NetUtils {
 	 * @param handler
 	 * @param Tag
 	 */
-	public void get_async(final String MethodName, final Handler handler, final int Tag) {
-		// TODO Auto-generated method stub
-		// new Thread(new Runnable() {
-		// @Override
-		// public void run() {
-
-		AsyncHttpHelp.get(MethodName, new AsyncHttpResponseHandler() {
+	public void get_async(final String MethodName,com.loopj.android.http.RequestParams params,final Handler handler) {
+		
+		try {
+			Log.v("sss1", "接口" + MethodName + "提交的数据是" + params.toString());
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		AsyncHttpHelp.get(Task.url + "/"+MethodName,params,new AsyncHttpResponseHandler() {
 
 			@Override
 			public void onSuccess(int arg0, Header[] arg1, byte[] arg2) {
@@ -600,7 +615,7 @@ public class NetUtils {
 				String t = "";
 				try {
 					t = new String(arg2, "UTF-8");
-				} catch (UnsupportedEncodingException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
@@ -613,7 +628,7 @@ public class NetUtils {
 				Message msg = new Message();
 				msg.what = Net_SUCCESS;
 				Bundle bun = new Bundle();
-				bun.putInt(GET_TAG, Tag);
+				bun.putString(GET_TAG, MethodName);
 				bun.putString(GET_MSG, t);
 				msg.setData(bun);
 
@@ -628,11 +643,11 @@ public class NetUtils {
 				Message msg = new Message();
 				msg.what = Net_Failure;
 				Bundle bun = new Bundle();
-				bun.putInt(GET_TAG, Tag);
+				bun.putString(GET_TAG, MethodName);
 				String a = "";
 				try {
 					a = new String(arg2, "UTF-8");
-				} catch (UnsupportedEncodingException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

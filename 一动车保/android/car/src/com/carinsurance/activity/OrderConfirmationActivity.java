@@ -17,6 +17,7 @@ import com.carinsurance.net.Task;
 import com.carinsurance.utils.DisplayUtil;
 import com.carinsurance.utils.JsonUtil;
 import com.carinsurance.utils.JumpUtils;
+import com.carinsurance.utils.MathUtils;
 import com.carinsurance.utils.MyThreadTool;
 import com.carinsurance.utils.RepeatClick;
 import com.carinsurance.utils.StringUtil;
@@ -44,16 +45,16 @@ public class OrderConfirmationActivity extends BaseActivity {
 
 	public static int ENTER_PAY = 1;// 进入支付页面
 
-	@ViewInject(R.id.xu_line0)
-	LinearLayout xu_line0;
-	@ViewInject(R.id.xu_line1)
-	LinearLayout xu_line1;
-	@ViewInject(R.id.xu_line2)
-	LinearLayout xu_line2;
-	@ViewInject(R.id.xu_line3)
-	LinearLayout xu_line3;
+	// @ViewInject(R.id.xu_line0)
+	// LinearLayout xu_line0;
+	// @ViewInject(R.id.xu_line1)
+	// LinearLayout xu_line1;
+	// @ViewInject(R.id.xu_line2)
+	// LinearLayout xu_line2;
+	// @ViewInject(R.id.xu_line3)
+	// LinearLayout xu_line3;
 	@ViewInject(R.id.return_btn)
-	LinearLayout return_btn;
+	ImageView return_btn;
 
 	UpDingDan upDingDan;
 	@ViewInject(R.id.fr_nojishi)
@@ -159,6 +160,8 @@ public class OrderConfirmationActivity extends BaseActivity {
 
 	@ViewInject(R.id.title)
 	TextView title;
+	@ViewInject(R.id.by_000)
+	LinearLayout by_000;
 
 	private void initBaoyangxiangqing() {
 		// TODO Auto-generated method stub
@@ -189,11 +192,6 @@ public class OrderConfirmationActivity extends BaseActivity {
 			tv_payWay.setText("现场pos机刷卡");
 		}
 
-		tv_shangpingjiage.setText("￥" + baoyangOrderDetail.getOpmoney());
-
-		tv_fuwufeiyong.setText("￥" + baoyangOrderDetail.getOcmoney());
-		tv_youhuijuan.setText("￥" + baoyangOrderDetail.getCpmoney());
-		tv_shifukuan.setText("￥" + baoyangOrderDetail.getPaymoney());
 		// myExpandableListViewShowAll1
 		// scprice.setText("" + baoyangOrderDetail.getOsprice());
 		// scremark1.setText("" + baoyangOrderDetail.getOsname());
@@ -222,13 +220,19 @@ public class OrderConfirmationActivity extends BaseActivity {
 
 	private void initExpandableListView() {
 		// TODO Auto-generated method stub
+
 		MyOrderDetailAdapter adapter;
 		ExpandableListView myExpandableListViewShowAll1 = (ExpandableListView) this.findViewById(R.id.myExpandableListViewShowAll1);
 		myExpandableListViewShowAll1.setVisibility(View.VISIBLE);
 		// myExpandableListViewShowAll1.setDivider(null);
 		// myExpandableListViewShowAll1.setDividerHeight((int)
 		// DisplayUtil.getDip(OrderConfirmationActivity.this, 1));
-		myExpandableListViewShowAll1.setAdapter(adapter = new MyOrderDetailAdapter(OrderConfirmationActivity.this, baoyangOrderDetail.getSclist()));
+		myExpandableListViewShowAll1.setAdapter(adapter = new MyOrderDetailAdapter(OrderConfirmationActivity.this, baoyangOrderDetail.getSclist(), type));
+
+		myExpandableListViewShowAll1.setDivider(getResources().getDrawable(R.color.bj_f0f0f0));
+		myExpandableListViewShowAll1.setChildDivider(getResources().getDrawable(R.color.bj_f0f0f0));
+		myExpandableListViewShowAll1.setDividerHeight((int) DisplayUtil.getDip(OrderConfirmationActivity.this, 1));
+
 		myExpandableListViewShowAll1.setGroupIndicator(null); // 去掉父类的箭头
 		// 展开所有
 		for (int i = 0, length = adapter.getGroupCount(); i < length; i++) {
@@ -241,11 +245,29 @@ public class OrderConfirmationActivity extends BaseActivity {
 				return true;// 默认为false，设为true时，点击事件不会展开Group
 			}
 		});
+		// 如果没有商品，服务费用==实付款
+		Log.v("aaa", "adapter.is_hasshangping-->" + adapter.is_hasshangping());
 
+		tv_shangpingjiage.setText("￥" + baoyangOrderDetail.getOpmoney());
+
+		tv_fuwufeiyong.setText("￥" + baoyangOrderDetail.getOcmoney());
+		tv_youhuijuan.setText("￥" + baoyangOrderDetail.getCpmoney());
+		tv_shifukuan.setText("￥" + baoyangOrderDetail.getPaymoney());
+		if (adapter.is_hasshangping() == false) {
+			// by_000.setVisibility(View.GONE);
+			// tv_shifukuan.setText("￥" + baoyangOrderDetail.getPaymoney());
+//			getCpmoney          getPaymoney
+			String add=MathUtils.add(baoyangOrderDetail.getPaymoney(), baoyangOrderDetail.getCpmoney()).toString();
+			tv_fuwufeiyong.setText("￥" + add);
+		}
 	}
 
 	private void initXiCheLiulan() {
 		// TODO Auto-generated method stub
+		android.widget.LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(android.widget.LinearLayout.LayoutParams.MATCH_PARENT, (int) DisplayUtil.getDip(OrderConfirmationActivity.this, 50));
+		params.setMargins(0, (int) DisplayUtil.getDip(OrderConfirmationActivity.this, 20), 0, 0);
+		by_000.setLayoutParams(params);
+
 		scprice.setText("￥" + crashDetailModel.getOsprice());
 		scremark1.setText("" + crashDetailModel.getOsname());
 		scremark2.setText("" + crashDetailModel.getOsremark());// /
@@ -334,10 +356,10 @@ public class OrderConfirmationActivity extends BaseActivity {
 		if (type.equals("3"))
 			oid = JumpUtils.getString(OrderConfirmationActivity.this, "oid");// (OrderConfirmationActivity.this);
 		// Log.v("aaa", "upDingDan" + upDingDan.toString());
-		xu_line0.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// 关闭硬件加速
-		xu_line1.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// 关闭硬件加速
-		xu_line2.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// 关闭硬件加速
-		xu_line3.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// 关闭硬件加速
+		// xu_line0.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// 关闭硬件加速
+		// xu_line1.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// 关闭硬件加速
+		// xu_line2.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// 关闭硬件加速
+		// xu_line3.setLayerType(View.LAYER_TYPE_SOFTWARE, null);// 关闭硬件加速
 
 		if (type.equals("0")) {// 上门洗车
 			checkisHasjishi();
@@ -799,6 +821,8 @@ public class OrderConfirmationActivity extends BaseActivity {
 					// // tv_payWay.setText("微信");
 					// }
 
+				} else if (result.equals("501")) {
+					Utils.showMessage(OrderConfirmationActivity.this, "预约时间出错(超过4点需重新选择预约时间)！");
 				} else {
 					Utils.showMessage(OrderConfirmationActivity.this, "订单提交失败,错误码:" + result);
 				}
@@ -887,7 +911,7 @@ public class OrderConfirmationActivity extends BaseActivity {
 			JumpUtils.jumpActivityForResult(OrderConfirmationActivity.this, MyPayActivity.class, map, ENTER_PAY);
 		} else if (upDingDan.getPayWay().equals("4")) {
 			// tv_payWay.setText("微信");
-			Log.v("aaa","type==>"+type);
+			Log.v("aaa", "type==>" + type);
 			HashMap<String, String> map = new HashMap<String, String>();
 			map.put("dingdanhao", onum);
 			map.put("type", "1");

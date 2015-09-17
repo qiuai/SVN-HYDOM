@@ -370,6 +370,14 @@ public class HomePage0Fragment extends BaseFragment implements IXListViewListene
 			params.put("uid", Utils.getUid(getActivity()));
 			params.put("token", Utils.getToken(getActivity()));
 		}
+
+		// com.loopj.android.http.RequestParams params = new
+		// com.loopj.android.http.RequestParams();
+		// if (!StringUtil.isNullOrEmpty(Utils.getUid(getActivity())) &&
+		// !StringUtil.isNullOrEmpty(Utils.getToken(getActivity()))) {
+		// params.put("uid", Utils.getUid(getActivity()));
+		// params.put("token", Utils.getToken(getActivity()));
+		// }
 		NetUtils.getIns().post(Task.GET_COMMON_INDEX, params, handler);
 	}
 
@@ -450,7 +458,7 @@ public class HomePage0Fragment extends BaseFragment implements IXListViewListene
 								getWeather(cityName);
 								isRun = false;
 							}
-							Log.i("aaa", "是否正在定位：===》"+islocation);
+							Log.i("aaa", "是否正在定位：===》" + islocation);
 							if (islocation == false) {
 								isRun = false;
 								getWeather(getResources().getString(R.string.guiyang));

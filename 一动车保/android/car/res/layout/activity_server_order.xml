@@ -1111,7 +1111,8 @@
                             android:layout_marginTop="5dp"
                             android:button="@null"
                             android:drawableRight="@drawable/chicked_gougou"
-                            android:text="微信支付"
+                            android:text="微信支付  "
+                            android:checked="true"
                             android:textColor="@color/textcolor__343434"
                             android:visibility="visible" />
 
@@ -1124,7 +1125,7 @@
                             android:layout_marginTop="5dp"
                             android:button="@null"
                             android:drawableRight="@drawable/chicked_gougou"
-                            android:text="银联"
+                            android:text="银联  "
                             android:textColor="@color/textcolor__343434"
                             android:visibility="visible" />
 
@@ -1136,7 +1137,7 @@
                             android:layout_marginBottom="5dp"
                             android:layout_marginTop="5dp"
                             android:button="@null"
-                            android:checked="true"
+                            android:checked="false"
                             android:drawableRight="@drawable/chicked_gougou"
                             android:text="支付宝  "
                             android:textColor="@color/textcolor__343434" />

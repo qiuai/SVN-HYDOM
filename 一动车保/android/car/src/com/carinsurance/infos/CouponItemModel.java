@@ -16,6 +16,17 @@ public class CouponItemModel implements Serializable {
 	private String cpname;// 优惠券名称
 	private String cpintroduction;// 优惠券介绍
 	private String cpimg;// 优惠券展示图
+	private String cppid;// 优惠券包ID
+	private String cppimg;// 优惠券包的展示图
+	private String cppprice;//优惠券包价格
+	
+	public String getCppimg() {
+		return cppimg;
+	}
+
+	public void setCppimg(String cppimg) {
+		this.cppimg = cppimg;
+	}
 
 	// private String cpid;
 	// private String cptype;
@@ -40,6 +51,22 @@ public class CouponItemModel implements Serializable {
 
 	public String getCpminprice() {
 		return cpminprice;
+	}
+
+	public String getCppid() {
+		return cppid;
+	}
+
+	public void setCppid(String cppid) {
+		this.cppid = cppid;
+	}
+
+	public String getCppprice() {
+		return cppprice;
+	}
+
+	public void setCppprice(String cppprice) {
+		this.cppprice = cppprice;
 	}
 
 	public void setCpminprice(String cpminprice) {

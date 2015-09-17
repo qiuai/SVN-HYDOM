@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.carinsurancer.car"
     android:versionCode="2"
-    android:versionName="0.66" >
+    android:versionName="0.69" >
 
     <uses-sdk
         android:minSdkVersion="12"
@@ -32,7 +32,7 @@
     激光推送相關
     <permission
         android:name="com.carinsurancer.car.permission.JPUSH_MESSAGE"
-        android:protectionLevel="signature" />
+        android:protectionLevel="signature" />
     -->
     <!-- 支付宝相关 -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -91,7 +91,7 @@
         <!-- 高德地图的key 测试的key：257f990ed4414c206ec81ea14a7b6fb6  发布的key: c72d34f9fbbad345a8c70844f14f16b6 -->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="257f990ed4414c206ec81ea14a7b6fb6" />
+            android:value="c72d34f9fbbad345a8c70844f14f16b6" />
 
         <activity
             android:name="com.carinsurance.activity.LogoActivity"
@@ -165,7 +165,9 @@
         <!-- 车型信息 -->
         <activity
             android:name="com.carinsurance.activity.CarInfosActivity"
-            android:label="@string/title_activity_car_infos" >
+            android:label="@string/title_activity_car_infos"
+            android:windowSoftInputMode="adjustPan"
+             >
         </activity>
         <!-- 门店预约 -->
         <activity android:name="com.carinsurance.activity.OrderActivity" >
@@ -183,7 +185,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="com.carinsurancer.car" />
             </intent-filter>
-        </activity>
+        </activity>
         -->
         <!--
         Required  SDK核心功能 
@@ -191,7 +193,7 @@
             android:name="cn.jpush.android.service.DownloadService"
             android:enabled="true"
             android:exported="false" >
-        </service>
+        </service>
         -->
         <!--
         Required SDK 核心功能 
@@ -205,7 +207,7 @@
                 <action android:name="cn.jpush.android.intent.PushService" />
                 <action android:name="cn.jpush.android.intent.PUSH_TIME" />
             </intent-filter>
-        </service>
+        </service>
         -->
         <!--
         Required SDK核心功能 
@@ -228,11 +230,11 @@
 
                 <data android:scheme="package" />
             </intent-filter>
-        </receiver>
+        </receiver>
         -->
         <!--
         Required SDK核心功能 
-        <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
+        <receiver android:name="cn.jpush.android.service.AlarmReceiver" />
         -->
         <!--
         User defined.  For test only  用户自定义的广播接收器 
@@ -255,7 +257,7 @@
                                  接收网络变化 连接/断开 since 1.6.3 
                 <category android:name="com.carinsurancer.car" />
             </intent-filter>
-        </receiver>
+        </receiver>
         -->
         <!--
         Required  . Enable it you can get statistics data with channel 
@@ -264,7 +266,7 @@
             android:value="developer-default" />
         <meta-data
             android:name="JPUSH_APPKEY"
-            android:value="ae070421d3da0fe2342fe452" />
+            android:value="ae070421d3da0fe2342fe452" />
         -->
         <!-- </>值来自开发者平台取得的AppKey -->
         <activity
@@ -444,6 +446,16 @@
         <activity android:name="com.carinsurance.activity.RechargeActivity" >
         </activity>
 
+        <!-- 会员卡列表-->
+        <activity android:name="com.carinsurance.activity.MembershipCardActivity" >
+        </activity>
+
+         <!-- 会员卡的购买界面 -->
+        <activity android:name="com.carinsurance.activity.MembershipCardBuyActivity" >
+        </activity>
+        <!-- 选择日期 -->
+        <activity android:name="com.carinsurance.activity.ChooseDataActivity" >
+        </activity>
         <!-- 银联相关    http://www.360doc.com/content/14/0909/17/9200790_408206083.shtml -->
         <activity
             android:name="com.unionpay.uppay.PayActivity"

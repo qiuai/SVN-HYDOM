@@ -9,19 +9,25 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.MediaStore.MediaColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.BaseAdapter;
@@ -40,6 +46,7 @@ import com.carinsurance.net.NetUtils;
 import com.carinsurance.net.Task;
 import com.carinsurance.nodes.GoodNode;
 import com.carinsurance.utils.IOUtils;
+import com.carinsurance.utils.ImageLocalLoader;
 import com.carinsurance.utils.ImageTools;
 import com.carinsurance.utils.MD5;
 import com.carinsurance.utils.StringUtil;
@@ -51,9 +58,16 @@ import com.lidroid.xutils.http.RequestParams;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
 
-public class DiscussCommitActivity extends BaseActivity implements OnItemClickListener {
+public class DiscussCommitActivity extends BaseActivity implements
+		OnItemClickListener {
 	public static final String DISCUSS_TYPE_FOR_GOODS = "1";
 	public static final String DISCUSS_TYPE_FOR_SERVER = "2";
+	public static final String IMAGE_UNSPECIFIED = "image/*";
+
+	private final int REQUEST_CODE_FOR_PHONES_PIC = 201;
+	private final int REQUEST_CODE_FOR_CAMERA_PIC = 202;
+	private static String curDir;
+	private static String curFileName;
 
 	@ViewInject(R.id.return_btn)
 	private ImageView returnBtn;
@@ -69,7 +83,7 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 	private EditText edit;
 
 	private BaseAdapter adapter, goodsListAdapter;
-	private List<Uri> datas = new ArrayList<>();
+	private List<File> datas = new ArrayList<>();
 	private List<GoodNode> goodsData = new ArrayList<>();
 	private String curDiscussType = "-1";// -1是默认（不存在） 1
 											// DISCUSS_TYPE_FOR_GOODS（商品评论） 2
@@ -85,6 +99,8 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 
 	private ProgressDialog dialog;
 	private xUtilsImageLoader imageLoader;
+
+	private Dialog photoChooserDialog;
 
 	@OnClick(R.id.btn_commit_discuss)
 	private void onClick(View view) {
@@ -110,7 +126,8 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 		String content = edit.getText().toString();
 
 		if (StringUtil.isNullOrEmpty(content)) {
-			Toast.makeText(getApplicationContext(), "请填写评论内容！", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getApplicationContext(), "请填写评论内容！",
+					Toast.LENGTH_SHORT).show();
 			return;
 		}
 		if (star == 0) {
@@ -127,7 +144,7 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 		param.put("uid", uid);
 		param.put("token", token);
 		// if(StringUtil.isNullOrEmpty())
-		param.put("imageurl", imageurl);
+		param.put("imgurl", imageurl);
 		int strInt = (int) (star * 2); // 将0-5的小数转换为0-10
 		param.put("star", strInt + "");
 		param.put("content", content);
@@ -242,8 +259,16 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_discuss);
 		ViewUtils.inject(this);
+		if (Environment.MEDIA_MOUNTED.equals(Environment
+				.getExternalStorageState()) && getExternalCacheDir() != null) {
+			curDir = getExternalCacheDir().getAbsolutePath();
+		} else {
+			curDir = getCacheDir().getAbsolutePath();
+		}
 
-		if (!StringUtil.isNullOrEmpty(Utils.getUid(getApplicationContext())) && !StringUtil.isNullOrEmpty(Utils.getToken(getApplicationContext()))) {
+		if (!StringUtil.isNullOrEmpty(Utils.getUid(getApplicationContext()))
+				&& !StringUtil.isNullOrEmpty(Utils
+						.getToken(getApplicationContext()))) {
 			// 用户已登录
 		} else {
 			Toast.makeText(this, "您还没有登录!", Toast.LENGTH_SHORT).show();
@@ -257,7 +282,11 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 		imageUrl = result.getStringExtra("imageUrl");
 		pname = result.getStringExtra("pname");
 
-		if (StringUtil.isNullOrEmpty(oid) || StringUtil.isNullOrEmpty(pid) || StringUtil.isNullOrEmpty(pname) || (!curDiscussType.equals(DISCUSS_TYPE_FOR_GOODS) && !curDiscussType.equals(DISCUSS_TYPE_FOR_SERVER))) {
+		if (StringUtil.isNullOrEmpty(oid)
+				|| StringUtil.isNullOrEmpty(pid)
+				|| StringUtil.isNullOrEmpty(pname)
+				|| (!curDiscussType.equals(DISCUSS_TYPE_FOR_GOODS) && !curDiscussType
+						.equals(DISCUSS_TYPE_FOR_SERVER))) {
 			// 商品和订单ID必须值
 			Toast.makeText(this, "非法进入,传入数据缺失", Toast.LENGTH_SHORT).show();
 			finish();
@@ -274,7 +303,8 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 		pics.setAdapter(adapter);
 
 		imageLoader = new xUtilsImageLoader(this);
-		goodsListAdapter = new DicussGoodsListAdapter(goodsData, this, imageLoader);
+		goodsListAdapter = new DicussGoodsListAdapter(goodsData, this,
+				imageLoader);
 		goods.setAdapter(goodsListAdapter);
 
 		pics.setOnItemClickListener(this);
@@ -295,7 +325,8 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 		private LayoutInflater inflater;
 		private xUtilsImageLoader loader;
 
-		public DicussGoodsListAdapter(List<GoodNode> datas, Context context, xUtilsImageLoader loader) {
+		public DicussGoodsListAdapter(List<GoodNode> datas, Context context,
+				xUtilsImageLoader loader) {
 			this.datas = datas;
 			inflater = LayoutInflater.from(context);
 			this.loader = loader;
@@ -320,13 +351,19 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 		public View getView(int position, View convertView, ViewGroup parent) {
 			ViewHolder holder;
 			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.hot_category_list_item, null);
+				convertView = inflater.inflate(R.layout.hot_category_list_item,
+						null);
 				holder = new ViewHolder();
-				holder.img = (ImageView) convertView.findViewById(R.id.hot_category_list_item_img);
-				holder.name = (TextView) convertView.findViewById(R.id.hot_category_list_item_name);
-				holder.buycounts = (TextView) convertView.findViewById(R.id.hot_category_list_item_buynum);
-				holder.price = (TextView) convertView.findViewById(R.id.hot_category_list_item_price);
-				holder.comts = (TextView) convertView.findViewById(R.id.hot_category_list_item_comts);
+				holder.img = (ImageView) convertView
+						.findViewById(R.id.hot_category_list_item_img);
+				holder.name = (TextView) convertView
+						.findViewById(R.id.hot_category_list_item_name);
+				holder.buycounts = (TextView) convertView
+						.findViewById(R.id.hot_category_list_item_buynum);
+				holder.price = (TextView) convertView
+						.findViewById(R.id.hot_category_list_item_price);
+				holder.comts = (TextView) convertView
+						.findViewById(R.id.hot_category_list_item_comts);
 
 				convertView.setTag(holder);
 			} else {
@@ -353,11 +390,11 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 
 	// 图片选择适配器
 	private class DiscussCommitImageSelAdapter extends BaseAdapter {
-		private List<Uri> datas;
+		private List<File> datas;
 		private LayoutInflater inflater;
 		private ContentResolver resolver;
 
-		public DiscussCommitImageSelAdapter(List<Uri> datas, Context context) {
+		public DiscussCommitImageSelAdapter(List<File> datas, Context context) {
 			this.datas = datas;
 			inflater = LayoutInflater.from(context);
 			resolver = context.getContentResolver();
@@ -384,18 +421,34 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			if (convertView == null) {
-				convertView = inflater.inflate(R.layout.discuss_commit_pics_sel_item, null);
+				convertView = inflater.inflate(
+						R.layout.discuss_commit_pics_sel_item, null);
 			}
 
-			ImageView iv = (ImageView) convertView.findViewById(R.id.dicuss_commit_pics_sel_item_imgthumb);
+			ImageView iv = (ImageView) convertView
+					.findViewById(R.id.dicuss_commit_pics_sel_item_imgthumb);
 			if (datas.get(position) == null) { // 最后一个
 				iv.setImageResource(R.drawable.camera);
 				iv.setScaleType(ScaleType.CENTER);
 			} else {
 				try {
-					iv.setImageBitmap(BitmapFactory.decodeStream(resolver.openInputStream(datas.get(position))));
-					iv.setScaleType(ScaleType.CENTER_INSIDE);
-				} catch (FileNotFoundException e) {
+					File bmp = datas.get(position);// new
+													// File()//
+													// getItem(position);
+					// ImageLocalLoader.getInstance().loadImageNoCache(
+					// bmp.getAbsolutePath(),
+					// holder.getImageView(R.id.imageView1));
+					Bitmap bp = ImageLocalLoader
+							.decodeSampledBitmapFromResource(
+									bmp.getAbsolutePath(), 128, 128);
+					// holder.getImageView(R.id.imageView1).setImageBitmap(bp);
+
+					iv.setImageBitmap(bp);
+					iv.setScaleType(ScaleType.CENTER_CROP);
+
+					// iv.setImageBitmap(BitmapFactory.decodeStream(resolver.openInputStream(datas.get(position))));
+					// iv.setScaleType(ScaleType.CENTER_INSIDE);
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
@@ -406,16 +459,22 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
 		if (position == datas.size() - 1) { // 最後一個
 			if (datas.size() == 6) {
 				Utils.showMessage(DiscussCommitActivity.this, "最多只能上传5张照片");
 				return;
 			}
-			Intent intent = new Intent();
-			intent.setType("image/*");
-			intent.setAction(Intent.ACTION_GET_CONTENT);
-			startActivityForResult(intent, 1);
+			// Intent intent = new Intent();
+			// intent.setType("image/*");
+			// intent.setAction(Intent.ACTION_GET_CONTENT);
+			// startActivityForResult(intent, 1);
+			// Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+			// intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+			// IMAGE_UNSPECIFIED);
+			// startActivityForResult(intent, 1);
+			showChooserDialog();
 		}
 	}
 
@@ -423,23 +482,58 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == 1) {
-			if (resultCode == RESULT_OK) {
-				Uri uri = data.getData();
-				if (datas.contains(uri)) {
-					return;
-				}
-				datas.add(0, uri);
+		// if (requestCode == 1) {
+		// // Utils.showMessage(DiscussCommitActivity.this, "data===>"+data);
+		// if (resultCode == RESULT_OK) {
+		// Uri uri = data.getData();
+		// // Utils.showMessage(DiscussCommitActivity.this,
+		// // "路径："+getFilePathFromUri(uri));
+		// if (datas.contains(uri)) {
+		// return;
+		// }
+		// datas.add(0, uri);
+		// adapter.notifyDataSetChanged();
+		// uploadImage(uri);
+		// }
+		// }
+
+		if (requestCode == REQUEST_CODE_FOR_PHONES_PIC) {
+			if (resultCode == RESULT_OK && data != null) {
+				String filepath = getFilePathFromUri(data.getData());
+				// 显示
+				File file = new File(filepath);
+				datas.add(adapter.getCount() - 1, file);
 				adapter.notifyDataSetChanged();
-				uploadImage(uri);
+				uploadImage(file);
 			}
+			photoChooserDialog.dismiss();
+
+			return;
 		}
+
+		if (requestCode == REQUEST_CODE_FOR_CAMERA_PIC) {
+			if (resultCode == RESULT_OK) {
+				File file = new File(curDir, curFileName);
+				if (file != null && file.exists()) {
+					datas.add(adapter.getCount() - 1, file);
+					adapter.notifyDataSetChanged();
+					uploadImage(file);
+				}
+			}
+
+			photoChooserDialog.dismiss();
+			return;
+		}
+		// // 读取相册缩放图片
+		// if (requestCode == PHOTOZOOM) {
+		// startPhotoZoom(data.getData());
+		// }
 	}
 
 	// 上传图片
-	private synchronized void uploadImage(Uri uri) {
+	private synchronized void uploadImage(File fileSrc) {
 		curImageUploading++;
-		String path = getFilePathFromUri(uri);
+		String path = fileSrc.getAbsolutePath();
 		String uid = Utils.getUid(this);
 		String token = Utils.getToken(this);
 		RequestParams params = new RequestParams();
@@ -448,7 +542,10 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 
 		// 图片文件校正压缩
 		try {
-			File file = new File(ImageTools.ReducePictureQuality(path, IOUtils.getSaveObjectPath(DiscussCommitActivity.this, MD5.getMD5(path) + ".jpeg")));
+			File file = new File(ImageTools.ReducePictureQuality(
+					path,
+					IOUtils.getSaveObjectPath(DiscussCommitActivity.this,
+							MD5.getMD5(path) + ".jpeg")));
 			params.addBodyParameter("imageFile", file);
 
 			// 显示对话框
@@ -466,12 +563,82 @@ public class DiscussCommitActivity extends BaseActivity implements OnItemClickLi
 	private String getFilePathFromUri(Uri uri) {
 		String[] proj = { MediaColumns.DATA };
 
-		Cursor actualimagecursor = getContentResolver().query(uri, proj, null, null, null);
+		Cursor actualimagecursor = getContentResolver().query(uri, proj, null,
+				null, null);
 
-		int actual_image_column_index = actualimagecursor.getColumnIndexOrThrow(MediaColumns.DATA);
+		int actual_image_column_index = actualimagecursor
+				.getColumnIndexOrThrow(MediaColumns.DATA);
 		actualimagecursor.moveToFirst();
-		String img_path = actualimagecursor.getString(actual_image_column_index);
+		String img_path = actualimagecursor
+				.getString(actual_image_column_index);
 		return img_path;
 
+	}
+
+	private void showChooserDialog() {
+		// TODO Auto-generated method stub
+		View view = LayoutInflater.from(this).inflate(
+				R.layout.photo_choose_dialog, null);
+		photoChooserDialog = new Dialog(this,
+				R.style.transparentFrameWindowStyle);
+		photoChooserDialog.setContentView(view, new LayoutParams(
+				LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
+		Window window = photoChooserDialog.getWindow();
+		// 设置显示动画
+		window.setWindowAnimations(R.style.main_menu_animstyle);
+		WindowManager.LayoutParams wl = window.getAttributes();
+		wl.x = 0;
+		wl.y = getWindowManager().getDefaultDisplay().getHeight();
+		// // 以下这两句是为了保证按钮可以水平满屏
+		wl.width = ViewGroup.LayoutParams.MATCH_PARENT;
+		wl.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+		// 设置显示位置
+		photoChooserDialog.onWindowAttributesChanged(wl);
+
+		// 设置点击外围解散
+		photoChooserDialog.setCanceledOnTouchOutside(true);
+		photoChooserDialog.show();
+	}
+
+	public void on_click(View v) {
+		switch (v.getId()) {
+		case R.id.openCamera:
+			photoChooserDialog.cancel();
+			openCamera();
+			break;
+		case R.id.openPhones:
+			photoChooserDialog.cancel();
+			openPhones();
+			break;
+		case R.id.cancel:
+			photoChooserDialog.cancel();
+			break;
+		default:
+			break;
+		}
+	}
+
+	/**
+	 * 打开相册
+	 */
+	private void openPhones() {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+		intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+				IMAGE_UNSPECIFIED);
+		startActivityForResult(intent, REQUEST_CODE_FOR_PHONES_PIC);
+	}
+
+	/**
+	 * 打开照相机
+	 */
+	private void openCamera() {
+		// TODO Auto-generated method stub
+		Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		curFileName = System.currentTimeMillis() + ".jpg";
+		intent.putExtra(MediaStore.EXTRA_OUTPUT,
+				Uri.fromFile(new File(curDir, curFileName)));
+
+		startActivityForResult(intent, REQUEST_CODE_FOR_CAMERA_PIC);
 	}
 }

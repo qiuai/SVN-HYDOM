@@ -28,6 +28,95 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 	<script src="js/html5shiv.js"></script>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+	<script type="text/javascript">
+	$(function(){
+		var $deleteButton = $("#delButton");
+		var $selectAll = $("#selectAll");
+		var $ids = $("#listTable input[name='ids']");
+		var $contentRow = $("#listTable tr:gt(0)");
+		//删除
+		$deleteButton.click( function() {
+			var $this = $(this);
+			if ($this.hasClass("disabled")) {
+				return false;
+			}
+			var $checkedIds = $("#listTable input[name='ids']:enabled:checked");
+			if (confirm("您确定要删除吗？") == true) {
+				$.ajax({
+					url: $(this).attr("val")+"/delete",
+					type: "POST",
+					data: $checkedIds.serialize(),
+					dataType: "json",
+					cache: false,
+					success: function(data) {
+						var text = "";
+						for(var i in data){
+							text+="优惠券："+data[i].couponName+"\n";
+							text+="状态："+data[i].content+"\n";
+							if(data[i].status !=1 && data[i].cp !=null){
+								text+="请先删除此优惠券关联的会员卡：\n";
+								for(var j in data[i].cp){
+									text+="    "+data[i].cp[j]+"\n";
+								}
+							}
+							if(data[i].status !=1 && data[i].fssc !=null){
+								text+="请先删除此优惠券关联的首消送券规则：\n";
+								for(var j in data[i].fssc){
+									text+="    "+data[i].fssc[j]+"\n";
+								}
+							}
+							text+="\n";
+						}
+						alert(text);
+						location.reload(true);
+					}
+				});
+			}
+		});
+		
+		// 全选
+		$selectAll.click( function() {
+			var $this = $(this);
+			var $enabledIds = $("#listTable input[name='ids']:enabled");
+			if ($this.prop("checked")) {
+				$enabledIds.prop("checked", true);
+				if ($enabledIds.filter(":checked").size() > 0) {
+					//$deleteButton.removeClass("disabled");
+					$deleteButton.removeAttr("disabled");
+	
+					$contentRow.addClass("selected");
+				} else {
+					//$deleteButton.addClass("disabled");
+					$deleteButton.attr("disabled", true)
+				}
+			} else {
+				$enabledIds.prop("checked", false);
+				//$deleteButton.addClass("disabled");
+				$deleteButton.attr("disabled", true)
+				$contentRow.removeClass("selected");
+			}
+		});
+		
+		// 选择
+		$ids.click( function() {
+			var $this = $(this);
+			if ($this.prop("checked")) {
+				$this.closest("tr").addClass("selected");
+				//$deleteButton.removeClass("disabled");
+				$deleteButton.removeAttr("disabled");
+			} else {
+				$this.closest("tr").removeClass("selected");
+				if ($("#listTable input[name='ids']:enabled:checked").size() > 0) {
+					//$deleteButton.removeClass("disabled");
+					$deleteButton.removeAttr("disabled");
+				} else {
+					//$deleteButton.addClass("disabled");
+					$deleteButton.attr("disabled", true);
+				}
+			}
+		});
+	});
+	</script>
 </head>
 
 <body>
@@ -50,7 +139,7 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 			    <div class="contentpanel">
 			      <div class="search-header">
 			        <div class="btn-list">
-			          <button class="btn btn-danger" id="deleteButton" type="button" val="<%=path %>/manage/coupon" disabled>删除</button>
+			          <button class="btn btn-danger" id="delButton" type="button" val="<%=path %>/manage/coupon" disabled>删除</button>
 			          <button class="btn btn-success" id="refreshButton">刷新</button>
 					  <button id="add" type="button" class="btn btn-primary" val="<%=path %>/manage/coupon">添加</button>
 			          <div style="float: right;max-width: 340px;height: 37px;">

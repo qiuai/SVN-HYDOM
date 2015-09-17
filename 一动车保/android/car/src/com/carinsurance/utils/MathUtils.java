@@ -46,6 +46,7 @@ public class MathUtils {
    *            被加数 
    * @param v2 
    *            加数 
+   * @param scale 保留几位小数
    * @return 两个参数的和 
    */  
   public static String strAdd(String v1, String v2,int scale) {  

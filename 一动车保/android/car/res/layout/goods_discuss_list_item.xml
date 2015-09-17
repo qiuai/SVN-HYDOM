@@ -9,8 +9,10 @@
         android:id="@+id/goods_discuss_list_item_headImg"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        app:border_width="1dp"
-        app:border_color="#F5F6F6" />
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="5dp"
+        app:border_color="#F5F6F6"
+        app:border_width="1dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -19,13 +21,12 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical" >
 
             <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal" >
 
@@ -49,10 +50,10 @@
             <TextView
                 android:id="@+id/goods_discuss_list_item_carname"
                 android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:textColor="#959595"
                 android:textSize="14sp" />
+
         </LinearLayout>
 
         <TextView
@@ -67,13 +68,18 @@
             style="@style/roomRatingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:isIndicator="true"
             android:layout_marginTop="5dp" />
 
         <GridView
             android:id="@+id/goods_discuss_list_item_images"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:columnWidth="60dp"
+            android:columnWidth="80dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="5dp"
             android:numColumns="auto_fit" >
         </GridView>
     </LinearLayout>

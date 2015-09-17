@@ -166,7 +166,7 @@
 									<div class="col-sm-8">
 										<div class="img_div">
 											<img alt="" src="<%=basePath %>${advert.imgPath}" onerror="" id="show_img">
-											<input type="hidden" name="imgPath"/>
+											<input type="hidden" name="imgPath" value="${advert.imgPath}"/>
 										</div>
 										<label> <%-- style="position: absolute;  float: right;  margin-left: 20%;" --%>
 											<span id="spanButtonPlaceholder"></span>

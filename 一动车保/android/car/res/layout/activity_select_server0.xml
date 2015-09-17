@@ -65,6 +65,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        
         android:divider="@color/bj_f0f0f0" >
     </ExpandableListView>
 
@@ -72,16 +73,51 @@
         android:id="@+id/fuwu_list"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
         android:layout_weight="1"
-        android:divider="@null" >
+        android:divider="@color/bj_f0f0f0"
+        android:dividerHeight="1dp"
+         >
     </ListView>
+
+    <RelativeLayout
+        android:id="@+id/rl_fuwufei"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="1dp"
+        android:background="@drawable/layout_click_item"
+        android:clickable="true"
+        android:visibility="gone"
+        android:padding="7dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:drawablePadding="8dip"
+            android:gravity="center"
+            android:text="服务费"
+            android:textColor="#323232"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/fuwumoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:textSize="14sp"
+            android:textColor="@color/rea_FD0002"
+            android:text="" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/user_center_book_business"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="1dp"
         android:background="@drawable/layout_click_item"
         android:clickable="true"
         android:padding="7dp" >
@@ -116,7 +152,7 @@
     <LinearLayout
         android:id="@+id/bottom_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:background="@color/white"
         android:orientation="horizontal" >
@@ -131,9 +167,9 @@
             android:id="@+id/xiugai0"
             android:layout_width="70dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/selector_shape_white_circle_has_biankuang"
             android:clickable="true" >
 
@@ -143,6 +179,7 @@
                 android:layout_gravity="center"
                 android:text="取 消"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="15sp"
                 android:textColor="@color/textcolor__343434" />
         </FrameLayout>
 
@@ -150,9 +187,9 @@
             android:id="@+id/queding"
             android:layout_width="70dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/selector_shape_red_circle"
             android:clickable="true" >
 
@@ -161,6 +198,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:textSize="15sp"
                 android:text="确 定"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/white" />

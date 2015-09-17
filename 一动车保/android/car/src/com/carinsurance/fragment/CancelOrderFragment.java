@@ -276,6 +276,10 @@ public class CancelOrderFragment extends BaseFragment {
 				ExpandableListView e_listview = ViewHolder.get(convertView, R.id.e_listview);
 
 				e_listview.setAdapter(adapter);
+				e_listview.setDivider(getActivity().getResources().getDrawable(R.color.bj_f0f0f0));
+				e_listview.setChildDivider(getActivity().getResources().getDrawable(R.color.bj_f0f0f0));
+				e_listview.setDividerHeight((int) DisplayUtil.getDip(getActivity(), 1));
+
 				// 展开所有
 				for (int i = 0, length = adapter.getGroupCount(); i < length; i++) {
 					e_listview.expandGroup(i);

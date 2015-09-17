@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.carinsurance.activity.AboutActivity;
 import com.carinsurance.activity.CarManageActivity;
 import com.carinsurance.activity.FeedbackActivity;
+import com.carinsurance.activity.MembershipCardActivity;
 import com.carinsurance.activity.MyCenterActivity;
 import com.carinsurance.activity.MyCouponActivity;
 import com.carinsurance.activity.MyOrderActivity;
@@ -83,6 +84,7 @@ public class HomePageWode3Adapter extends BaseAdapter {
 			holder.l3 = (LinearLayout) convertView.findViewById(R.id.l3);
 			holder.l4 = (LinearLayout) convertView.findViewById(R.id.l4);
 			holder.l5 = (LinearLayout) convertView.findViewById(R.id.l5);
+			holder.l6 = (LinearLayout) convertView.findViewById(R.id.l6);
 			holder.name = (TextView) convertView.findViewById(R.id.name);
 			holder.circleImageView = (ImageView) convertView.findViewById(R.id.photo);
 			holder.setting = (ImageView) convertView.findViewById(R.id.setting);
@@ -143,7 +145,16 @@ public class HomePageWode3Adapter extends BaseAdapter {
 				JumpUtils.jumpto(context, MyCouponActivity.class, null);
 			}
 		});
+		//会员卡
 		holder.l4.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				JumpUtils.jumpto(context, MembershipCardActivity.class, null);
+			}
+		});
+		holder.l5.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -151,7 +162,7 @@ public class HomePageWode3Adapter extends BaseAdapter {
 				JumpUtils.jumpto(context, FeedbackActivity.class, null);
 			}
 		});
-		holder.l5.setOnClickListener(new View.OnClickListener() {
+		holder.l6.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -163,6 +174,7 @@ public class HomePageWode3Adapter extends BaseAdapter {
 	}
 
 	static class ViewHolder {
+		public LinearLayout l6;
 		public ImageView setting;
 		public TextView name;
 		public ImageView circleImageView;

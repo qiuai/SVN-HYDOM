@@ -121,6 +121,9 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 									工作状态
 								</th>
 								<th>
+									经纬度
+								</th>
+								<th>
 									当前所在地
 								</th>
 								<th>
@@ -154,6 +157,7 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 									<c:if test="${false eq technician.jobstatus }">休息中</c:if>
 									<c:if test="${true eq technician.jobstatus }">工作中</c:if>
 								</td>
+								<td>${technician.longitude}&nbsp;&nbsp;${technician.latitude}</td>
 								<td>
 									<div style="max-width:400px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${technician.area}</div>
 								</td>

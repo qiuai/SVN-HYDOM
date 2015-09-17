@@ -102,6 +102,9 @@
 				<td:permission privilegeValue="manage/comment/list">
 					<li><a href='${pageContext.request.contextPath}/manage/comment/list'>订单评论列表</a></li>
 				</td:permission>
+				<td:permission privilegeValue="/manage/order/repush/list">
+					<li><a href='${pageContext.request.contextPath}/manage/order/repush/list'>订单手动推送</a></li>
+				</td:permission>
 			</ul>
 		</li>
 		
@@ -145,6 +148,12 @@
 				<td:permission privilegeValue="manage/rechargebenefits/list">
 					<li><a href='${pageContext.request.contextPath}/manage/rechargebenefits/list'>充值返现/送优惠券</a></li>
 				</td:permission>
+				<td:permission privilegeValue="manage/couponPackage/list">
+					<li><a href='${pageContext.request.contextPath}/manage/couponPackage/list'>优惠券包管理</a></li>
+				</td:permission>
+				<td:permission privilegeValue="manage/firstSpendSendCoupon/list">
+					<li><a href='${pageContext.request.contextPath}/manage/firstSpendSendCoupon/list'>首次消费赠送优惠券管理</a></li>
+				</td:permission>
 			</ul>
 		</li>
 		<li class="<c:if test="${param.m==10||m==10}">active</c:if> parent" >
@@ -155,6 +164,9 @@
 				</td:permission>
 				<td:permission privilegeValue="manage/technician/list">
 					<li><a href='${pageContext.request.contextPath}/manage/technician/list'>技师帐号管理</a></li>
+				</td:permission>
+				<td:permission privilegeValue="manage/electronicMap/list">
+					<li><a href='${pageContext.request.contextPath}/manage/electronicMap/list'>电子地图</a></li>
 				</td:permission>
 				<td:permission privilegeValue="manage/workLog/list">
 					<li><a href='${pageContext.request.contextPath}/manage/workLog/list'>考勤管理</a></li>

@@ -85,7 +85,7 @@ public class CarInfosActivity extends BaseActivity implements OnClickListener {
 			if (Content.enter_ChaiceCarFlags == 0 || Content.enter_ChaiceCarFlags == 2 || Content.enter_ChaiceCarFlags == 3 || Content.enter_ChaiceCarFlags == 4 || Content.enter_ChaiceCarFlags == 5 || Content.enter_ChaiceCarFlags == 6) {
 				cmid = sortModel.getCmid();
 				type = 0;
-				cbname.setText("" + sortModel.getName() + sortModel.getCs_name());
+				cbname.setText(sortModel.getCs_name());//"" + sortModel.getName() + 
 				new xUtilsImageLoader(CarInfosActivity.this).display(cbimg, sortModel.getCbimage());
 			}
 		}
@@ -143,9 +143,8 @@ public class CarInfosActivity extends BaseActivity implements OnClickListener {
 			drange.setText(module.getDrange());
 			engines.setText(module.getEngines());
 			fuel.setText(module.getFuel());
-
 			setCarNames(module.getCbname(), module.getCsname(), module.getCmname());
-
+			new xUtilsImageLoader(CarInfosActivity.this).display(cbimg, module.getCbimage());
 			car_card.setText(module.getPlateNumber());
 			car_color.setText(module.getColor());
 			cmid = module.getCmid();
@@ -172,7 +171,7 @@ public class CarInfosActivity extends BaseActivity implements OnClickListener {
 		// strBuilder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 		// }
 		// this.cbname.setText(strBuilder);
-		this.cbname.setText("" + cbname + " " + csname);
+		this.cbname.setText(csname);
 		// Content.sortModel.getName() + Content.sortModel.getCs_name()
 	}
 
@@ -185,7 +184,7 @@ public class CarInfosActivity extends BaseActivity implements OnClickListener {
 				// Log.v("aaa", "--------------->" +
 				// Content.sortModel.toString());
 				Log.v("aaa", "Con===>" + Content.sortModel.toString());
-				cbname.setText("" + Content.sortModel.getName() + Content.sortModel.getCs_name());
+				cbname.setText(Content.sortModel.getCs_name());//"" + Content.sortModel.getName() + 
 				cmid = Content.sortModel.getCmid();
 				if (sortModel != null)
 					sortModel.setCmid(Content.sortModel.getCmid());
@@ -365,18 +364,18 @@ public class CarInfosActivity extends BaseActivity implements OnClickListener {
 			Utils.showMessage(CarInfosActivity.this, "请填写车牌号！");
 			return;
 		}
-//		if (StringUtil.isNullOrEmpty(fuel.getText().toString().trim())) {
-//			Utils.showMessage(CarInfosActivity.this, "请将信息填写完整！");
-//			return;
-//		}
-//		if (StringUtil.isNullOrEmpty(drange.getText().toString().trim())) {
-//			Utils.showMessage(CarInfosActivity.this, "请将信息填写完整！");
-//			return;
-//		}
-//		if (StringUtil.isNullOrEmpty(engines.getText().toString().trim())) {
-//			Utils.showMessage(CarInfosActivity.this, "请将信息填写完整！");
-//			return;
-//		}
+		// if (StringUtil.isNullOrEmpty(fuel.getText().toString().trim())) {
+		// Utils.showMessage(CarInfosActivity.this, "请将信息填写完整！");
+		// return;
+		// }
+		// if (StringUtil.isNullOrEmpty(drange.getText().toString().trim())) {
+		// Utils.showMessage(CarInfosActivity.this, "请将信息填写完整！");
+		// return;
+		// }
+		// if (StringUtil.isNullOrEmpty(engines.getText().toString().trim())) {
+		// Utils.showMessage(CarInfosActivity.this, "请将信息填写完整！");
+		// return;
+		// }
 		if (StringUtil.isNullOrEmpty(date.getText().toString().trim())) {
 			Utils.showMessage(CarInfosActivity.this, "请将信息填写完整！");
 			return;

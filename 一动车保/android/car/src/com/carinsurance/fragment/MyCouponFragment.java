@@ -118,7 +118,7 @@ public class MyCouponFragment extends BaseFragment {
 					couponModel = JsonUtil.getEntityByJsonString(message, CouponModel.class);
 					try {
 						if (page > Integer.parseInt(couponModel.getPages())) {
-							Utils.showMessage(getActivity(), "已加载全部数据!");
+//							Utils.showMessage(getActivity(), "已加载全部数据!");
 						}
 					} catch (Exception e) {
 						// TODO: handle exception
@@ -159,8 +159,6 @@ public class MyCouponFragment extends BaseFragment {
 				CouponItemModel puCouponItemModel = getItem(position);
 
 				String stype = puCouponItemModel.getCptype();
-				
-				
 				ImageView yiguoqi= ViewHolder.get(convertView, R.id.yiguoqi);
 				ImageView image= ViewHolder.get(convertView, R.id.image);
 				if(type==1)
@@ -172,25 +170,26 @@ public class MyCouponFragment extends BaseFragment {
 				}
 				// if())
 				LinearLayout ll_youhuijuanbg = ViewHolder.get(convertView, R.id.ll_youhuijuanbg);
-				TextView tv_yang = ViewHolder.get(convertView, R.id.tv_yang);
-				TextView tv_cpname = ViewHolder.get(convertView, R.id.tv_cpname);
-				TextView tv_cpintroduction = ViewHolder.get(convertView, R.id.tv_cpintroduction);
+//				TextView tv_yang = ViewHolder.get(convertView, R.id.tv_yang);
+				
+//				TextView tv_cpname = ViewHolder.get(convertView, R.id.tv_cpname);
+//				TextView tv_cpintroduction = ViewHolder.get(convertView, R.id.tv_cpintroduction);
 				// 1=满额打折、 2=满额减免、3=免额多少
-				if (stype.equals("3")) {
-					tv_yang.setVisibility(View.VISIBLE);
-//					ll_youhuijuanbg.setBackgroundColor(Color.parseColor("#00AF81"));
-				} else if (stype.equals("1")) {
-					tv_yang.setVisibility(View.GONE);
-//					ll_youhuijuanbg.setBackgroundColor(Color.parseColor("#D7584F"));
-				} else {
-					tv_yang.setVisibility(View.GONE);
-//					ll_youhuijuanbg.setBackgroundColor(Color.parseColor("#00AF81"));
-				}
+//				if (stype.equals("3")) {
+//					tv_yang.setVisibility(View.VISIBLE);
+////					ll_youhuijuanbg.setBackgroundColor(Color.parseColor("#00AF81"));
+//				} else if (stype.equals("1")) {
+//					tv_yang.setVisibility(View.GONE);
+////					ll_youhuijuanbg.setBackgroundColor(Color.parseColor("#D7584F"));
+//				} else {
+//					tv_yang.setVisibility(View.GONE);
+////					ll_youhuijuanbg.setBackgroundColor(Color.parseColor("#00AF81"));
+//				}
 
 				new xUtilsImageLoader(getActivity()).display(image, puCouponItemModel.getCpimg());
 				
-				tv_cpname.setText(puCouponItemModel.getCpname());
-				tv_cpintroduction.setText(puCouponItemModel.getCpintroduction());
+//				tv_cpname.setText(puCouponItemModel.getCpname());
+//				tv_cpintroduction.setText(puCouponItemModel.getCpintroduction());
 				return convertView;
 			}
 		};

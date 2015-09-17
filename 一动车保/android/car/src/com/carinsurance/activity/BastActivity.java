@@ -114,7 +114,7 @@ public class BastActivity extends FragmentActivity {
 	/**
 	 * 关闭指定项的所有Activity
 	 * 
-	 * @param position 
+	 * @param position
 	 */
 	public static void closeActivity(int... position) {
 
@@ -134,18 +134,19 @@ public class BastActivity extends FragmentActivity {
 		}
 
 	}
+
 	/**
 	 * 关闭指定项的所有Activity
 	 * 
-	 * @param position 
+	 * @param position
 	 */
 	public static void close_0_sizejian1() {
 
 		try {
-			Activity[] act = new Activity[getActivities().size()];
+			Activity[] act = new Activity[getActivities().size() - 1];
 			for (int i = 0; i < getActivities().size(); i++) {
-				act[i] = getActivities().get(getActivities().size()-2);
-				Log.v("aaa", "i为"+i);
+				act[i] = getActivities().get(getActivities().size() - 2);
+				Log.v("aaa", "i为" + i);
 			}
 			for (int i = 0; i < act.length; i++) {
 				if (act[i] != null) {
@@ -157,6 +158,7 @@ public class BastActivity extends FragmentActivity {
 		}
 
 	}
+
 	/**
 	 * 获得当前显示的Activity。
 	 * 

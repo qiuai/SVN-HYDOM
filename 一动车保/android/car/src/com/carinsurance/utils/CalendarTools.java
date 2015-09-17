@@ -5,9 +5,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-
-
-
 import com.carinsurancer.car.R;
 
 import android.app.AlertDialog;
@@ -60,6 +57,7 @@ public class CalendarTools {
 		return dateFormat.format(date);
 
 	}
+
 	/**
 	 * 获取现在的日
 	 */
@@ -69,6 +67,7 @@ public class CalendarTools {
 		return dateFormat.format(date);
 
 	}
+
 	/**
 	 * 获取当前是某月的第几天
 	 * 
@@ -133,8 +132,7 @@ public class CalendarTools {
 	 * @return 天数
 	 */
 	public int getMonthHasHowManeyDay(int year, int month) {
-		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8
-				|| month == 10 || month == 12)
+		if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12)
 			return 31;
 
 		if (month == 4 || month == 6 || month == 9 || month == 11)
@@ -172,6 +170,7 @@ public class CalendarTools {
 		S = "这天是星期" + week;
 		return Integer.parseInt(week);
 	}
+
 	/**
 	 * 
 	 * 获取String格式的星期几
@@ -179,30 +178,30 @@ public class CalendarTools {
 	 * @param year
 	 * @param month
 	 * @param day
-	 * @return(星期日   星期一    星期二    星期三 4：星期四。。。类推 )
+	 * @return(星期日 星期一 星期二 星期三 4：星期四。。。类推 )
 	 */
 	public String getStringCaculateWeekDay(int y, int m, int d) {
-		int a=getCaculateWeekDay(y, m, d);
-		switch(a)
-		{
-			case 0:
-				return "星期日";
-			case 1:
-				return "星期一";
-			case 2:
-				return "星期二";
-			case 3:
-				return "星期三";
-			case 4:
-				return "星期四";
-			case 5:
-				return "星期五";
-			case 6:
-				return "星期六";
-				default:
-					return "参数错误";
+		int a = getCaculateWeekDay(y, m, d);
+		switch (a) {
+		case 0:
+			return "星期日";
+		case 1:
+			return "星期一";
+		case 2:
+			return "星期二";
+		case 3:
+			return "星期三";
+		case 4:
+			return "星期四";
+		case 5:
+			return "星期五";
+		case 6:
+			return "星期六";
+		default:
+			return "参数错误";
 		}
 	}
+
 	protected String whichDayMonth() {
 		// TODO Auto-generated method stub
 		return "" + c.get(Calendar.DAY_OF_MONTH);
@@ -249,50 +248,41 @@ public class CalendarTools {
 		// 获取当前时间
 		Calendar calendar = Calendar.getInstance();
 		// 时间对话框
-		DatePickerDialog dialog = new DatePickerDialog(
-				context,
-				new DatePickerDialog.OnDateSetListener() {
-					/**
-					 * 日期对话框时间设置
-					 */
-					@Override
-					public void onDateSet(DatePicker view, int year,
-							int monthOfYear, int dayOfMonth) {
-						// 获取当前时间
-						Calendar c = Calendar.getInstance();
-						// 设置年
-						c.set(Calendar.YEAR, year);
-						// 设置月
-						c.set(Calendar.MONTH, monthOfYear);
-						// 设置日
-						c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-						// 系统自定义输出月份小一月 所以输出MONTH值时强转整形+1
-						// 判断 如果月日小于10 在前面加0
-						String strMonth = "";
-						String strDate = "";
-						if ((Integer.valueOf(c.get(Calendar.MONTH)) + 1) < 10) {
-							strMonth = "0"
-									+ (Integer.valueOf(c.get(Calendar.MONTH)) + 1);
-						} else {
-							strMonth = String.valueOf(Integer.valueOf(c
-									.get(Calendar.MONTH)) + 1);
-						}
-						if ((Integer.valueOf(c.get(Calendar.DATE))) < 10) {
-							strDate = "0"
-									+ (Integer.valueOf(c.get(Calendar.DATE)));
-						} else {
-							strDate = String.valueOf(Integer.valueOf(c
-									.get(Calendar.DATE)));
-						}
-						// 将时间设置到txtDate
-						// YearMonthDaySetting=""+c.get(Calendar.YEAR) + "/" +
-						// strMonth
-						// + "/" + strDate;
-						textView.setText(c.get(Calendar.YEAR) + "-" + strMonth
-								+ "-" + strDate);
-					}
-				}, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-				calendar.get(Calendar.DATE));
+		DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+			/**
+			 * 日期对话框时间设置
+			 */
+			@Override
+			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+				// 获取当前时间
+				Calendar c = Calendar.getInstance();
+				// 设置年
+				c.set(Calendar.YEAR, year);
+				// 设置月
+				c.set(Calendar.MONTH, monthOfYear);
+				// 设置日
+				c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+				// 系统自定义输出月份小一月 所以输出MONTH值时强转整形+1
+				// 判断 如果月日小于10 在前面加0
+				String strMonth = "";
+				String strDate = "";
+				if ((Integer.valueOf(c.get(Calendar.MONTH)) + 1) < 10) {
+					strMonth = "0" + (Integer.valueOf(c.get(Calendar.MONTH)) + 1);
+				} else {
+					strMonth = String.valueOf(Integer.valueOf(c.get(Calendar.MONTH)) + 1);
+				}
+				if ((Integer.valueOf(c.get(Calendar.DATE))) < 10) {
+					strDate = "0" + (Integer.valueOf(c.get(Calendar.DATE)));
+				} else {
+					strDate = String.valueOf(Integer.valueOf(c.get(Calendar.DATE)));
+				}
+				// 将时间设置到txtDate
+				// YearMonthDaySetting=""+c.get(Calendar.YEAR) + "/" +
+				// strMonth
+				// + "/" + strDate;
+				textView.setText(c.get(Calendar.YEAR) + "-" + strMonth + "-" + strDate);
+			}
+		}, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
 		// 显示对话框
 		dialog.show();
 	}
@@ -307,64 +297,54 @@ public class CalendarTools {
 	 * @param judge
 	 *            start or end
 	 */
-	public void createDateDialog_1(final Context context,
-			final TextView textView, final String judge) {
+	public void createDateDialog_1(final Context context, final TextView textView, final String judge) {
 
 		// 获取当前时间
 		Calendar calendar = Calendar.getInstance();
 		// 时间对话框
-		DatePickerDialog dialog = new DatePickerDialog(
-				context,
-				new DatePickerDialog.OnDateSetListener() {
-					/**
-					 * 日期对话框时间设置
-					 */
-					@Override
-					public void onDateSet(DatePicker view, int year,
-							int monthOfYear, int dayOfMonth) {
-						// 获取当前时间
-						Calendar c = Calendar.getInstance();
-						// 设置年
-						c.set(Calendar.YEAR, year);
-						// 设置月
-						c.set(Calendar.MONTH, monthOfYear);
-						// 设置日
-						c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-						// 系统自定义输出月份小一月 所以输出MONTH值时强转整形+1
-						// 判断 如果月日小于10 在前面加0
-						String strMonth = "";
-						String strDate = "";
-						if ((Integer.valueOf(c.get(Calendar.MONTH)) + 1) < 10) {
-							strMonth = "0"
-									+ (Integer.valueOf(c.get(Calendar.MONTH)) + 1);
-						} else {
-							strMonth = String.valueOf(Integer.valueOf(c
-									.get(Calendar.MONTH)) + 1);
-						}
-						if ((Integer.valueOf(c.get(Calendar.DATE))) < 10) {
-							strDate = "0"
-									+ (Integer.valueOf(c.get(Calendar.DATE)));
-						} else {
-							strDate = String.valueOf(Integer.valueOf(c
-									.get(Calendar.DATE)));
-						}
-						// 将时间设置到txtDate
-						// YearMonthDaySetting=""+c.get(Calendar.YEAR) + "/" +
-						// strMonth
-						// + "/" + strDate;
-						textView.setText(c.get(Calendar.YEAR) + "-" + strMonth
-								+ "-" + strDate);
-//						if (judge.equals("start")) {
-//							Constants.START_TIME = textView.getText()
-//									.toString().trim();
-//						} else if (judge.equals("end")) {
-//							Constants.END_TIME = textView.getText().toString()
-//									.trim();
-//						}
-//						Constants.content_or_time = true;
-					}
-				}, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-				calendar.get(Calendar.DATE));
+		DatePickerDialog dialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+			/**
+			 * 日期对话框时间设置
+			 */
+			@Override
+			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+				// 获取当前时间
+				Calendar c = Calendar.getInstance();
+				// 设置年
+				c.set(Calendar.YEAR, year);
+				// 设置月
+				c.set(Calendar.MONTH, monthOfYear);
+				// 设置日
+				c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+				// 系统自定义输出月份小一月 所以输出MONTH值时强转整形+1
+				// 判断 如果月日小于10 在前面加0
+				String strMonth = "";
+				String strDate = "";
+				if ((Integer.valueOf(c.get(Calendar.MONTH)) + 1) < 10) {
+					strMonth = "0" + (Integer.valueOf(c.get(Calendar.MONTH)) + 1);
+				} else {
+					strMonth = String.valueOf(Integer.valueOf(c.get(Calendar.MONTH)) + 1);
+				}
+				if ((Integer.valueOf(c.get(Calendar.DATE))) < 10) {
+					strDate = "0" + (Integer.valueOf(c.get(Calendar.DATE)));
+				} else {
+					strDate = String.valueOf(Integer.valueOf(c.get(Calendar.DATE)));
+				}
+				// 将时间设置到txtDate
+				// YearMonthDaySetting=""+c.get(Calendar.YEAR) + "/" +
+				// strMonth
+				// + "/" + strDate;
+				textView.setText(c.get(Calendar.YEAR) + "-" + strMonth + "-" + strDate);
+				// if (judge.equals("start")) {
+				// Constants.START_TIME = textView.getText()
+				// .toString().trim();
+				// } else if (judge.equals("end")) {
+				// Constants.END_TIME = textView.getText().toString()
+				// .trim();
+				// }
+				// Constants.content_or_time = true;
+			}
+		}, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
 		// 显示对话框
 		dialog.show();
 	}
@@ -375,38 +355,27 @@ public class CalendarTools {
 		final TimePicker tp = new TimePicker(context);
 		tp.setIs24HourView(true);
 		tp.setBackgroundColor(0x50556098);
-		AlertDialog di = new AlertDialog.Builder(context)
-				.setIcon(R.drawable.ic_launcher)
-				.setTitle("设置")
-				.setView(tp)
-				.setPositiveButton(
-						"确定",
-						new DialogInterface.OnClickListener() {
+		AlertDialog di = new AlertDialog.Builder(context).setIcon(R.drawable.ic_launcher).setTitle("设置").setView(tp).setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// 取得设置的开始时间，秒及毫秒设为0
-								c.setTimeInMillis(System.currentTimeMillis());
-								c.set(Calendar.HOUR_OF_DAY, tp.getCurrentHour());
-								c.set(Calendar.MINUTE, tp.getCurrentMinute());
-								c.set(Calendar.SECOND, 0);
-								c.set(Calendar.MILLISECOND, 0);
-								textView.setText("" + tp.getCurrentHour() + ":"
-										+ tp.getCurrentMinute());
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				// 取得设置的开始时间，秒及毫秒设为0
+				c.setTimeInMillis(System.currentTimeMillis());
+				c.set(Calendar.HOUR_OF_DAY, tp.getCurrentHour());
+				c.set(Calendar.MINUTE, tp.getCurrentMinute());
+				c.set(Calendar.SECOND, 0);
+				c.set(Calendar.MILLISECOND, 0);
+				textView.setText("" + tp.getCurrentHour() + ":" + tp.getCurrentMinute());
 
-							}
-						})
+			}
+		})
 
-				.setNegativeButton(
-						"取消",
-						new DialogInterface.OnClickListener() {
+		.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-							}
-						}).create();
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		}).create();
 		c.setTimeInMillis(System.currentTimeMillis());// 将当前系统时间放入日历控件
 		Log.v("aaa", "" + c.getTimeInMillis());
 		tp.setCurrentHour(c.get(Calendar.HOUR_OF_DAY));// 设置timepick控件为日历控件的小时数
@@ -436,8 +405,7 @@ public class CalendarTools {
 	 *            发表时间
 	 * @return
 	 */
-	public static String getTimeChangeToString(Context context,
-			String fabiaoTime) {
+	public static String getTimeChangeToString(Context context, String fabiaoTime) {
 		try {
 			if (fabiaoTime == null)
 				return "";
@@ -454,13 +422,11 @@ public class CalendarTools {
 				return context.getResources().getString(R.string.ganggang);
 			} else if (timeCha <= 1800000)// 30分钟内
 			{
-				return (((int) (timeCha / 60000)) + context.getResources()
-						.getString(R.string.fenzhongqian));
+				return (((int) (timeCha / 60000)) + context.getResources().getString(R.string.fenzhongqian));
 			} else if (timeCha <= 3600000) {
 				return context.getResources().getString(R.string.yixiaoshiqian);
 			} else if (timeCha <= 86400000) {
-				return ((int) ((timeCha) / 3600000) + context.getResources()
-						.getString(R.string.xiaoshiqian));
+				return ((int) ((timeCha) / 3600000) + context.getResources().getString(R.string.xiaoshiqian));
 			} else if (timeCha <= 172800000)// 2天前
 			{
 				return context.getResources().getString(R.string.twotianqian);
@@ -475,6 +441,30 @@ public class CalendarTools {
 		}
 		return fabiaoTime;
 	}
+
+	/**
+	 * 对原始日期增加[或减少]天数
+	 * 
+	 * @param srcDate
+	 *            ：原始日期
+	 * @param day
+	 *            ：增加的天数：为正值;减少的天数：为负值
+	 * @return
+	 */
+	public static Date addDays(Date srcDate, int day) {
+		SimpleDateFormat dft = new SimpleDateFormat("yyyy-MM-dd");
+		Calendar cale = Calendar.getInstance();
+		cale.setTime(srcDate);
+		cale.set(Calendar.DATE, cale.get(Calendar.DATE) + day);
+		Date date = null;
+		try {
+			date = dft.parse(dft.format(cale.getTime()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
+
 }
 // /**
 // * 获取给定时间距离现在多久，若超过2天，则显示月份和号数，用于动态时间轴

@@ -125,6 +125,14 @@
 										<input type="text" name="version" class="form-control" maxlength="200" value="${entity.version }" id="version"/>
 									</div>
 								</div>
+								<div class="panel-heading" style="border-top: 1px solid #ddd;">
+									<h4 class="panel-title">纯保养服务价格</h4>
+								</div>
+								<div class="form-group">
+									<div class="col-sm-8">
+										<input type="text" name="price" class="form-control" maxlength="200" value="${entity.price }" id="price"/>
+									</div>
+								</div>
 								<div class="panel-footer">
 									<div class="row">
 										<div class="col-sm-9 col-sm-offset-3">
@@ -167,11 +175,13 @@
 			var endDate = $("#timepicker2").val();
 			var content = $("#content").val();
 			var version = $("#version").val();
+			var price = $("#price").val();
 			var data = {
 				startDate:startDate,
 				endDate:endDate,
 				content:content,
-				version:version
+				version:version,
+				price:price
 			}
 			$.post(url,data,function(result){
 				if(result.status == "success"){

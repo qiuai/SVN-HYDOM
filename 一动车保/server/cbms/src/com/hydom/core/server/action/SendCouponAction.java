@@ -138,6 +138,7 @@ public class SendCouponAction extends BaseAction{
 		orderby.put("createDate", "desc");
 		String jpql = "o.visible=?1 and o.useType=?2";
 		Object[] params = new Object[]{true,useTypeId};
-		return couponService.getScrollData(-1, -1, jpql, params, orderby).getResultList();
+		List<Coupon> list = couponService.getScrollData(-1, -1, jpql, params, orderby).getResultList();
+		return list;
 	}
 }

@@ -194,6 +194,7 @@ public class MemberAction extends BaseAction{
 			member.setMobile(member.getMobile() + "-" + CommonUtil.getOrderNum());
 			member.setVisible(false);
 			memberService.update(member);
+			tokenService.deletAllTokenByUID(member.getId());
 		}
 		return ajaxSuccess("成功", response);
 	}
@@ -216,6 +217,7 @@ public class MemberAction extends BaseAction{
 		for(Member member : memberList){
 			member.setMobile(member.getMobile() + "-" + CommonUtil.getOrderNum());
 			memberService.update(member);
+			tokenService.deletAllTokenByUID(member.getId());
 		}
 		return ajaxSuccess("成功", response);
 	}

@@ -15,13 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.hydom.core.server.ebean.Coupon;
+import com.hydom.core.server.ebean.CouponPackageRecord;
 import com.hydom.util.dao.BaseEntity;
 
 /**
- * Entity - 会员
- * 
- * 
- * 
+ * Entity - 会员领取优惠券记录
  */
 @Entity
 @Table(name = "t_member_coupon")
@@ -52,7 +50,7 @@ public class MemberCoupon extends BaseEntity {
 	@Column(name = "introduction")
 	private String introduction;
 
-	/** 优惠券获取方法：1=积分兑换；2=系统发放；3=充值赠送 */
+	/** 优惠券获取方法：1=积分兑换；2=系统发放；3=充值赠送；4=购买券包；5=首次消费赠送 */
 	private Integer gainWay;
 
 	/** 优惠券类型 1满额打折 (minPrice,rate) 2满额优惠(minPrice,discount) 3减免(discount) */
@@ -103,6 +101,11 @@ public class MemberCoupon extends BaseEntity {
 	/** 积分兑换数 */
 	@Column(name = "point")
 	private Integer point = 0;
+
+	/** 券包购买记录 */
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "couponPackage_id")
+	private CouponPackageRecord couponPackageRecord;
 
 	public Integer getPoint() {
 		return point;
@@ -248,6 +251,14 @@ public class MemberCoupon extends BaseEntity {
 
 	public void setGainWay(Integer gainWay) {
 		this.gainWay = gainWay;
+	}
+
+	public CouponPackageRecord getCouponPackageRecord() {
+		return couponPackageRecord;
+	}
+
+	public void setCouponPackageRecord(CouponPackageRecord couponPackageRecord) {
+		this.couponPackageRecord = couponPackageRecord;
 	}
 
 }

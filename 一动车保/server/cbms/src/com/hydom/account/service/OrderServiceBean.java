@@ -28,6 +28,8 @@ import com.hydom.account.ebean.Technician;
 import com.hydom.core.order.ebean.TechnicianBindRecord;
 import com.hydom.core.order.service.TechnicianBindRecordService;
 import com.hydom.core.server.ebean.CarTeam;
+import com.hydom.core.server.ebean.FirstSpendSendCoupon;
+import com.hydom.core.server.service.FirstSpendSendCouponService;
 import com.hydom.util.CommonUtil;
 import com.hydom.util.DateTimeHelper;
 import com.hydom.util.bean.DateMapBean;
@@ -51,7 +53,6 @@ public class OrderServiceBean extends DAOSupport<Order> implements OrderService 
 	private ProductService productService;
 	@Resource
 	private MemberCouponService memberCouponService;
-
 	private Log log = LogFactory.getLog("coreDataLog");
 
 	@Override
@@ -107,35 +108,42 @@ public class OrderServiceBean extends DAOSupport<Order> implements OrderService 
 				Object[] objs = (Object[]) em
 						.createNativeQuery(
 								"SELECT t.id,dbo.fnGetDistance(?1,?2,lat,lng) AS distance FROM t_order t WHERE id NOT IN (SELECT order_id FROM t_technician_bindrecord where technician_id=?3 and createDate>?4 and createDate<?5) "
-										+ "and distance<=?6 and type=?7 and status=?8 and t.technician_id is null"
+										+ "and type=?6 and status=?7 and ispay=?8 and t.technician_id is null"
 										+ " and id NOT IN (SELECT order_id from t_technician where order_id is not NULL) ORDER BY distance ASC,createDate ASC")
 						.setParameter(1, lat).setParameter(2, lng)
 						.setParameter(3, techid).setParameter(4, todayStart)
-						.setParameter(5, todayEnd).setParameter(6, 5.0d) 
-						.setParameter(7, 1).setParameter(8, 1).setMaxResults(1).getSingleResult();
-				Order order = this.find(objs[0].toString()); // 确定分配的订单
-				order.setTechMember(technician); // 绑定新的技师
-				TechnicianBindRecord tBindRecord = new TechnicianBindRecord();// 绑定记录
-				tBindRecord.setTechnician(technician);
-				tBindRecord.setOrder(order);
-				technicianBindRecordService.save(tBindRecord); // 保存绑定记录
-				order.setTechMember(technician);
-				order.setTechnicianBindRecord(tBindRecord);
-				order.setDistance(Double.parseDouble(objs[1].toString()));
-				this.update(order);// 绑定技师及设置对应的距离
-				technician.setOrder(order);
-				technician.setStats(0);
-				technicianService.update(technician);
-				log.info("分配订单成功，技师工作状态：" + technician.isJobstatus());
-				return order;
+						.setParameter(5, todayEnd).setParameter(6, 1)
+						.setParameter(7, 1).setParameter(8, true).setMaxResults(1).getSingleResult();
+				double distance = Double.parseDouble(objs[1].toString());
+				if (distance <= 5) {// 5km范围内
+					Order order = this.find(objs[0].toString()); // 确定分配的订单
+					order.setTechMember(technician); // 绑定新的技师
+					TechnicianBindRecord tBindRecord = new TechnicianBindRecord();// 绑定记录
+					tBindRecord.setTechnician(technician);
+					tBindRecord.setOrder(order);
+					technicianBindRecordService.save(tBindRecord); // 保存绑定记录
+					order.setTechMember(technician);
+					order.setTechnicianBindRecord(tBindRecord);
+					order.setDistance(distance);
+					this.update(order);// 绑定技师及设置对应的距离
+					technician.setOrder(order);
+					technician.setStats(0);
+					technicianService.update(technician);
+					log.info("分配订单成功，技师工作状态：" + technician.isJobstatus());
+					return order;
+				} else {
+					log.info("分配订单失败，距离技师最近的订单大于了5km：" + distance + " 技师ID="
+							+ techid + "lat=" + lat + "lng=" + lng);
+					return null;
+				}
 			} else {
-				log.info("分配订单异常：技师工作状态错误：" + technician.isJobstatus()
+				log.warn("分配订单异常：技师工作状态错误：" + technician.isJobstatus()
 						+ "技师ID=" + techid + "lat=" + lat + "lng=" + lng);
 				return null;
 			}
 		} catch (Exception e) {
-			log.info("分配订单异常：" + e.toString() + "技师ID=" + techid + "lat=" + lat
-					+ "lng=" + lng);
+			log.error("分配订单异常：" + e.toString() + "技师ID=" + techid + "lat="
+					+ lat + "lng=" + lng);
 			return null;
 		}
 	}
@@ -178,7 +186,7 @@ public class OrderServiceBean extends DAOSupport<Order> implements OrderService 
 			return true;
 		} catch (Exception e) {
 			// e.printStackTrace();
-			log.info("绑定技师异常：" + e.toString() + "订单ID=" + oid);
+			log.error("绑定技师异常：" + e.toString() + "订单ID=" + oid);
 			return false;
 		}
 	}
@@ -187,15 +195,19 @@ public class OrderServiceBean extends DAOSupport<Order> implements OrderService 
 	public boolean resetBindTechnician(String oid, float maxDistance) {
 		try {
 			Order order = this.find(oid);
-			order.setTechMember(null);
-			order.setTechnicianBindRecord(null);
-			order.setStatus(1);//设置为派单中
+			if (order.getType() != 1) {// 洗车订单
+				log.info("重新绑定技师失败：（非洗车订单不能重新分配技师）订单ID=" + oid);
+				return false;
+			}
 			Technician oriTechnician = order.getTechMember();
 			if (oriTechnician != null) {
 				oriTechnician.setStats(0);
 				oriTechnician.setOrder(null);
 				technicianService.update(oriTechnician);
 			}
+			order.setTechMember(null);
+			order.setTechnicianBindRecord(null);
+			order.setStatus(1);// 设置为派单中
 			this.update(order);
 			// 原型SQL:SELECT
 			// t.id,dbo.fnGetDistance(120.388714,36.074258,latitude,longitude)
@@ -209,12 +221,17 @@ public class OrderServiceBean extends DAOSupport<Order> implements OrderService 
 					.createNativeQuery(
 							"SELECT t.id,dbo.fnGetDistance(?1,?2,latitude,longitude) AS distance FROM t_technician t WHERE "
 									+ "id NOT IN (SELECT technician_id FROM t_technician_bindrecord where order_id=?3) "
-									+ "AND t.visible=?4 AND t.stats=?5 AND t.jobstatus=?6  AND distance<=?7 AND t.order_id is NULL ORDER BY distance ASC")
+									+ "AND t.visible=?4 AND t.stats=?5 AND t.jobstatus=?6  AND t.order_id is NULL ORDER BY distance ASC")
 					.setParameter(1, order.getLat())
 					.setParameter(2, order.getLng()).setParameter(3, oid)
 					.setParameter(4, true).setParameter(5, 0)
-					.setParameter(6, true).setParameter(7, maxDistance)
-					.setMaxResults(1).getSingleResult();
+					.setParameter(6, true).setMaxResults(1).getSingleResult();
+			double distacne = Double.parseDouble(objs[1].toString());
+			if (distacne > maxDistance) {
+				log.info("重新绑定技师距离不符合：订单ID=" + oid + "最近技师距离：" + distacne
+						+ " 大于了设定的 " + maxDistance);
+				return false;
+			}
 			Technician technician = technicianService.find(objs[0].toString()); // 确定要绑定的技师
 			technician.setOrder(order);
 			technicianService.update(technician);
@@ -224,13 +241,13 @@ public class OrderServiceBean extends DAOSupport<Order> implements OrderService 
 			technicianBindRecordService.save(tBindRecord); // 保存绑定记录
 			order.setTechMember(technician);
 			order.setTechnicianBindRecord(tBindRecord);
-			order.setDistance(Double.parseDouble(objs[1].toString()));
+			order.setDistance(distacne);
 			this.update(order);// 绑定技师及设置对应的距离
 			log.info("重新绑定技师成功：订单ID=" + oid + " 技师ID=" + technician.getId());
 			return true;
 		} catch (Exception e) {
 			// e.printStackTrace();
-			log.info("重新绑定技师异常：" + e.toString() + "订单ID=" + oid);
+			log.error("重新绑定技师异常：" + e.toString() + "订单ID=" + oid);
 			return false;
 		}
 	}

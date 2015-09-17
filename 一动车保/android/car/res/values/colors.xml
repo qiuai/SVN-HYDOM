@@ -39,4 +39,7 @@
       <color name="list_select">#00a2d0</color>
      <color name="list_divider">#DCDCDC</color>
         <color name="navpage">#FFE1E8EB</color>
+        
+         <color name="transparent">#00000000</color>
+        
 </resources>

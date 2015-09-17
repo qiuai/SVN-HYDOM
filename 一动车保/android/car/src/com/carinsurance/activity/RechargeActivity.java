@@ -223,7 +223,7 @@ public class RechargeActivity extends BaseActivity {
 			if (data != null) {
 
 				String ma = data.getStringExtra(MyPayActivity.DATA);
-				if (type.equals("0") && data.getStringExtra(MyPayActivity.DATA).equals(MyPayActivity.PAY_SUCCESS)) {
+				if (data.getStringExtra(MyPayActivity.DATA).equals(MyPayActivity.PAY_SUCCESS)) {
 					// Utils.zhifuchenggongTishi(RechargeActivity.this, 1,
 					// dialog, handler,
 					// 1);
@@ -235,7 +235,7 @@ public class RechargeActivity extends BaseActivity {
 				} else if (data.equals(MyPayActivity.PAY_CANCEL)) {
 					Utils.showMessage(RechargeActivity.this, "支付已取消");
 				} else {
-					Utils.showMessage(RechargeActivity.this, "支付失败,错误码:" + ma);
+					Utils.showMessage(RechargeActivity.this, "支付失败!");//,错误码:" + ma
 				}
 			}
 		}

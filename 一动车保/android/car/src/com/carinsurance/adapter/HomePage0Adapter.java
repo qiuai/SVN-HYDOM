@@ -2,6 +2,7 @@ package com.carinsurance.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import com.carinsurance.infos.BModel;
 import com.carinsurance.infos.BaiduWeatherModel;
 import com.carinsurance.infos.ImgModel;
@@ -16,7 +17,9 @@ import com.carinsurance.utils.Utils;
 import com.carinsurance.utils.xUtilsImageLoader;
 import com.carinsurance.viewpagerindicator.CirclePageIndicator;
 import com.carinsurancer.car.R;
+
 import com.lidroid.xutils.util.LogUtils;
+
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
@@ -171,27 +174,28 @@ public class HomePage0Adapter extends BaseAdapter {
 		// if (ad_list!=null && !ad_list.isEmpty()) {
 		Log.v("ccc", "111");
 		try {
-//			if (adapter==null && ad_list!= null && !ad_list.isEmpty()) {
-				initViewPager(convertView);
-//			}else if(adapter!= null)
-//			{
-//				adapter.notifyDataSetChanged();
-//			}
+			// if (adapter==null && ad_list!= null && !ad_list.isEmpty()) {
+			initViewPager(convertView);
+			// }else if(adapter!= null)
+			// {
+			// adapter.notifyDataSetChanged();
+			// }
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-	
-//		else {
-//			Log.v("ccc", "333");
-//			if (ad_list != null) {
-//				Log.v("ccc", "444");
-//
-//				adapter.setImg_list(ad_list);
-//				adapter.notifyDataSetChanged();
-//
-//			}
-//
-//		}
+		// initBannerViewPager(convertView);
+
+		// else {
+		// Log.v("ccc", "333");
+		// if (ad_list != null) {
+		// Log.v("ccc", "444");
+		//
+		// adapter.setImg_list(ad_list);
+		// adapter.notifyDataSetChanged();
+		//
+		// }
+		//
+		// }
 		// }
 
 		if (fuwu_list != null) {
@@ -442,7 +446,7 @@ public class HomePage0Adapter extends BaseAdapter {
 								// TODO Auto-generated method
 								// stub
 								if (onFuWuClistener != null) {
-									onFuWuClistener.fuwuButtonClistener(position, parent, model,v);
+									onFuWuClistener.fuwuButtonClistener(position, parent, model, v);
 								}
 							}
 						});
@@ -551,8 +555,10 @@ public class HomePage0Adapter extends BaseAdapter {
 		mLoopViewPager = (AutoScrollViewPager) convertView.findViewById(R.id.loopViewPager);
 		CirclePageIndicator indicator = (CirclePageIndicator) convertView.findViewById(R.id.indicators);
 		// TestViewPagerAdapter mm=new TestViewPagerAdapter(context);
-//		FrameLayout.LayoutParams lp = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, DisplayUtil.dip2px(context, 250));
-//		mLoopViewPager.setLayoutParams(lp);
+		// FrameLayout.LayoutParams lp = new
+		// FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
+		// DisplayUtil.dip2px(context, 250));
+		// mLoopViewPager.setLayoutParams(lp);
 		// 显示要显示的界面
 		mLoopViewPager.setCurrentItem(0);
 		// 预先加载的页数
@@ -562,51 +568,7 @@ public class HomePage0Adapter extends BaseAdapter {
 		mLoopViewPager.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_TO_PARENT);
 		// mLoopViewPager.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_CYCLE);
 		mLoopViewPager.startAutoScroll();
-		// TimerTask task = new TimerTask() {
-		//
-		// @Override
-		// public void run() {
-		// // TODO Auto-generated method stub
-		//
-		// if (context != null) {
-		// handler.sendEmptyMessage(1);
-		//
-		// }
-		// }
-		// };
-		// Timer timer = new Timer(true);
-		// timer.schedule(task, 5000, 5000); // 延时1000ms后执行，1000ms执行一次
-		// FrameLayout.LayoutParams lp1 = new
-		// FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,
-		// FrameLayout.LayoutParams.WRAP_CONTENT);
-		// indicator.setLayoutParams(lp1);
-		// indicator.setPadding(10, 10, 10, 10);
-		// mLoopViewPager.setSlideBorderMode(AutoScrollViewPager.SLIDE_BORDER_MODE_CYCLE);
-		mLoopViewPager.setOnPageChangeListener(new OnPageChangeListener() {
-			// 滑动了之后的选中项
-			@Override
-			public void onPageSelected(int arg0) {
-				// TODO Auto-generated method stub
-				LogUtils.d("onPageSelected========>arg0=" + arg0);
-			}
 
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
-				// arg0滑动过程中的选中项 （和onPageSelected一样，但是是实时监听的）
-				//
-				// arg1====>滑动的比例 0-1
-				// arg2=====》滑动的位置 0-480左右
-				LogUtils.d("onPageScrolled========>arg0=" + arg0 + "/arg1=" + arg1 + "/arg2=" + arg2);
-			}
-
-			// 滑动之前的选中项
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
-				LogUtils.d("onPageScrollStateChanged========>arg0=" + arg0);
-			}
-		});
 		indicator.setViewPager(mLoopViewPager);
 	}
 
@@ -642,7 +604,7 @@ public class HomePage0Adapter extends BaseAdapter {
 	}
 
 	public interface OnFuWuClistener {
-		void fuwuButtonClistener(int position, ViewGroup parent, SeriverTypeitemModel model,View v);
+		void fuwuButtonClistener(int position, ViewGroup parent, SeriverTypeitemModel model, View v);
 	}
 
 	public interface OnMySMXCClistener {
@@ -650,7 +612,7 @@ public class HomePage0Adapter extends BaseAdapter {
 
 		void toprightButtonClistener(SeriverTypeitemModel SeriverTypeitemModel1, View v);
 
-		//特色市场0、品牌推荐 1、限量精品 2、天天特价 3、绿色出行
+		// 特色市场0、品牌推荐 1、限量精品 2、天天特价 3、绿色出行
 		void teSheClistener(View v, int type);
 
 		void remaiFenleiClistener(PcModel pcmodel, View v, int position);

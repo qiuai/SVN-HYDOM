@@ -101,18 +101,19 @@ public abstract class BaseActivity extends BastActivity {
 				JSONObject js = new JSONObject(message);
 				if (js.getString("result").equals("101")) {
 					Utils.showMessage(BaseActivity.this, "你的账户已经被停用！");
-					Utils.setUid(BaseActivity.this, "");
-					Utils.setToken(BaseActivity.this, "");
-					Utils.setUserName(BaseActivity.this, "");
-					Utils.setUid(BaseActivity.this, "");
-					
+//					Utils.setUid(BaseActivity.this, "");
+//					Utils.setToken(BaseActivity.this, "");
+//					Utils.setUserName(BaseActivity.this, "");
+//					Utils.setUid(BaseActivity.this, "");
+					return ;
 //					HashMap<String, String> map=new HashMap<String, String>();
 //					map.put("is_to_souye", "1");
 //					close_0_sizejian1();
 //					JumpUtils.jumpto(BaseActivity.this, LoginActivity.class, map,true);
 
 				} else if (js.getString("result").equals("102")) {
-					Utils.showMessage(BaseActivity.this, "令牌失效,请重新登录！");
+					Utils.showMessage(BaseActivity.this, "手机号不存在！");
+					return ;
 				}
 
 			} catch (Exception e) {

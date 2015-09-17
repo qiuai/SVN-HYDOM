@@ -233,7 +233,7 @@
 			}else if(payWay == "5"){//现场支付
 				saveOrder();
 			}else if(payWay == "3"){//银联支付
-				//unionPay();
+				unionPay();
 			}
 		}
 		

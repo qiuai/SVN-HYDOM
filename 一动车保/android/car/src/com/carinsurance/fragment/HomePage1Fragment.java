@@ -124,7 +124,10 @@ public class HomePage1Fragment extends BaseFragment {
 				return convertView;
 			}
 		};
+		listview.setPullLoadEnable(true);
+		listview.setPullRefreshEnable(true);
 		listview.setAdapter(adapter);
+
 		listview.setXListViewListener(new IXListViewListener() {
 
 			@Override

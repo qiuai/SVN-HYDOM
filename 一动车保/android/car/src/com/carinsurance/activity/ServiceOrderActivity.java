@@ -594,11 +594,10 @@ public class ServiceOrderActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-				// Intent intent=new Intent();
-				// startActivityForResult(intent,
-				// SelectSETimeActivity.RESULT_OK);
 
-				JumpUtils.jumpActivityForResult(ServiceOrderActivity.this, SelectSETimeActivity.class, null, 5);
+				
+//				JumpUtils.jumpActivityForResult(ServiceOrderActivity.this, SelectSETimeActivity.class, null, 5);
+				JumpUtils.jumpActivityForResult(ServiceOrderActivity.this, ChooseDataActivity.class, null, 5);
 			}
 		});
 	}
@@ -1344,10 +1343,10 @@ public class ServiceOrderActivity extends BaseActivity {
 
 				if (data.getStringExtra(MyPayActivity.DATA).equals(MyPayActivity.PAY_SUCCESS)) {
 					Utils.zhifuchenggongTishi(ServiceOrderActivity.this, 1, dialog, handler, 1);
-				} else if (data.equals(MyPayActivity.PAY_CANCEL)) {
+				} else if (data.getStringExtra(MyPayActivity.DATA).equals(MyPayActivity.PAY_CANCEL)) {
 					Utils.showMessage(ServiceOrderActivity.this, "支付已取消");
 				} else {
-					Utils.showMessage(ServiceOrderActivity.this, "支付失败,错误码:" + data);
+					Utils.showMessage(ServiceOrderActivity.this, "支付失败:"+data.getStringExtra(MyPayActivity.DATA));//,错误码:" + data
 				}
 			}
 		}

@@ -106,9 +106,9 @@ public class LogoActivity extends BaseActivity implements Runnable {
 		// 百度统计
 		// initBaiDuTongji();
 
-//		getVer();
-		 Thread t = new Thread(this);
-		 t.start();
+		getVer();
+		// Thread t = new Thread(this);
+		// t.start();
 		// 这里只检查是否有更新，但是不跟新
 		// UpdateManager updata=new UpdateManager(LogoActivity.this);
 		// updata.setNolyCheckNoGengxin();//设置只检测不更新
@@ -123,8 +123,26 @@ public class LogoActivity extends BaseActivity implements Runnable {
 		case Task.GET_VERSION_NUMBER:
 
 			try {
-				Utils.showMessage(LogoActivity.this, "网络连接失败！");
-				finish();
+				// Utils.showMessage(LogoActivity.this, "网络连接失败！");
+				Dialog d = new Dialog();
+				d.CreateDialog(LogoActivity.this, "提示", "网络连接失败！是否重试？");
+				d.setViewDialogCanClose(false);
+				d.setOnDialogClistener(new DialogClistener() {
+
+					@Override
+					public void ret() {
+						// TODO Auto-generated method stub
+						finish();
+					}
+
+					@Override
+					public void ok() {
+						// TODO Auto-generated method stub
+						// Thread t = new Thread(LogoActivity.this);
+						// t.start();
+						getVer();
+					}
+				});
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -217,12 +235,12 @@ public class LogoActivity extends BaseActivity implements Runnable {
 			Thread.sleep(3000);
 
 			if (!Utils.getUid(LogoActivity.this).equals("")) {
-				intent = new Intent(LogoActivity.this, HomepageActivity.class);//BaseListActivity
+				intent = new Intent(LogoActivity.this, HomepageActivity.class);// BaseListActivity
 				// intent.putExtra("isStartSocket", true);
 				// intent.putExtra("isStartTwoClose", true);
 				startActivity(intent);
 			} else {
-				intent = new Intent(LogoActivity.this, HomepageActivity.class);//HomepageActivity
+				intent = new Intent(LogoActivity.this, HomepageActivity.class);// HomepageActivity
 				startActivity(intent);
 			}
 

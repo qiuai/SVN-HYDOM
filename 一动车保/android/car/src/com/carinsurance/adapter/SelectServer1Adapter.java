@@ -36,8 +36,10 @@ public class SelectServer1Adapter extends BaseExpandableListAdapter {
 	List<SeriverTypeitemModel> modellist;
 	Context context;
 
-	SortModel sortModel;
+	boolean is_zidingyipeijian = false;
 
+	SortModel sortModel;
+	OnclickDelete onDelete;
 	String type;// -1是默认的 0是只能看的，sortModel 和1 是 只能看的，但是不是sortmodel
 
 	public SelectServer1Adapter(Context context, List<ProductDefaultItemModel> list, SortModel sortModel, String type) {
@@ -198,7 +200,10 @@ public class SelectServer1Adapter extends BaseExpandableListAdapter {
 						return;
 					}
 					Dialog d = new Dialog();
-					d.CreateDialog(context, "", "确认删除该商品？");
+					// if (getShangPingNumber() == 1) {
+					// d.CreateDialog(context, "", "是否删除后转为自定义配件？");
+					// } else
+						d.CreateDialog(context, "", "确认删除该商品？");
 					d.setOnDialogClistener(new DialogClistener() {
 
 						@Override
@@ -210,8 +215,12 @@ public class SelectServer1Adapter extends BaseExpandableListAdapter {
 						@Override
 						public void ok() {
 							// TODO Auto-generated method stub
-							modellist.get(groupPosition).getProductDefaultItemModel_list().remove(childPosition);
-							notifyDataSetChanged();
+
+							if (onDelete != null) {
+								int number=getShangPingNumber();
+								onDelete.delete(modellist, groupPosition, childPosition,number);
+							}
+
 						}
 					});
 
@@ -273,7 +282,12 @@ public class SelectServer1Adapter extends BaseExpandableListAdapter {
 		Log.v("aaa", "getChildrenCount");
 
 		if (type.equals("-1"))
-			return (modellist.get(groupPosition).getProductDefaultItemModel_list().size() + 1);
+			if (getShangPingNumber()==0) {
+				return 0;// modellist.get(groupPosition).getProductDefaultItemModel_list().size()
+			} else {
+				return (modellist.get(groupPosition).getProductDefaultItemModel_list().size() + 1);
+			}
+
 		else {
 			return modellist.get(groupPosition).getProductDefaultItemModel_list().size();
 		}
@@ -307,6 +321,41 @@ public class SelectServer1Adapter extends BaseExpandableListAdapter {
 	public boolean hasStableIds() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	/**
+	 * 获取商品数量
+	 */
+	public int getShangPingNumber() {
+		int number = 0;
+		for (int i = 0; i < modellist.size(); i++)
+			for (int j = 0; j < modellist.get(i).getProductDefaultItemModel_list().size(); j++) {
+				if (modellist.get(i).getProductDefaultItemModel_list().get(j) != null) {
+					number++;
+					// if(modellist.get(i).getProductDefaultItemModel_list().get(j))
+					// {
+					//
+					// }
+				}
+			}
+		return number;
+	}
+
+	public boolean isIs_zidingyipeijian() {
+		return is_zidingyipeijian;
+	}
+
+	public void setIs_zidingyipeijian(boolean is_zidingyipeijian) {
+		this.is_zidingyipeijian = is_zidingyipeijian;
+	}
+
+	public void setOnDeleteShangpingClistener(OnclickDelete onclickDelete) {
+		onDelete = onclickDelete;
+	}
+
+	public interface OnclickDelete {
+		//number 为商品数量
+		void delete(List<SeriverTypeitemModel> modellist, int groupPosition, int childPosition, int number);
 	}
 
 	@Override

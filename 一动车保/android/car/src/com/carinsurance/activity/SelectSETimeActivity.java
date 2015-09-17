@@ -37,7 +37,7 @@ public class SelectSETimeActivity extends BaseActivity {
 	List<YTimeModel> list;
 	String sid;// 街道ID
 	String scid;// 服务类型ID
-//	String date;// 预约时间
+	// String date;// 预约时间
 	FragmentManager manager;
 	String[] str;
 	String startTime;
@@ -45,6 +45,9 @@ public class SelectSETimeActivity extends BaseActivity {
 
 	public static int Result_ok = 101;
 	YTime results;
+	// 选择的日期
+	String date;
+
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -55,13 +58,94 @@ public class SelectSETimeActivity extends BaseActivity {
 		// JumpUtils.getSerializable(SelectSETimeActivity.this);
 		manager = getSupportFragmentManager();
 
-		HashMap<String, String> params = new HashMap<String, String>();
-		if (!StringUtil.isNullOrEmpty(Utils.getUid(SelectSETimeActivity.this)) && !StringUtil.isNullOrEmpty(Utils.getToken(SelectSETimeActivity.this))) {
-			params.put("uid", Utils.getUid(SelectSETimeActivity.this));
-			params.put("token", Utils.getToken(SelectSETimeActivity.this));
-		}
+		date = JumpUtils.getString(SelectSETimeActivity.this, "date");
+		// HashMap<String, String> params = new HashMap<String, String>();
+		// if
+		// (!StringUtil.isNullOrEmpty(Utils.getUid(SelectSETimeActivity.this))
+		// &&
+		// !StringUtil.isNullOrEmpty(Utils.getToken(SelectSETimeActivity.this)))
+		// {
+		// params.put("uid", Utils.getUid(SelectSETimeActivity.this));
+		// params.put("token", Utils.getToken(SelectSETimeActivity.this));
+		// }
+		//
+		// NetUtils.getIns().post(Task.GET_SERVER_DATA, params, handler);
 
-		NetUtils.getIns().post(Task.GET_SERVER_DATA, params, handler);
+		init();
+
+	}
+
+	private void init() {
+		// TODO Auto-generated method stub
+		list = new ArrayList<YTimeModel>();
+
+		list.add(new YTimeModel("09:00", "11:00"));
+		list.add(new YTimeModel("11:00", "13:00"));
+		list.add(new YTimeModel("13:00", "15:00"));
+		list.add(new YTimeModel("15:00", "17:00"));
+		list.add(new YTimeModel("17:00", "19:00"));
+		// 2015-08-19
+		final String riqi = date;
+		str = riqi.split("-");
+		FragmentTransaction transaction = manager.beginTransaction();
+		final SelectSETimeFragment fragment = new SelectSETimeFragment(list);
+		Bundle bundle = new Bundle();
+		bundle.putInt("year", Integer.parseInt(str[0]));
+		bundle.putInt("month", Integer.parseInt(str[1]));
+		bundle.putInt("day", Integer.parseInt(str[2]));
+		fragment.setArguments(bundle);
+		fragment.setOnCalendarItemClistener(new CalendarGridViewListener() {
+
+			@Override
+			public void ItemListener(AdapterView<?> arg0, View view, int position, long arg3, CalendarGridViewAdapter calendaradapter) {
+				// TODO Auto-generated method stub
+				YTimeModel yy = (YTimeModel) calendaradapter.getItem(position);
+				LogUtils.d("yy=" + yy.getStime() + yy.getEtime());
+				StringBuffer buff = new StringBuffer(riqi);
+				buff.append(" " + yy.getStime());
+				startTime = buff.toString();
+
+				StringBuffer buff2 = new StringBuffer(riqi);
+				buff2.append(" " + yy.getEtime());
+				endTime = buff2.toString();
+
+				fragment.setSelectorItem(position);
+				calendaradapter.notifyDataSetChanged();
+				// Content.startTime=startTime;
+				// Content.endTime=endTime;
+				// finish();
+			}
+		});
+		fragment.setOnOkCancelListener(new CalendarOkCancelListener() {
+
+			@Override
+			public void ok() {
+				// TODO Auto-generated method stub
+				if (!StringUtil.isNullOrEmpty(startTime) && !StringUtil.isNullOrEmpty(endTime)) {
+					// Content.startTime = startTime;
+					// Content.endTime = endTime;
+					// finish();
+					Log.v("aaa", "我点击了ok==》" + Result_ok);
+					HashMap<String, String> map = new HashMap<String, String>();
+					map.put("startTime", startTime);
+					map.put("endTime", endTime);
+					map.put("date", date);//results.getDate()
+					JumpUtils.jumpResultfinish(SelectSETimeActivity.this, Result_ok, map);
+				} else {
+					Utils.showMessage(SelectSETimeActivity.this, "请选择一个预约的时间段！");
+				}
+
+			}
+
+			@Override
+			public void cancle() {
+				// TODO Auto-generated method stub
+				finish();
+			}
+		});
+
+		transaction.add(R.id.ll, fragment);
+		transaction.commit();
 
 	}
 
@@ -74,9 +158,9 @@ public class SelectSETimeActivity extends BaseActivity {
 			try {
 				list = new ArrayList<YTimeModel>();
 
-				results= JsonUtil.getEntityByJsonString(message, YTime.class);
+				results = JsonUtil.getEntityByJsonString(message, YTime.class);
 				if (results.getResult().equals("" + NetUtils.NET_SUCCESS_001)) {
-//					list = results.getList();
+					// list = results.getList();
 					list.add(new YTimeModel("09:00", "11:00"));
 					list.add(new YTimeModel("11:00", "13:00"));
 					list.add(new YTimeModel("13:00", "15:00"));
@@ -123,7 +207,7 @@ public class SelectSETimeActivity extends BaseActivity {
 								// Content.startTime = startTime;
 								// Content.endTime = endTime;
 								// finish();
-								Log.v("aaa","我点击了ok==》"+Result_ok);
+								Log.v("aaa", "我点击了ok==》" + Result_ok);
 								HashMap<String, String> map = new HashMap<String, String>();
 								map.put("startTime", startTime);
 								map.put("endTime", endTime);

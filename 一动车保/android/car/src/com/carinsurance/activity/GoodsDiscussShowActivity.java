@@ -9,7 +9,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +28,7 @@ import com.carinsurance.net.Task;
 import com.carinsurance.nodes.GoodsCommentListNode;
 import com.carinsurance.nodes.GoodsCommentNode;
 import com.carinsurance.utils.JumpUtils;
+import com.carinsurance.utils.MathUtils;
 import com.carinsurance.utils.StringUtil;
 import com.carinsurance.utils.Utils;
 import com.carinsurance.utils.xUtilsImageLoader;
@@ -35,6 +39,9 @@ import com.lidroid.xutils.ViewUtils;
 import com.lidroid.xutils.bitmap.PauseOnScrollListener;
 import com.lidroid.xutils.view.annotation.ViewInject;
 import com.lidroid.xutils.view.annotation.event.OnClick;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 /***
  * 
@@ -215,7 +222,7 @@ public class GoodsDiscussShowActivity extends BaseWithBundleActivity {
 				JSONArray imglist = n.getJSONArray("imglist");
 				String[] imgs = new String[imglist.length()];
 				for (int j = 0; j < imglist.length(); j++) {
-					imgs[j] = imglist.getString(j);
+					imgs[j] = imglist.getJSONObject(j).getString("img");
 				}
 
 				gcn.setImglist(imgs);
@@ -243,14 +250,20 @@ public class GoodsDiscussShowActivity extends BaseWithBundleActivity {
 
 		private List<GoodsCommentNode> datas = new ArrayList<>();
 		private LayoutInflater inflater;
-		private xUtilsImageLoader imageLoader;
+		private xUtilsImageLoader ximageLoader;
 		private Context context;
+		public ImageLoader imageLoader;
 
 		public GoodsDiscussAdapter(List<GoodsCommentNode> datas, Context context, xUtilsImageLoader loader) {
 			this.datas = datas;
 			inflater = LayoutInflater.from(context);
-			this.imageLoader = loader;
+			this.ximageLoader = loader;
 			this.context = context;
+			imageLoader = ImageLoader.getInstance();
+			DisplayImageOptions options = new DisplayImageOptions.Builder().showImageOnFail(R.drawable.no_image).showImageOnLoading(R.drawable.no_image).build();
+			// imageLoader.displayImage(uri, imageView, options);
+			ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(GoodsDiscussShowActivity.this).defaultDisplayImageOptions(options).build();
+			imageLoader.init(config);// ImageLoaderConfiguration.createDefault(context)
 		}
 
 		@Override
@@ -281,7 +294,7 @@ public class GoodsDiscussShowActivity extends BaseWithBundleActivity {
 				holder.tv_carname = (TextView) convertView.findViewById(R.id.goods_discuss_list_item_carname);
 				holder.tv_name = (TextView) convertView.findViewById(R.id.goods_discuss_list_item_uname);
 				holder.tv_time = (TextView) convertView.findViewById(R.id.goods_discuss_list_item_time);
-
+				holder.imagesList.setSelector(new ColorDrawable(Color.TRANSPARENT));
 				convertView.setTag(holder);
 			} else {
 				holder = (ViewHolder) convertView.getTag();
@@ -289,11 +302,20 @@ public class GoodsDiscussShowActivity extends BaseWithBundleActivity {
 
 			holder.content.setText(datas.get(position).getContent());
 
-			if (datas.get(position).getCpPhoto() != null) {
-				imageLoader.display(holder.headImage, datas.get(position).getCpPhoto());
+			if (!StringUtil.isNullOrEmpty(datas.get(position).getCpPhoto())) {
+
+				imageLoader.displayImage(Task.img_url + datas.get(position).getCpPhoto(), holder.headImage);
+				// imageLoader.displayImage(datas.get(position).getCpPhoto(),
+				// holder.headImage);
+				// imageLoader.display(holder.headImage,
+				// datas.get(position).getCpPhoto());
+			} else {
+				holder.headImage.setImageDrawable(getResources().getDrawable(R.drawable.no_image));
 			}
 
-			holder.starBar.setRating(datas.get(position).getStar());
+			holder.starBar.setProgress(datas.get(position).getStar());// (int)
+																		// MathUtils.mul(datas.get(position).getStar(),
+																		// 10)
 			holder.tv_carname.setText(datas.get(position).getCmname());
 			holder.tv_name.setText(datas.get(position).getCperson());
 			holder.tv_time.setText(datas.get(position).getCtime());
@@ -301,8 +323,8 @@ public class GoodsDiscussShowActivity extends BaseWithBundleActivity {
 			// 加载评论图片集
 			String[] imgs = datas.get(position).getImglist();
 			if (imgs != null && imgs.length > 0) {
-				holder.imagesList.setAdapter(new DiscussPicturesAdapter(imgs, context, imageLoader));
-				holder.imagesList.setOnScrollListener(new PauseOnScrollListener(imageLoader.getBitmapUtils(), false, false));
+				holder.imagesList.setAdapter(new DiscussPicturesAdapter(imgs, context, ximageLoader));
+				holder.imagesList.setOnScrollListener(new PauseOnScrollListener(ximageLoader.getBitmapUtils(), false, false));
 			}
 			return convertView;
 		}
@@ -341,6 +363,8 @@ public class GoodsDiscussShowActivity extends BaseWithBundleActivity {
 			}
 
 			ImageView img = (ImageView) convertView.findViewById(R.id.goods_discuss_pics_list_item_img);
+//			Log.v("aaa","");
+			Log.v("aaa", "图片地址:==>"+datas[position]);
 			imageloader.display(img, datas[position]);
 
 			return convertView;

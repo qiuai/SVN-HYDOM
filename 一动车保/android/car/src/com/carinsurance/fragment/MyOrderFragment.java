@@ -254,7 +254,7 @@ public class MyOrderFragment extends BaseFragment {
 
 		// xlistView.setDivider(null);
 		xlistView.setDivider(null);
-		xlistView.setDividerHeight((int) DisplayUtil.getDip(getActivity(), 20));
+		xlistView.setDividerHeight((int) DisplayUtil.getDip(getActivity(), 10));
 		xlistView.setXListViewListener(new IXListViewListener() {
 
 			@Override
@@ -345,6 +345,9 @@ public class MyOrderFragment extends BaseFragment {
 				ExpandableListView e_listview = ViewHolder.get(convertView, R.id.e_listview);
 
 				e_listview.setAdapter(adapter);
+				e_listview.setDivider(getActivity().getResources().getDrawable(R.color.bj_f0f0f0));
+				e_listview.setChildDivider(getActivity().getResources().getDrawable(R.color.bj_f0f0f0));
+				e_listview.setDividerHeight((int) DisplayUtil.getDip(getActivity(), 1));
 				// 展开所有
 				for (int i = 0, length = adapter.getGroupCount(); i < length; i++) {
 					e_listview.expandGroup(i);
@@ -373,18 +376,18 @@ public class MyOrderFragment extends BaseFragment {
 				LinearLayout bottom_jishiinfos = ViewHolder.get(convertView, R.id.bottom_jishiinfos);
 				TextView jishi_name = ViewHolder.get(convertView, R.id.jishi_name);
 				TextView jishi_phone = ViewHolder.get(convertView, R.id.jishi_phone);
-				RatingBar jishi_star = ViewHolder.get(convertView, R.id.jishi_star);
+//				RatingBar jishi_star = ViewHolder.get(convertView, R.id.jishi_star);
 
-				jishi_star.setProgress(0);
+//				jishi_star.setProgress(0);
 				if (!StringUtil.isNullOrEmpty(ordermodel.getOcontact()) && !StringUtil.isNullOrEmpty(ordermodel.getOphone())) {
 					bottom_jishiinfos.setVisibility(View.VISIBLE);
 					jishi_name.setText(ordermodel.getOcontact());
 					jishi_phone.setText("联系电话:" + ordermodel.getOphone());
-					try {
-						jishi_star.setProgress((int) (Double.parseDouble(ordermodel.getOstar()) * 10));
-					} catch (Exception e) {
-						jishi_star.setProgress(0);
-					}
+//					try {
+//						jishi_star.setProgress((int) (Double.parseDouble(ordermodel.getOstar()) * 10));
+//					} catch (Exception e) {
+//						jishi_star.setProgress(0);
+//					}
 
 					bottom_jishiinfos.setOnClickListener(new View.OnClickListener() {
 

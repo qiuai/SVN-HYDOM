@@ -139,17 +139,16 @@ public class MyCenterActivity extends BaseActivity implements OnClickListener {
 
 				String results = message;
 				JSONObject js = new JSONObject(message);
-//				if (js.getString("result").equals("001")) {
-					Utils.setUid(MyCenterActivity.this, "");
-					Utils.setToken(MyCenterActivity.this, "");
-					Utils.setUserName(MyCenterActivity.this, "");
-					Utils.setPhoneNumber(MyCenterActivity.this, "");
-					// JumpUtils.jumpActivityForResult(MyCenterActivity.this,LoginActivity.class,
-					// 110, true);
-					JumpUtils.jumpActivityForResult(MyCenterActivity.this,
-							LoginActivity.class, null, Result__ook);
-//					finish();
-//				}
+////				if (js.getString("result").equals("001")) {
+//					Utils.setUid(MyCenterActivity.this, "");
+//					Utils.setToken(MyCenterActivity.this, "");
+//					Utils.setUserName(MyCenterActivity.this, "");
+//					Utils.setPhoneNumber(MyCenterActivity.this, "");
+//					// JumpUtils.jumpActivityForResult(MyCenterActivity.this,LoginActivity.class,
+//					// 110, true);
+//					JumpUtils.jumpActivityForResult(MyCenterActivity.this,
+//							LoginActivity.class, null, Result__ook);
+////				}
 
 			} catch (Exception e) {
 				// TODO: handle exception
@@ -221,6 +220,16 @@ public class MyCenterActivity extends BaseActivity implements OnClickListener {
 		map.put("uid", Utils.getUid(MyCenterActivity.this));
 		map.put("token", Utils.getToken(MyCenterActivity.this));
 		NetUtils.getIns().post(Task.USER_SIGNOUT, map, handler);
+		
+		Utils.setUid(MyCenterActivity.this, "");
+		Utils.setToken(MyCenterActivity.this, "");
+		Utils.setUserName(MyCenterActivity.this, "");
+		Utils.setPhoneNumber(MyCenterActivity.this, "");
+		// JumpUtils.jumpActivityForResult(MyCenterActivity.this,LoginActivity.class,
+		// 110, true);
+		JumpUtils.jumpActivityForResult(MyCenterActivity.this,
+				LoginActivity.class, null, Result__ook);
+	
 	}
 
 	private void showDialog() {
@@ -462,8 +471,8 @@ public class MyCenterActivity extends BaseActivity implements OnClickListener {
 		intent.putExtra("aspectX", 1);
 		intent.putExtra("aspectY", 1);
 		// outputX outputY 是裁剪图片宽高
-		intent.putExtra("outputX", 64);
-		intent.putExtra("outputY", 64);
+		intent.putExtra("outputX", 256);
+		intent.putExtra("outputY", 256);
 		intent.putExtra("return-data", true);
 		startActivityForResult(intent, PHOTORESOULT);
 	}

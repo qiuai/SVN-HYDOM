@@ -12,8 +12,8 @@
 
                         <ImageView
                             android:id="@+id/jian"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:clickable="true"
                             android:onClick="OnClicks"
                             android:src="@drawable/jian" />
@@ -26,12 +26,12 @@
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
                             android:text="1"
-                            android:textColor="@color/blue_00A0EA" />
+                            android:textColor="@color/rea_FD0002" />
 
                         <ImageView
                             android:id="@+id/jia"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
+                            android:layout_width="25dp"
+                            android:layout_height="25dp"
                             android:clickable="true"
                             android:onClick="OnClicks"
                             android:src="@drawable/jia" />

@@ -55,7 +55,11 @@ public class SystemUtils {
 		}
 		return null;
 	}
-
+   /**
+    * 获取屏幕宽
+    * @param context
+    * @return
+    */
 	public static float getScreenW(Context context) {
 
 		DisplayMetrics metrics = new DisplayMetrics();// 获取屏幕宽高

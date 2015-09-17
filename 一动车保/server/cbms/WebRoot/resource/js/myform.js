@@ -40,6 +40,7 @@ function addMetaHTML(){
 $(document).ready(function(){
 	addMetaHTML();
 	var $deleteButton = $("#deleteButton");
+	var $repushButton = $("#repushButton");
 	var $refreshButton = $("#refreshButton");
 	var $listTable = $("#listTable");
 	var $selectAll = $("#selectAll");
@@ -76,6 +77,38 @@ $(document).ready(function(){
 			});
 		}
 	});
+	//人工推送
+	$repushButton.click( function() {
+		var $this = $(this);
+		if ($this.hasClass("disabled")) {
+			return false;
+		}
+		var $checkedIds = $("#listTable input[name='ids']:enabled:checked");
+		if (confirm("您确定要进行人工推送？") == true) {
+			$.ajax({
+				url: $(this).attr("val")+"/confirm",
+				type: "POST",
+				data: $checkedIds.serialize(),
+				dataType: "json",
+				cache: false,
+				success: function(data) {
+					if (data.status == "success") {
+						json = eval(data.message);  
+					    for(var i=0; i<json.length; i++){
+					    	if(json[i].tname==""){
+					    		$("#tname_"+json[i].oid).html("暂无技师可分配");
+					    	}else{
+					    		$("#tname_"+json[i].oid).html(json[i].tname);
+					    	}
+					    	$("#ostatus_"+json[i].oid).html("派单中");
+					    }  
+					}else{
+						alert(data.message);
+					}
+				}
+			});
+		}
+	});
 	
 	// 刷新
 	$refreshButton.click( function() {
@@ -92,6 +125,7 @@ $(document).ready(function(){
 			if ($enabledIds.filter(":checked").size() > 0) {
 				//$deleteButton.removeClass("disabled");
 				$deleteButton.removeAttr("disabled");
+				$repushButton.removeAttr("disabled");
 
 				$contentRow.addClass("selected");
 			} else {
@@ -102,6 +136,7 @@ $(document).ready(function(){
 			$enabledIds.prop("checked", false);
 			//$deleteButton.addClass("disabled");
 			$deleteButton.attr("disabled", true)
+			$repushButton.attr("disabled", true)
 			$contentRow.removeClass("selected");
 		}
 	});
@@ -113,14 +148,17 @@ $(document).ready(function(){
 			$this.closest("tr").addClass("selected");
 			//$deleteButton.removeClass("disabled");
 			$deleteButton.removeAttr("disabled");
+			$repushButton.removeAttr("disabled");
 		} else {
 			$this.closest("tr").removeClass("selected");
 			if ($("#listTable input[name='ids']:enabled:checked").size() > 0) {
 				//$deleteButton.removeClass("disabled");
 				$deleteButton.removeAttr("disabled");
+				$repushButton.removeAttr("disabled");
 			} else {
 				//$deleteButton.addClass("disabled");
 				$deleteButton.attr("disabled", true);
+				$repushButton.attr("disabled", true);
 			}
 		}
 	});

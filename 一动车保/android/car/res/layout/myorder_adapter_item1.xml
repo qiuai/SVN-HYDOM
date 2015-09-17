@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-            android:text="￥399"
+            android:text="￥0"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="@color/rea_FD0002" />
 
@@ -123,12 +123,15 @@
                     android:id="@+id/jishi_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
                     android:text="TextView"
                     android:textColor="@color/textcolor__343434" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
+                    android:visibility="gone"
                     android:layout_height="wrap_content" >
 
                     <TextView

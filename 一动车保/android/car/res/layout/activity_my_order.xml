@@ -68,13 +68,15 @@
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center" >
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp" >
 
                     <RadioGroup
                         android:id="@+id/radioGroup1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
                         android:orientation="horizontal" >
 
                         <RadioButton

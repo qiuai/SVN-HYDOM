@@ -47,6 +47,29 @@ public class MyOrdeErListAdapter extends BaseExpandableListAdapter {
 		this.Ftype = ftype;
 	}
 
+	/**
+	 * 判断是否有商品
+	 * 
+	 * @return
+	 */
+	public boolean is_hasshangping() {
+		for (int i = 0; i < modellist.size(); i++) {
+			// modellist.get(i).getPlist();
+			for (int j = 0; j < modellist.get(i).getPlist().size(); i++) {
+
+				if (!modellist.get(i).getPlist().isEmpty()) {
+					return true;
+				}
+			}
+			if (i == modellist.size() - 1) {
+				return false;
+			}
+
+		}
+
+		return false;
+	}
+
 	@Override
 	public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 		// TODO Auto-generated method stub
@@ -55,6 +78,15 @@ public class MyOrdeErListAdapter extends BaseExpandableListAdapter {
 
 			convertView = inflater.inflate(R.layout.my_order_adapter_item_top_server, null);
 		}
+
+		LinearLayout ll_fuwufei = ViewHolder.get(convertView, R.id.ll_fuwufei);
+		ll_fuwufei.setVisibility(View.GONE);
+		if (is_hasshangping()) {
+			ll_fuwufei.setVisibility(View.VISIBLE);
+		} else {
+			ll_fuwufei.setVisibility(View.GONE);
+		}
+
 		TextView tv_scname = ViewHolder.get(convertView, R.id.tv_scname);
 		tv_scname.setText("" + modellist.get(groupPosition).getScname());
 		ImageView iv_img = ViewHolder.get(convertView, R.id.iv_img);
@@ -139,9 +171,9 @@ public class MyOrdeErListAdapter extends BaseExpandableListAdapter {
 		if (convertView == null) {
 			convertView = inflater.inflate(R.layout.my_order_adapter_item_cen_server, null);
 		}
-
+		LinearLayout ll_pinglun = ViewHolder.get(convertView, R.id.ll_pinglun);
 		LinearLayout ll_jump11 = ViewHolder.get(convertView, R.id.ll_jump);
-
+		ll_pinglun.setVisibility(View.GONE);
 		ll_jump11.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -184,9 +216,10 @@ public class MyOrdeErListAdapter extends BaseExpandableListAdapter {
 		// }
 		// });
 		// }
+		
 		if (type == 1 && Ftype == 0)// 如果是已完成订单
 		{
-			LinearLayout ll_pinglun = ViewHolder.get(convertView, R.id.ll_pinglun);
+		
 			ll_pinglun.setVisibility(View.VISIBLE);
 			TextView tv_pinglun = ViewHolder.get(convertView, R.id.tv_pinglun);
 

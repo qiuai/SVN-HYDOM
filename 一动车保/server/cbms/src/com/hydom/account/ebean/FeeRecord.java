@@ -1,5 +1,6 @@
 package com.hydom.account.ebean;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +9,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.hydom.core.server.ebean.CouponPackage;
+import com.hydom.core.server.ebean.CouponPackageRecord;
 import com.hydom.util.dao.BaseEntity;
 
 /**
@@ -23,7 +26,7 @@ public class FeeRecord extends BaseEntity {
 	 */
 	private static final long serialVersionUID = 1212550022262222504L;
 
-	/** 1=充值、2=消费 */
+	/** 1=充值、2=消费、3=购买会员卡(优惠券包) */
 	@Column(nullable = false)
 	private Integer type;
 
@@ -37,13 +40,19 @@ public class FeeRecord extends BaseEntity {
 
 	/** 充值编号 */
 	private String rechargeNo;
-	
+
 	/**
 	 * 消费订单
 	 */
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "order_id")
 	private Order order;
+
+	/**
+	 * 优惠券包
+	 */
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "feeRecord", cascade = CascadeType.PERSIST)
+	private CouponPackageRecord couponPackageRecord;
 
 	/**
 	 * 消费方式 比如 支付宝 银联 1=会员卡支付；<br>
@@ -61,22 +70,22 @@ public class FeeRecord extends BaseEntity {
 	private Member member;
 
 	private Boolean visible = true;
-	
+
 	/**
-	 * 是否退费 1 已退费  0 未退费
+	 * 是否退费 1 已退费 0 未退费
 	 */
 	private Integer isRefund;
-	
+
 	/**
 	 * 退费商家交易码
 	 */
 	private String refundNo;
-	
+
 	/**
 	 * 微信 退款编号
 	 */
 	private String refundContent;
-	
+
 	public Integer getType() {
 		return type;
 	}
@@ -172,5 +181,13 @@ public class FeeRecord extends BaseEntity {
 	public void setRefundContent(String refundContent) {
 		this.refundContent = refundContent;
 	}
-	
+
+	public CouponPackageRecord getCouponPackageRecord() {
+		return couponPackageRecord;
+	}
+
+	public void setCouponPackageRecord(CouponPackageRecord couponPackageRecord) {
+		this.couponPackageRecord = couponPackageRecord;
+	}
+
 }

@@ -166,7 +166,8 @@ public class PayAction extends BaseAction {
 		// CachedManager.putObjectCached("payOrder", order.getNum(), order);
 		String orderNum = order.getNum();
 		String orderName = "一动车保服务";
-		long amount = 1l;CommonUtil.getLong(order.getPrice(), 100,0);
+		long amount = 1l;
+		CommonUtil.getLong(order.getPrice(), 100,0);
 		
 		//Map<String,Object> retMap = (Map<String, Object>) new WeChatPayUtil().getParameterMap(orderNum,orderName, amount, "NATIVE", WeChatPayUtil.pay_return,getIp(request));
 		String obj = new UnionPayUtil().payHTML(orderNum, amount,UnionPayUtil.pay_return,returnAddress);

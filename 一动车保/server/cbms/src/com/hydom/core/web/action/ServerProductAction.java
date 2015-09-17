@@ -128,7 +128,8 @@ public class ServerProductAction extends BaseAction{
 				productObj.put("name", product.getName());
 				productObj.put("price", product.getMarketPrice());
 				productObj.put("count", "1");
-				productObj.put("serviceId", product.getProductCategory().getServiceType().getId());
+				productObj.put("serviceId", serviceId);
+			//	productObj.put("serviceId", product.getProductCategory().getServiceType().getId());//空指针：子分类没有绑定服务
 			//	obj.put("product", productObj);
 				obj1.put("product", productObj);
 			}else{

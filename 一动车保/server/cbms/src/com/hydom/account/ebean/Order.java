@@ -212,6 +212,10 @@ public class Order extends BaseEntity {
 	@JoinColumn(name = "car_team_id")
 	private CarTeam carTeam;
 
+	/** 此订单是否进行过首次消费送优惠券 **/
+	@Column
+	private Boolean firstSendCoupon = false;
+
 	/** 逻辑删除标志 **/
 	@Column(name = "visible")
 	private Boolean visible = true;
@@ -352,6 +356,14 @@ public class Order extends BaseEntity {
 
 	public Car getCar() {
 		return car;
+	}
+
+	public Boolean getFirstSendCoupon() {
+		return firstSendCoupon;
+	}
+
+	public void setFirstSendCoupon(Boolean firstSendCoupon) {
+		this.firstSendCoupon = firstSendCoupon;
 	}
 
 	public void setCar(Car car) {

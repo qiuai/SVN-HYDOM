@@ -642,43 +642,41 @@ public class MyPayActivity extends BaseActivity implements IWXAPIEventHandler {
 		// TODO Auto-generated method stub
 		super.onStart();
 		try {
-			if(Content.weixin_pay_return!=0)
-			{
+			if (Content.weixin_pay_return != 0) {
 
-				if (Content.weixin_pay_return==1) {
+				if (Content.weixin_pay_return == 1) {
 					String msg = "支付成功！";
 					Intent intent = new Intent();
 					intent.putExtra(DATA, PAY_SUCCESS);
 					setResult(PAY_OK, intent);
 					finish();
-//					Utils.showMessage(MyPayActivity.this, msg);
-				} else if (Content.weixin_pay_return==3) {
+					// Utils.showMessage(MyPayActivity.this, msg);
+				} else if (Content.weixin_pay_return == 3) {
 					String msg = "支付失败！";
 					Intent intent = new Intent();
 					intent.putExtra(DATA, PAY_DEFAIL);
 					setResult(PAY_OK, intent);
 					finish();
-//					Utils.showMessage(MyPayActivity.this, msg);
-				} else if (Content.weixin_pay_return==2) {
-					String msg= "用户取消了支付";
+					// Utils.showMessage(MyPayActivity.this, msg);
+				} else if (Content.weixin_pay_return == 2) {
+					String msg = "用户取消了支付";
 					Intent intent = new Intent();
 					intent.putExtra(DATA, PAY_CANCEL);
 					setResult(PAY_OK, intent);
 					finish();
-//					Utils.showMessage(MyPayActivity.this, msg);
+					// Utils.showMessage(MyPayActivity.this, msg);
 				} else {
 					Intent intent = new Intent();
 					intent.putExtra(DATA, PAY_DEFAIL);
 					setResult(PAY_OK, intent);
 					finish();
-//					Utils.showMessage(MyPayActivity.this, );
+					// Utils.showMessage(MyPayActivity.this, );
 				}
-				
-				Content.weixin_pay_return=0;
-				
-				
+
+				Content.weixin_pay_return = 0;
+
 			}
-			
+
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -713,27 +711,27 @@ public class MyPayActivity extends BaseActivity implements IWXAPIEventHandler {
 				intent.putExtra(DATA, PAY_SUCCESS);
 				setResult(PAY_OK, intent);
 				finish();
-				Utils.showMessage(MyPayActivity.this, msg);
+				// Utils.showMessage(MyPayActivity.this, msg);
 			} else if (str.equalsIgnoreCase("fail")) {
 				msg = "支付失败！";
 				Intent intent = new Intent();
 				intent.putExtra(DATA, PAY_DEFAIL);
 				setResult(PAY_OK, intent);
 				finish();
-				Utils.showMessage(MyPayActivity.this, msg);
+				// Utils.showMessage(MyPayActivity.this, msg);
 			} else if (str.equalsIgnoreCase("cancel")) {
 				msg = "用户取消了支付";
 				Intent intent = new Intent();
 				intent.putExtra(DATA, PAY_CANCEL);
 				setResult(PAY_OK, intent);
 				finish();
-				Utils.showMessage(MyPayActivity.this, msg);
+				// Utils.showMessage(MyPayActivity.this, msg);
 			} else {
 				Intent intent = new Intent();
 				intent.putExtra(DATA, PAY_DEFAIL);
 				setResult(PAY_OK, intent);
 				finish();
-				Utils.showMessage(MyPayActivity.this, msg);
+				// Utils.showMessage(MyPayActivity.this, msg);
 			}
 
 			// AlertDialog.Builder builder = new AlertDialog.Builder(this);

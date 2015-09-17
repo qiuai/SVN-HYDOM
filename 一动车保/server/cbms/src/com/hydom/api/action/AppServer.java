@@ -3,7 +3,6 @@ package com.hydom.api.action;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -86,10 +85,15 @@ import com.hydom.core.server.ebean.Car;
 import com.hydom.core.server.ebean.CarBrand;
 import com.hydom.core.server.ebean.CarType;
 import com.hydom.core.server.ebean.Coupon;
+import com.hydom.core.server.ebean.CouponPackage;
+import com.hydom.core.server.ebean.CouponPackageRecord;
 import com.hydom.core.server.service.CarBrandService;
 import com.hydom.core.server.service.CarService;
 import com.hydom.core.server.service.CarTypeService;
+import com.hydom.core.server.service.CouponPackageRecordService;
+import com.hydom.core.server.service.CouponPackageService;
 import com.hydom.core.server.service.CouponService;
+import com.hydom.core.server.service.FirstSpendSendCouponService;
 import com.hydom.user.ebean.UserCar;
 import com.hydom.user.service.UserCarService;
 import com.hydom.util.CommonAttributes;
@@ -99,17 +103,9 @@ import com.hydom.util.DateTimeHelper;
 import com.hydom.util.IDGenerator;
 import com.hydom.util.PushUtil;
 import com.hydom.util.UploadImageUtil;
-import com.hydom.util.WebUtil;
 import com.hydom.util.dao.PageView;
-import com.hydom.util.payUtil.PayCommonUtil;
 import com.hydom.util.payUtil.UnionPayUtil;
-import com.hydom.util.payUtil.Util;
 import com.hydom.util.payUtil.WeChatPayUtil;
-import com.hydom.util.payUtil.common.Configure;
-import com.hydom.util.payUtil.common.MD5;
-import com.hydom.util.payUtil.common.RandomStringGenerator;
-import com.hydom.util.payUtil.common.Signature;
-import com.hydom.util.payUtil.common.XMLParser;
 
 @RequestMapping("/api")
 @Controller
@@ -166,6 +162,12 @@ public class AppServer {
 	private TechnicianService technicianService;
 	@Resource
 	private NewsRecordService newsRecordService;
+	@Resource
+	private CouponPackageService couponPackageService;
+	@Resource
+	private CouponPackageRecordService couponPackageRecordService;
+	@Resource
+	private FirstSpendSendCouponService firstSpendSendCouponService;
 
 	@Autowired
 	private HttpServletRequest request;
@@ -222,7 +224,7 @@ public class AppServer {
 				member.setMobile(phone);
 				memberService.save(member);
 			} else if (!member.getVisible() || member.getStatus() == 0) {// 帐号被停用
-				dataMap.put("result", "101");// 帐号被停用？？？
+				dataMap.put("result", "101");// 帐号被停用
 				dataMap.put("uid", "");
 				dataMap.put("token", "");
 				String json = mapper.writeValueAsString(dataMap);
@@ -701,6 +703,33 @@ public class AppServer {
 				log.info("App【数据响应】：" + json);
 				return json;
 			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{\"result\":\"000\"}";
+		}
+	}
+
+	/**
+	 * 获取纯保养价格
+	 * 
+	 * @param uid
+	 * @param token
+	 * @return
+	 */
+	@RequestMapping(value = "/server/puremaintenance/price", produces = "text/html;charset=UTF-8")
+	public @ResponseBody
+	String serverPuremaintenancePprice(
+			@RequestParam(required = false) String uid,
+			@RequestParam(required = false) String token) {
+		try {
+			log.info("App【获取纯保养价格】：" + "uid=" + uid + " token=" + token);
+			Map<String, Object> dataMap = new LinkedHashMap<String, Object>();
+			dataMap.put("result", "001");
+			dataMap.put("price", CommonAttributes.getInstance().getSystemBean()
+					.getPrice());
+			String json = mapper.writeValueAsString(dataMap);
+			log.info("App【数据响应】：" + json);
+			return json;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "{\"result\":\"000\"}";
@@ -1296,7 +1325,7 @@ public class AppServer {
 
 			PageView<Comment> pageView = new PageView<Comment>(maxresult, page);
 			LinkedHashMap<String, String> orderby = new LinkedHashMap<String, String>();
-			orderby.put("id", "desc");
+			orderby.put("createDate", "desc");
 			StringBuffer jpql = new StringBuffer(
 					"o.visible=?1 and o.serverOrderDetail.product.id=?2");
 			List<Object> params = new ArrayList<Object>();
@@ -1460,7 +1489,7 @@ public class AppServer {
 			params.add(true);
 			params.add(0); // 0顶级、然后子类依次增加
 			List<ProductCategory> topList = productCategoryService
-					.getScrollData(0, 4, jpql.toString(), params.toArray(),
+					.getScrollData(jpql.toString(), params.toArray(),
 							orderby).getResultList();
 			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 			for (ProductCategory topPC : topList) {
@@ -1542,9 +1571,21 @@ public class AppServer {
 			}
 			if (ucid != null && !"".equals(ucid)) {// 适配用户车型
 				Car car = userCarService.find(ucid).getCar();
-				jpql.append("and( o.carSet in (?" + (params.size() + 1)
-						+ ") or o.useAllCar=0)");
-				params.add(car.getId());
+				List<String> pidList = productService.listPidSupportCar(car
+						.getId());
+				if (pidList != null && pidList.size() > 0) {
+					StringBuffer ln = new StringBuffer();
+					for (int i = 0; i < pidList.size(); i++) {
+						ln.append('?').append((i + 2)).append(',');
+					}
+					ln.deleteCharAt(n.length() - 1);
+					jpql.append("and (o.id in(" + ln + ") or o.useAllCar=0)");
+					for (int i = 0; i < pidList.size(); i++) {
+						params.add(pidList.get(i));
+					}
+				} else {
+					jpql.append("and o.useAllCar=0)");
+				}
 			}
 			pageView.setQueryResult(productService.getScrollData(
 					pageView.getFirstResult(), maxresult, jpql.toString(),
@@ -1755,6 +1796,7 @@ public class AppServer {
 			feeRecord.setTradeNo(null);
 			feeRecord.setFee(order.getPrice());
 			feeRecord.setVisible(false);
+			feeRecord.setMember(member);
 			feeRecordService.save(feeRecord);
 
 			dataMap.put("result", "001");
@@ -1869,24 +1911,29 @@ public class AppServer {
 			Calendar calendar = Calendar.getInstance();
 			int hour = calendar.get(Calendar.HOUR_OF_DAY);
 			Date now = new Date();
+			Date shouldStartDate = DateTimeHelper.addDays(now, 1);
+			Date shouldEndDate = DateTimeHelper.addDays(shouldStartDate, 6);
 			if (hour >= 16) { // 16:00以后
-				SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-				Date thirdDay = DateTimeHelper.addDays(now, 2);
-				String shouldDate = sdfDate.format(thirdDay);
-				if (!stime.contains(shouldDate) || !etime.contains(shouldDate)) { // 非正常日期
-					dataMap.put("result", "501");// 预约服务日期过期
-					String json = mapper.writeValueAsString(dataMap);
-					return json;
-				}
-			} else {
-				SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-				Date secondDay = DateTimeHelper.addDays(now, 1);
-				String shouldDate = sdfDate.format(secondDay);
-				if (!stime.contains(shouldDate) || !etime.contains(shouldDate)) { // 非正常日期
-					dataMap.put("result", "501");// 预约服务日期过期
-					String json = mapper.writeValueAsString(dataMap);
-					return json;
-				}
+				shouldStartDate = DateTimeHelper.addDays(now, 2);
+				shouldEndDate = DateTimeHelper.addDays(shouldStartDate, 6);
+			}
+			SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+			Date shouldStartTime = DateTimeHelper.parseToDate(
+					sdfDate.format(shouldStartDate) + " 09:00",
+					"yyyy-MM-dd HH:mm");
+			Date shouldEndTime = DateTimeHelper.parseToDate(
+					sdfDate.format(shouldEndDate) + " 19:00",
+					"yyyy-MM-dd HH:mm");
+			Date startTime = sdf.parse(stime);
+			Date endTime = sdf.parse(etime);
+			boolean stimeValidate = startTime.getTime() >= shouldStartTime
+					.getTime() && endTime.getTime() <= shouldEndTime.getTime();
+			boolean etimeValidate = endTime.getTime() >= shouldStartTime
+					.getTime() && endTime.getTime() <= shouldEndTime.getTime();
+			if (!(stimeValidate && etimeValidate)) {
+				dataMap.put("result", "501");// 预约服务日期过期
+				String json = mapper.writeValueAsString(dataMap);
+				return json;
 			}
 			/**************** 再次检查预约服务 时间END **************/
 
@@ -1896,7 +1943,6 @@ public class AppServer {
 			Car car = userCar.getCar();
 
 			Order order = new Order();
-			order.setStartDate(sdf.parse(stime));
 			order.setPhone(phone);
 			order.setContact(contact);
 			order.setType(2); // 上门保养订单
@@ -1910,8 +1956,8 @@ public class AppServer {
 			order.setDrange(userCar.getDrange());
 			order.setCarColor(color);
 			order.setCarNum(plateNumber);
-			order.setStartDate(sdf.parse(stime));
-			order.setEndDate(sdf.parse(etime));
+			order.setStartDate(startTime);
+			order.setEndDate(endTime);
 			order.setRemark(remark);
 			order.setNum(CommonUtil.getOrderNum()); // 订单编号
 			if (cpid != null && !"".equals(cpid)) {
@@ -1983,7 +2029,7 @@ public class AppServer {
 					dataMap.put("result", "001");
 					dataMap.put("oid", order.getId());
 					dataMap.put("onum", order.getNum());
-					dataMap.put("payAction", order.getIsPay() ? "2" : "1"); // 余额不足
+					dataMap.put("payAction", 2); // 支付完成
 					String json = mapper.writeValueAsString(dataMap);
 					log.info("App【数据响应】：" + json);
 					return json;
@@ -2007,6 +2053,7 @@ public class AppServer {
 			feeRecord.setTradeNo(null);
 			feeRecord.setFee(order.getPrice());
 			feeRecord.setVisible(false);
+			feeRecord.setMember(member);
 			feeRecordService.save(feeRecord);
 			dataMap.put("result", "001");
 			dataMap.put("oid", order.getId());
@@ -2151,6 +2198,7 @@ public class AppServer {
 			feeRecord.setTradeNo(null);
 			feeRecord.setFee(order.getPrice());
 			feeRecord.setVisible(false);
+			feeRecord.setMember(member);
 			feeRecordService.save(feeRecord);
 			dataMap.put("result", "001");
 			dataMap.put("oid", order.getId());
@@ -2223,7 +2271,7 @@ public class AppServer {
 	 *            <String(产品ID),Integer(产品数量)>
 	 * @param cpid
 	 * @param otype
-	 *            订单类型 1=洗车优惠券、2=保养优惠券、3=商品优惠券
+	 *            订单类型 1=洗车、2=保养、3=商品
 	 * @return map.put("result", "001"); // 结果<br>
 	 *         map.put("ocmoney", ocmoney + ""); // 服务品总价<br>
 	 *         map.put("opmoney", ocmoney + ""); // 商品总价<br>
@@ -2237,7 +2285,10 @@ public class AppServer {
 			throws CouponUseExcepton {
 		float ocmoney = 0; // 服务总价
 		float opmoney = 0; // 产品总价
-		if (scids != null && scids.size() > 0) {
+		if (otype == 2 && (productMap == null || productMap.size() == 0)) { // 纯保养[不带商品]
+			ocmoney = Float.parseFloat(CommonAttributes.getInstance()
+					.getSystemBean().getPrice());
+		} else if (scids != null && scids.size() > 0) {
 			for (String scid : scids) {
 				ocmoney = CommonUtil.add(ocmoney + "",
 						serviceTypeService.find(scid).getPrice() + "");
@@ -3163,6 +3214,9 @@ public class AppServer {
 						gainScore + ""));
 				memberService.update(member);// 更新用户积分
 				log.info("App【用户确认收货】，获取积分为：" + gainScore);
+				// 首次消费送优惠券
+				firstSpendSendCouponService.gainCoupon(order);
+
 				dataMap.put("result", "001");
 			} else {
 				dataMap.put("result", "110");
@@ -3421,7 +3475,7 @@ public class AppServer {
 				list.add(map);
 			}
 			dataMap.put("result", "001");
-			dataMap.put("score", memberService.find(uid).getAmount());
+			dataMap.put("score", memberService.find(uid).getAmount() + "");
 			dataMap.put("list", list);
 			String json = mapper.writeValueAsString(dataMap);
 			log.info("App【数据响应】：" + json);
@@ -3777,6 +3831,136 @@ public class AppServer {
 
 	}
 
+	/**
+	 * 获取系统所有优惠券包
+	 * 
+	 * @param uid
+	 * @param token
+	 * @return
+	 */
+	@RequestMapping(value = "/user/couponpack/list", produces = "text/html;charset=UTF-8")
+	public @ResponseBody
+	String userCouponpackList(String uid, String token) {
+		try {
+			log.info("App【获取系统优惠券包】：" + "uid=" + uid + " token=" + token);
+			Map<String, Object> dataMap = new LinkedHashMap<String, Object>();
+			/** 数据获取 **/
+			LinkedHashMap<String, String> orderby = new LinkedHashMap<String, String>();
+			orderby.put("id", "desc");
+			StringBuffer jpql = new StringBuffer(
+					"o.visible=?1 and o.isEnabled=?2");
+			List<Object> params = new ArrayList<Object>();
+			params.add(true);
+			params.add(true);
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			List<CouponPackage> couponList = couponPackageService
+					.getScrollData(0, 20, jpql.toString(), params.toArray(),
+							orderby).getResultList();
+			for (CouponPackage cpp : couponList) {
+				Map<String, Object> map = new LinkedHashMap<String, Object>();
+				map.put("cppid", cpp.getId());
+				map.put("cppname", cpp.getName());
+				map.put("cppimg", cpp.getImgPath());
+				map.put("cppprice", cpp.getPrice() + "");
+				map.put("cpname", cpp.getCoupon().getName());
+				map.put("cpnum", cpp.getCouponCount() + "");
+				list.add(map);
+			}
+
+			dataMap.put("result", "001");
+			dataMap.put("money", memberService.find(uid).getMoney() + "");
+			dataMap.put("list", list);
+			String json = mapper.writeValueAsString(dataMap);
+			log.info("App【数据响应】：" + json);
+			return json;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{\"result\":\"000\"}";
+		}
+	}
+
+	/**
+	 * 用户购买优惠券包
+	 */
+	@RequestMapping(value = "/user/couponpack/buy", produces = "text/html;charset=UTF-8")
+	public @ResponseBody
+	String userCouponpackBuy(String uid, String token, String cppid, int payWay) {
+		try {
+			log.info("App【购买优惠券包】：" + "uid=" + uid + " token=" + token);
+			Map<String, Object> dataMap = new LinkedHashMap<String, Object>();
+			CouponPackage couponPackage = couponPackageService.find(cppid);
+			Member member = memberService.find(uid);
+			FeeRecord feeRecord = new FeeRecord();
+			feeRecord.setRechargeNo(CommonUtil.getOrderNum());
+			feeRecord.setMember(member);
+			feeRecord.setPhone(member.getPhone());
+			feeRecord.setFee(couponPackage.getPrice());
+			feeRecord.setType(3);// 购买会员卡
+			feeRecord.setVisible(false);
+			feeRecord.setPayWay(payWay);
+			/** 优惠券包记录 */
+			CouponPackageRecord record = new CouponPackageRecord();
+			record.setCoupon(couponPackage.getCoupon());
+			record.setCouponCount(couponPackage.getCouponCount());
+			record.setFeeRecord(feeRecord);
+			record.setImgPath(couponPackage.getImgPath());
+			record.setIntroduction(couponPackage.getIntroduction());
+			record.setName(couponPackage.getName());
+			record.setPrice(couponPackage.getPrice());
+			record.setMember(member);
+			feeRecord.setCouponPackageRecord(record);
+			if (payWay == 1) {// 会员卡
+				double cpprice = couponPackage.getPrice();
+				double userMoney = member.getMoney();
+				if (userMoney >= cpprice) {// 余额足以支付
+					member.setMoney(CommonUtil.subtract(userMoney + "", cpprice
+							+ ""));
+					couponPackageRecordService.memberCarBuy(feeRecord, member);
+					dataMap.put("result", "001");
+					dataMap.put("num", "");
+					dataMap.put("payAction", "2");// 支付完成
+				} else {
+					dataMap.put("result", "001");
+					dataMap.put("num", "");
+					dataMap.put("payAction", "3");// 余额不足
+				}
+			} else if (payWay == 2) {// 支付宝
+				feeRecordService.save(feeRecord);
+				// couponPackageRecordService.save(record);
+				dataMap.put("result", "001");
+				dataMap.put("num", feeRecord.getRechargeNo());
+				dataMap.put("payAction", "1");// 调用支付接口
+			} else if (payWay == 3) {// 银联
+				feeRecordService.save(feeRecord);
+				// couponPackageRecordService.save(record);
+				dataMap.put("result", "001");
+				dataMap.put("num", UnionPay.payNumber(
+						feeRecord.getRechargeNo(), feeRecord.getFee(),
+						UnionPayUtil.recharge_return));
+				dataMap.put("payAction", "1");// 调用支付接口
+			} else if (payWay == 4) { // 微信
+				feeRecordService.save(feeRecord);
+				// couponPackageRecordService.save(record);
+				dataMap.put("result", "001");
+				dataMap.put("num", WexinPay.weixinOrder(
+						feeRecord.getRechargeNo(), feeRecord.getFee(),
+						WeChatPayUtil.recharge_return,
+						"微信充值：" + feeRecord.getFee(), request));
+				dataMap.put("payAction", "1");// 调用支付接口
+			} else {
+				dataMap.put("result", "115");// 不支持的购买方式
+				dataMap.put("num", "");
+				dataMap.put("payAction", "");
+			}
+			String json = mapper.writeValueAsString(dataMap);
+			log.info("App【数据响应】：" + json);
+			return json;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "{\"result\":\"000\"}";
+		}
+	}
+
 	@RequestMapping(value = "/user/fee/record/list", produces = "text/html;charset=UTF-8")
 	public @ResponseBody
 	String userFeeRecordList(String uid, String token, int page, int maxresult,
@@ -3830,6 +4014,10 @@ public class AppServer {
 				} else if (feeRecord.getType() == 2) { // 消费
 					map.put("ftext", "消费(订单号：" + feeRecord.getOrder().getNum()
 							+ ")"); // 费用描述
+					map.put("fdate", sdf.format(feeRecord.getCreateDate())); // 充值/消费日期
+					map.put("fmoney", "-" + feeRecord.getFee()); // 金额描述
+				} else if (feeRecord.getType() == 3) { // 购买会员卡
+					map.put("ftext", "购买会员卡"); // 费用描述
 					map.put("fdate", sdf.format(feeRecord.getCreateDate())); // 充值/消费日期
 					map.put("fmoney", "-" + feeRecord.getFee()); // 金额描述
 				}
@@ -3930,8 +4118,12 @@ public class AppServer {
 			@RequestParam(required = false) String token) {
 		ModelAndView mav = new ModelAndView("api/news_view");
 		News nw = newsService.find(nwid);
-		nw.setContent(nw.getContent().replaceAll("<img",
-				"<img class='img-responsive'"));
+		try {
+			nw.setContent(nw.getContent().replaceAll("<img",
+					"<img class='img-responsive'"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		mav.addObject("news", nw);
 		mav.addObject("star", newsRecordService.starRecord(uid, nw.getId()));
 		mav.addObject("uid", uid);
@@ -3969,8 +4161,12 @@ public class AppServer {
 		ModelAndView mav = new ModelAndView("api/product_view");
 		Product product = productService.find(pid);
 		if (product.getIntroduction() != null) {
-			product.setIntroduction(product.getIntroduction().replaceAll(
-					"<img", "<img class='img-responsive'"));
+			try {
+				product.setIntroduction(product.getIntroduction().replaceAll(
+						"<img", "<img class='img-responsive'"));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		mav.addObject("product", product);
 		return mav;
@@ -3983,8 +4179,12 @@ public class AppServer {
 	public ModelAndView webpageAdvert(@PathVariable String adid) {
 		ModelAndView mav = new ModelAndView("api/advert_view");
 		IndexAdvert advert = indexAdvertService.find(adid);
-		advert.setContent(advert.getContent().replaceAll("<img",
-				"<img class='img-responsive'"));
+		try {
+			advert.setContent(advert.getContent().replaceAll("<img",
+					"<img class='img-responsive'"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		mav.addObject("advert", advert);
 		return mav;
 	}
@@ -4027,7 +4227,7 @@ public class AppServer {
 			List<Object> adParams = new ArrayList<Object>();
 			adParams.add(true);
 			List<Map<String, Object>> adlist = new ArrayList<Map<String, Object>>();
-			List<IndexAdvert> adverts = indexAdvertService.getScrollData(0, 3,
+			List<IndexAdvert> adverts = indexAdvertService.getScrollData(
 					adJpql.toString(), adParams.toArray(), adOrderby)
 					.getResultList();
 			for (IndexAdvert ad : adverts) {
@@ -4098,6 +4298,7 @@ public class AppServer {
 			dataMap.put("blist", blist);
 			dataMap.put("pclist", pclist);
 			String json = mapper.writeValueAsString(dataMap);
+			log.info("App【数据响应】：" + json);
 			return json;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -4142,9 +4343,10 @@ public class AppServer {
 			}
 			boolean sendResult = sendSms(phone, message.getContent());
 			shortMessageService.save(message);
-
 			dataMap.put("result", "001");
 			String json = mapper.writeValueAsString(dataMap);
+			log.info("App【数据响应】：" + json + " 短信发送结果："
+					+ (sendResult ? "成功" : "失败"));
 			return json;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -4153,7 +4355,7 @@ public class AppServer {
 	}
 
 	/**
-	 * 获取android版本号版本号
+	 * 获取android版本号
 	 * 
 	 * @param phone
 	 * @param type
@@ -4213,22 +4415,6 @@ public class AppServer {
 			e.printStackTrace();
 			return "<div style='display:none;'>" + e.toString() + ":"
 					+ new Date() + "</div>";
-		}
-	}
-
-	/**
-	 * 检查令牌是否有效
-	 * 
-	 * @param uid
-	 * @param authId
-	 * @return
-	 */
-	private boolean checkToken(String uid, String authId) {
-		Token token = tokenService.findToken(uid, authId);
-		if (token != null) {
-			return true;
-		} else {
-			return false;
 		}
 	}
 
@@ -4293,14 +4479,40 @@ public class AppServer {
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception {
 		float f = 123f;
 		// long l = CommonUtil.getLong(f, 1, 0);
 		// System.out.println(l);
-
-		BigDecimal b = new BigDecimal(f);
-		long b1 = b.setScale(0).longValue();
-		System.out.println(b1);
+		String stime = "2015-09-16 9:00";
+		String etime = "2015-09-16 11:00";
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Calendar calendar = Calendar.getInstance();
+		int hour = calendar.get(Calendar.HOUR_OF_DAY);
+		Date now = new Date();
+		Date shouldStartDate = DateTimeHelper.addDays(now, 1);
+		Date shouldEndDate = DateTimeHelper.addDays(shouldStartDate, 6);
+		System.out.println(shouldStartDate);
+		System.out.println(shouldEndDate);
+		if (hour >= 16) { // 16:00以后
+			shouldStartDate = DateTimeHelper.addDays(now, 2);
+			shouldEndDate = DateTimeHelper.addDays(shouldStartDate, 6);
+		}
+		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
+		Date shouldStartTime = DateTimeHelper.parseToDate(
+				sdfDate.format(shouldStartDate) + " 09:00", "yyyy-MM-dd HH:mm");
+		Date shouldEndTime = DateTimeHelper.parseToDate(
+				sdfDate.format(shouldEndDate) + " 19:00", "yyyy-MM-dd HH:mm");
+		Date startTime = sdf.parse(stime);
+		Date endTime = sdf.parse(etime);
+		System.out.println(shouldStartTime);
+		System.out.println(shouldEndTime);
+		boolean stimeValidate = startTime.getTime() >= shouldStartTime
+				.getTime() && endTime.getTime() <= shouldEndTime.getTime();
+		boolean etimeValidate = endTime.getTime() >= shouldStartTime.getTime()
+				&& endTime.getTime() <= shouldEndTime.getTime();
+		if (!(stimeValidate && etimeValidate)) {
+			System.out.println("格式错");
+		}
 	}
 
 }

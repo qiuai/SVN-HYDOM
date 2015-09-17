@@ -131,7 +131,8 @@ public class NewAddingActivity extends BaseActivity {
 		};
 
 		xlistview.setAdapter(adapter);
-
+		xlistview.setPullLoadEnable(true);
+		xlistview.setPullRefreshEnable(true);
 		xlistview.setXListViewListener(new IXListViewListener() {
 
 			@Override

@@ -3,14 +3,11 @@ package com.hydom.account.service;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.hydom.account.ebean.Area;
 import com.hydom.account.ebean.Member;
 import com.hydom.account.ebean.MemberCoupon;
 import com.hydom.account.ebean.Order;
-import com.hydom.account.ebean.ServiceType;
 import com.hydom.util.bean.DateMapBean;
 import com.hydom.util.dao.DAO;
 
@@ -59,14 +56,16 @@ public interface OrderService extends DAO<Order> {
 	 * @return
 	 */
 	public boolean bindTechnician(String oid);
-	
+
 	/**
 	 * 给指定的订单重新绑定技师<br>
+	 * <1> 如果非洗车订单，直接返回false<br>
+	 * <2> 会将订单状态改成分配中（即设：status=1）
 	 * 
 	 * @param oid
 	 * @return
 	 */
-	public boolean resetBindTechnician(String oid,float maxDistance);
+	public boolean resetBindTechnician(String oid, float maxDistance);
 
 	/**
 	 * 根据区域 和 时间 获取 这个区域内在这段时间内的所有空闲时间段
@@ -123,7 +122,5 @@ public interface OrderService extends DAO<Order> {
 	 * @return
 	 */
 	public String getCouponPrice(MemberCoupon memberCoupon, Float sum);
-
-	
 
 }
