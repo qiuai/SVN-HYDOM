@@ -152,14 +152,13 @@ public class AppServerTechnician {
 			dataMap.put("name", technician.getName());
 			dataMap.put("phoneNumber", technician.getPhonenumber());
 			dataMap.put("jobStatus", technician.isJobstatus());
-			dataMap.put("stats", technician.getStats());
 			Order order = technician.getOrder();
 			if (technician.isJobstatus() && order == null) {
-				order = orderService.matchOrder(techId,
-						technician.getLatitude(), technician.getLongitude());
+				order = orderService.matchOrder(techId, technician.getLatitude(), technician.getLongitude());
 			}
 			if (technician.getOrder() != null) {
 				dataMap.put("result", "001");
+				dataMap.put("stats", order.getStatus()-1);
 				dataMap.put("hasOrder", true);
 				dataMap.put("orderId", order.getId());// 订单id
 				dataMap.put("orderNum", order.getNum());// 订单编号
@@ -175,6 +174,7 @@ public class AppServerTechnician {
 				dataMap.put("distance", order.getDistance());// 距离
 			} else {
 				dataMap.put("result", "001");
+				dataMap.put("stats", 0);
 				dataMap.put("hasOrder", false);
 				dataMap.put("orderId", "");// 订单id
 				dataMap.put("orderNum", "");// 订单编号

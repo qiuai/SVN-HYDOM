@@ -94,14 +94,18 @@ $(document).ready(function(){
 				success: function(data) {
 					if (data.status == "success") {
 						json = eval(data.message);  
+						var alertMsg ="" ;
 					    for(var i=0; i<json.length; i++){
 					    	if(json[i].tname==""){
 					    		$("#tname_"+json[i].oid).html("暂无技师可分配");
+					    		alertMsg = alertMsg +"订单编号："+json[i].onum+"(暂无技师可分配)\n";
 					    	}else{
 					    		$("#tname_"+json[i].oid).html(json[i].tname);
+					    		alertMsg = alertMsg +"订单编号："+json[i].onum+"(分配给技师 "+ json[i].tname + ")\n"
 					    	}
 					    	$("#ostatus_"+json[i].oid).html("派单中");
 					    }  
+					    alert(alertMsg);
 					}else{
 						alert(data.message);
 					}

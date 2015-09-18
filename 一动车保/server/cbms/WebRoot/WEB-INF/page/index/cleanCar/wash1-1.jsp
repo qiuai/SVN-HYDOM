@@ -117,7 +117,7 @@
 							</li>
 							<li><input type="radio" name="pay" id="pay2" /><label for="pay2"><img src="images/ma_10.png" alt="" /></label>
 							</li>
-							<li><input type="radio" name="pay" id="pay3" /><label for="pay3" class="pay3">会员卡支付</label>
+							<li><input type="radio" name="pay" id="pay3" /><label for="pay3" class="pay3">余额支付</label>
 							</li>
 						</ul>
 					</form>

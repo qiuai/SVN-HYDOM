@@ -108,6 +108,8 @@ public class ServerProductAction extends BaseAction{
 		serviceObj.put("serviceId", serviceType.getId());
 		serviceObj.put("serviceName", serviceType.getName());
 		serviceObj.put("servicePrice", serviceType.getPrice()==null?"0":serviceType.getPrice());
+		serviceObj.put("onlyServicePrice", CommonAttributes.getInstance().getSystemBean()
+				.getPrice()==null?"0":CommonAttributes.getInstance().getSystemBean().getPrice());
 		
 		//商品信息
 		List<ProductCategory> productCategorySet = serviceType.getProductCategory();

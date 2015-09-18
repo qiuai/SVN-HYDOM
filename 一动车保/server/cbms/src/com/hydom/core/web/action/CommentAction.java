@@ -68,7 +68,8 @@ public ModelAndView save(@ModelAttribute Comment comment,
 	for (String imgpath : imgPath) {
 		CommentImg ci = new CommentImg();
 		ci.setComment(comment);
-		ci.setImgPath(imgpath);
+		//ci.setImgPath(imgpath);
+		ci.setImgPath(imgpath.substring(imgpath.indexOf("upload")));
 		commentImgService.save(ci);
 		}
 	}

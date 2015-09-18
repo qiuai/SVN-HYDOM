@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+	<!-- Defines a properties file for dereferencing variables -->
+	<bean id="placeholderConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="/WEB-INF/red5-web.properties" />
+	</bean>
+
+	<!-- Defines the web context -->
+	<bean id="web.context" class="org.red5.server.Context" autowire="byType" />
+
+	<!-- Defines the web scopes -->
+	<bean id="web.scope" class="org.red5.server.scope.WebScope"
+		init-method="register">
+		<property name="server" ref="red5.server" />
+		<property name="parent" ref="global.scope" />
+		<property name="context" ref="web.context" />
+		<property name="handler" ref="web.handler" />
+		<property name="contextPath" value="${webapp.contextPath}" />
+		<property name="virtualHosts" value="${webapp.virtualHosts}" />
+	</bean>
+
+	<!-- Defines the web handler which acts as an applications endpoint -->
+	<bean id="web.handler" class="org.red5.core.Application">
+		<property name="userService" ref="userService"></property>
+		<property name="roomService" ref="roomService"></property>
+		<property name="videoService" ref="videoService"></property>
+		<property name="userCourseService" ref="userCourseService"></property>
+	</bean>
+
+	<!-- 开发业务bean定义 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3326/vt" />
+		<property name="username" value="root" />
+		<property name="password" value="123456" />
+		<property name="initialSize" value="10" />
+		<property name="maxActive" value="1000" />
+		<property name="maxIdle" value="100" />
+		<property name="minIdle" value="10" />
+	</bean>
+
+	<bean id="userService" class="com.hydom.core.service.UserServiceBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="roomService" class="com.hydom.core.service.RoomServiceBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="videoService" class="com.hydom.core.service.VideoServiceBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="userCourseService" class="com.hydom.core.service.UserCourseServiceBean">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+</beans>

@@ -267,7 +267,7 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 			},"json");
 		}
 		
-		//1 会员卡 2 支付宝 3 银联 4 微信 5 现金
+		//1 余额 2 支付宝 3 银联 4 微信 5 现金
 		function refundWay(result){
 			if(result.payWay == 1){
 				alert("操作成功");

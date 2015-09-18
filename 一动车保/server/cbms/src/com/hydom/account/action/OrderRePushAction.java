@@ -83,12 +83,7 @@ public class OrderRePushAction extends BaseAction {
 		List<Object> params = new ArrayList<Object>();
 		jpql.append("o.visible = true and o.isPay = true and o.type=?1");
 		params.add(1);// 洗车订单
-		if ("true".equals(endOrder)) {
-			jpql.append(" and o.status = 0");
-		} else {
-			jpql.append(" and o.status > 0 ");
-			jpql.append(" and (o.status < 30 or o.status = 35 )");
-		}
+		jpql.append(" and (o.status > 0 and o.status < 10)  ");
 
 		if (StringUtils.isNotEmpty(queryContent)) {
 			jpql.append(" and (o.num like '%" + queryContent + "%')");
@@ -138,20 +133,20 @@ public class OrderRePushAction extends BaseAction {
 		return basePath + "/order_list_push";
 	}
 
-	// 重新推送
+	// 处理重新推送订单
 	@RequestMapping("/confirm")
 	@ResponseBody
 	public String repushConfirm(String[] ids) {
 		List<Map<String, String>> list = new ArrayList<Map<String, String>>();
 		for (String oid : ids) {
-			System.out.println(oid);
+			Order order = orderService.find(oid);
 			boolean bindResult = orderService.resetBindTechnician(oid, 5);
 			Map<String, String> map = new HashMap<String, String>();
 			if (bindResult) {
-				Order order = orderService.find(oid);
 				map.put("oid", oid);
+				map.put("onum", order.getNum());
 				map.put("tname", order.getTechMember().getName());
-				//执行推送相关代码 
+				// 执行推送相关代码
 				Map<String, String> dataMap = new LinkedHashMap<String, String>();
 				dataMap.put("orderId", order.getId());
 				dataMap.put("orderNum", order.getNum());
@@ -171,6 +166,7 @@ public class OrderRePushAction extends BaseAction {
 				}
 			} else {
 				map.put("oid", oid);
+				map.put("onum", order.getNum());
 				map.put("tname", "");
 			}
 			list.add(map);

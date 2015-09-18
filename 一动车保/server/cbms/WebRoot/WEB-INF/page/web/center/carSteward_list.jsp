@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<li class="lists">
 									<dl class="listsdl1">
 										<dd class="selectedLikes">
-											<label><a><img src="<%=basePath %>${userCar.car.carBrand.imgPath }" /></a></label>
+											<label><a><img src="<%=basePath %>${userCar.car.carBrand.imgPath }" style="height: 100px; width: 100px;"/></a></label>
 										</dd>
 										<dd class="listsdd">
 											<ul>

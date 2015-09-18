@@ -154,6 +154,11 @@ function saveOrder() {
 									$("#area_div_select").append(select);
 									
 								}
+								
+								//如果是纯服务就隐藏服务价格
+								$(function(){
+									if(!$(".lists").hasClass("pb")) $(".lists").find(".dd31").css('opacity','0');
+								});
 							</script>
 							<div>
 								<span>上门地址：</span>
@@ -191,7 +196,7 @@ function saveOrder() {
 									</dl>
 								</li>
 								<c:forEach var="subValue" items="${value.serverOrderProductBeans }">
-									<li class="lists">
+									<li class="lists pb">
 										<dl>
 											<dd class="dd11">${subValue.name}</dd>
 											<dd class="dd21">￥${subValue.price }</dd>
@@ -232,7 +237,7 @@ function saveOrder() {
 									<c:when test="${!empty sessionScope.member_session }">
 										<li>
 											<label>
-												<input type="radio" name="payWay" class="payInput" value="1" checked="checked" />会员卡支付
+												<input type="radio" name="payWay" class="payInput" value="1" checked="checked" />余额支付
 											</label>
 										</li>
 									</c:when>

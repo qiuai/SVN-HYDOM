@@ -152,9 +152,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<a class="ste1Close" id="ste1Close" href="javascript:hide()"><img src="<%=basePath %>resource/page/images/login_2.png" /></a>
 				</div>
 				<div class="cancelContent">
-					<input type="radio" name="payWay" value="1" checked="checked">会员卡
+					<input type="radio" name="payWay" value="1" checked="checked">余额
 					<input type="radio" name="payWay" value="2">支付宝
-<!-- 					<input type="radio" name="payWay" value="3">银联 -->
+					<input type="radio" name="payWay" value="3">银联
 					<input type="hidden" id="cpId">
 				</div>
 				<div class="cancelBottom">

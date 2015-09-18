@@ -95,7 +95,7 @@
 					</ul>
 					<ul>
 						<li><b>支付方式：</b>
-							<c:if test="${order.payWay eq 1}">会员卡支付</c:if>
+							<c:if test="${order.payWay eq 1}">余额支付</c:if>
 							<c:if test="${order.payWay eq 2}">支付宝</c:if>
 							<c:if test="${order.payWay eq 3}">银联</c:if>
 							<c:if test="${order.payWay eq 4}">微信</c:if>
@@ -226,7 +226,7 @@
 			if(sessionId != ""){
 				saveOrder();
 			}else{
-				alert("请先登录,才能使用会员卡支付");
+				alert("请先登录,才能使用余额支付");
 				return;
 			}			
 		}else if(payWay == "4"){//微信支付
@@ -235,7 +235,7 @@
 			//$(".pay").show();
 			alipay();
 		}else if(payWay == "3"){//银联支付
-			//unionPay();
+			unionPay();
 		}
 	}
 	

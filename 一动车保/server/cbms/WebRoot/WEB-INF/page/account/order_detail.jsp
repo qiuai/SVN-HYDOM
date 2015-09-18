@@ -200,7 +200,7 @@ div.form-group{
 									<label class="col-sm-2 control-label">支付方式</label>
 									<div class="col-sm-8">
 										<label class="control-label">
-											<c:if test="${entity.payWay eq 1}">会员卡支付</c:if>
+											<c:if test="${entity.payWay eq 1}">余额支付</c:if>
 											<c:if test="${entity.payWay eq 2}">支付宝</c:if>
 											<c:if test="${entity.payWay eq 3}">银联</c:if>
 											<c:if test="${entity.payWay eq 4}">微信</c:if>
@@ -353,7 +353,7 @@ div.form-group{
 															<c:forEach var="value" items="${entity.serverOrder }">
 																<tr>
 																	<td>${value.name }</td>
-																	<td>${value.price }</td>
+																	<td><c:if test="${productSum!=0}">${value.price }</c:if> </td>
 																</tr>	
 															</c:forEach>
 														</table>

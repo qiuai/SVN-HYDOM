@@ -297,6 +297,9 @@ td{
 						<li class="menu-item myCoupon"><a
 							href="${pageContext.request.contextPath}/user/myCoupon/list">我的优惠券</a>
 						</li>
+						<li class="menu-item couponPackage">
+							<a href="${pageContext.request.contextPath}/user/couponPackage/list">我的会员卡</a>
+						</li>
 					</ul>
 					<div class="menu-title menu-home">
 						<h3>我的车管家</h3>
@@ -363,7 +366,7 @@ td{
 													<c:if test="${4 eq value.payWay}">微信</c:if>
 													<c:if test="${3 eq value.payWay}">银联</c:if>
 													<c:if test="${2 eq value.payWay}">支付宝</c:if>
-													<c:if test="${1 eq value.payWay}">会员卡支付</c:if> 
+													<c:if test="${1 eq value.payWay}">余额支付</c:if> 
 												</td>
 												<td>
 													<fmt:formatNumber value="${value.fee }" pattern="0.00"/>

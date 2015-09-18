@@ -203,7 +203,7 @@
 								<div class="form-group">
 									<label class="col-sm-4 control-label">备注</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" name="introduction" placeholder="请填写券包介绍" maxlength="255" value="${firstSpendSendCoupon.introduction }">
+										<input type="text" class="form-control" name="introduction" placeholder="请填写会员卡介绍" maxlength="255" value="${firstSpendSendCoupon.introduction }">
 									</div>
 								</div>
 								

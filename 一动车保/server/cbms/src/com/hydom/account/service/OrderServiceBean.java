@@ -113,7 +113,8 @@ public class OrderServiceBean extends DAOSupport<Order> implements OrderService 
 						.setParameter(1, lat).setParameter(2, lng)
 						.setParameter(3, techid).setParameter(4, todayStart)
 						.setParameter(5, todayEnd).setParameter(6, 1)
-						.setParameter(7, 1).setParameter(8, true).setMaxResults(1).getSingleResult();
+						.setParameter(7, 1).setParameter(8, true)
+						.setMaxResults(1).getSingleResult();
 				double distance = Double.parseDouble(objs[1].toString());
 				if (distance <= 5) {// 5km范围内
 					Order order = this.find(objs[0].toString()); // 确定分配的订单
@@ -153,7 +154,11 @@ public class OrderServiceBean extends DAOSupport<Order> implements OrderService 
 	public boolean bindTechnician(String oid) {
 		try {
 			Order order = this.find(oid);
-
+			if (!order.getIsPay() || !order.getVisible()) {// 未支付
+				log.error("绑定技师错误：支付状态：" + order.getIsPay() + " visible状态："
+						+ order.getVisible());
+				return false;
+			}
 			// 原型SQL:SELECT
 			// t.id,dbo.fnGetDistance(120.388714,36.074258,latitude,longitude)
 			// AS
@@ -195,6 +200,12 @@ public class OrderServiceBean extends DAOSupport<Order> implements OrderService 
 	public boolean resetBindTechnician(String oid, float maxDistance) {
 		try {
 			Order order = this.find(oid);
+			if (!order.getIsPay() || !order.getVisible()) {// 未支付
+				log.error("重新绑定技师失败：支付状态：" + order.getIsPay() + " visible状态："
+						+ order.getVisible());
+				return false;
+			}
+
 			if (order.getType() != 1) {// 洗车订单
 				log.info("重新绑定技师失败：（非洗车订单不能重新分配技师）订单ID=" + oid);
 				return false;

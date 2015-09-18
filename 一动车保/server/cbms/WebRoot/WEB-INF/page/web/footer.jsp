@@ -19,12 +19,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><a href="<%=basePath%>web/server/detail?id=3">市场合作</a>|</li>
 						<li><a href="<%=basePath%>web/server/detail?id=4">联系我们</a></li>
 					</ul>
-					<p>&copy;2015&nbsp;www.YIDONGCHEBAO.com&nbsp; 贵ICP备18888888号</p>
+					<p>&copy;2015&nbsp;www.YIDONGCHEBAO.com&nbsp; 黔ICP备15011946号-1</p>
 				</div>
 			</div>
 			<div class="span5r">
 				<ul>
-					<li class="l1">咨询热线：0851-82239999</li>
+					<li class="l1">0851-8223 9999 转 6001-6006</li>
 				<!-- 	<li class="l2">咨询QQ：4008559999</li> -->
 					<li class="l3">公司地址：贵州省贵阳市高新区688号</li>
 				</ul>

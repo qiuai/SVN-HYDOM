@@ -60,6 +60,11 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 		$("#mabg2").hide();
 		$("#stbg1").hide();
 	}
+	$(function(){
+		$(".orderLists").each(function(){
+			if(!$(this).find(".orderContent").hasClass("productBean")) $(this).find(".li1").css('opacity','0');
+		});
+	});
 	</script>
 </head>
 
@@ -85,6 +90,9 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 				</li>
 				<li class="menu-item myCoupon">
 					<a href="${pageContext.request.contextPath}/user/myCoupon/list">我的优惠券</a>
+				</li>
+				<li class="menu-item couponPackage">
+					<a href="${pageContext.request.contextPath}/user/couponPackage/list">我的会员卡</a>
 				</li>
 			</ul>
 			<div class="menu-title menu-home">
@@ -158,24 +166,13 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 									<input type="checkbox" /><b><fmt:formatDate value="${order.createDate }" type="date"/></b>
 									<p>
 									<a href="${pageContext.request.contextPath}/user/order/details?orderId=${order.id }">订单编号：${order.num }</a>
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;￥${order.price }
+									&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									&nbsp;
 									<c:if test="${order.status==1||order.status==11||order.status==21 }">
 									<button type="button" onclick="cencal('${order.id}')">取消订单</button></c:if>
 									</p>
-								</div>
-								
-								
-								
-								
-								
-								
-				
-				
-				
-								
-											
+								</div>		
 								<%-- <div class="orderTitleRight"><a href="${pageContext.request.contextPath}/user/order/del?id=${order.id}"><img src="${pageContext.request.contextPath}/resource/page/images/del.png" /></a></div> --%>
 							</li>
 							
@@ -187,7 +184,7 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 										<ul>
 											<li class="li1">￥${serverOrder.serviceType.price }</li>
 											<li class="li2">1</li>
-											<li class="li3">￥${serverOrder.order.price }</li>
+											<li class="li3"></li>
 											<li class="li4">
 												<c:if test="${serverOrder.order.status==0 }">已完结</c:if>
 												<c:if test="${serverOrder.order.status==1 }">派单中</c:if>
@@ -214,14 +211,14 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 							</li>
 							</c:forEach>
 							<c:forEach items="${order.serverOrderDetail }" var="serverOrderDetail">
-								<li class="orderContent">
+								<li class="orderContent productBean">
 								<dl>
 									<dt><img src="<%=base%>${serverOrderDetail.product.imgPath }"  height="79" width="79"/><b>${serverOrderDetail.product.fullName }</b></dt>
 									<dd>
 										<ul>
 											<li class="li1">￥${serverOrderDetail.product.price }</li>
 											<li class="li2">${serverOrderDetail.count }</li>
-											<li class="li3">￥${serverOrderDetail.order.price }</li>
+											<li class="li3"></li>
 											<li class="li4">
 												<c:if test="${serverOrderDetail.order.status==0 }">已完结</c:if>
 												<c:if test="${serverOrderDetail.order.status==1 }">派单中</c:if>

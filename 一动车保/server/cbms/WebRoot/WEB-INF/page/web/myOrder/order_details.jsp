@@ -57,6 +57,9 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 				<li class="menu-item myCoupon">
 					<a href="${pageContext.request.contextPath}/user/myCoupon/list">我的优惠券</a>
 				</li>
+				<li class="menu-item couponPackage">
+					<a href="${pageContext.request.contextPath}/user/couponPackage/list">我的会员卡</a>
+				</li>
 			</ul>
 			<div class="menu-title menu-home">
 				<h3>我的车管家</h3>

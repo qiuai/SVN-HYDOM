@@ -836,6 +836,13 @@ public class Index2Action extends BaseAction{
 			order.setType(1);
 			order.setIsPay(false);
 			order.setNum(CommonUtil.getOrderNum());
+			
+			//---------------------------------------------------------------------------------------------------------
+			MemberBean bean = getMemberBean(request);
+			if(bean!=null){
+				order.setMember(memberService.find(bean.getMember().getId()));
+			}
+			
 			orderService.save(order);
 			
 			//保存服务订单

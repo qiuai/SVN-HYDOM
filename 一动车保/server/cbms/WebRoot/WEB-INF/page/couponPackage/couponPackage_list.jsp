@@ -41,7 +41,7 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 		        <div class="media-body">
 		          <ul class="breadcrumb">
 		            <li><a href=""><i class="glyphicon glyphicon-home"></i></a></li>
-		            <li><a href="">优惠券包管理</a></li>
+		            <li><a href="">会员卡管理</a></li>
 		          </ul>
 		        </div>
 		      </div><!-- media -->

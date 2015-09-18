@@ -14,7 +14,7 @@
 	content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <meta name="description" content="">
 
-<title>优惠券包添加/修改</title>
+<title>会员卡管理</title>
 <link
 	href="${pageContext.request.contextPath}/resource/chain/css/style.default.css"
 	rel="stylesheet">
@@ -167,7 +167,7 @@
 						<div class="media-body">
 							<ul class="breadcrumb">
 								<li><a href=""><i class="glyphicon glyphicon-home"></i></a></li>
-								<li><a href="">优惠券包管理</a></li>
+								<li><a href="">会员卡管理</a></li>
 							</ul>
 						</div>
 					</div>
@@ -185,20 +185,20 @@
 							<input type="hidden" name="id" value="${couponPackage.id }">
 							<div class="panel-body nopadding">
 								<div class="form-group">
-									<label class="col-sm-4 control-label">券包名称</label>
+									<label class="col-sm-4 control-label">会员卡名称</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" name="name" CHname="名称" 
-											onBlur="check(this)" placeholder="请填写券包名称" id="name" value="${couponPackage.name }">
+											onBlur="check(this)" placeholder="请填写会员卡名称" id="name" value="${couponPackage.name }">
 										<input type="hidden" class="repeat"/>
 										<span class="errorStyle" id="name_error"></span>
 									</div>
 								</div>
 								
 								<div class="form-group">
-									<label class="col-sm-4 control-label">券包购买价格</label>
+									<label class="col-sm-4 control-label">会员卡购买价格</label>
 									<div class="col-sm-8">
 										<input type="text" class="form-control" name="price" CHname="价格" 
-											onBlur="check(this)" onkeyup="priceInputRestrict(this)" placeholder="请填写券包价格" id="price" value="${couponPackage.price }">
+											onBlur="check(this)" onkeyup="priceInputRestrict(this)" placeholder="请填写会员卡价格" id="price" value="${couponPackage.price }">
 										<input type="hidden" class="repeat"/>
 										<span class="errorStyle" id="price_error"></span>
 									</div>
@@ -220,9 +220,9 @@
 								</div>
 
 								<div class="form-group">
-									<label class="col-sm-4 control-label">券包介绍</label>
+									<label class="col-sm-4 control-label">会员卡介绍</label>
 									<div class="col-sm-8">
-										<input type="text" class="form-control" name="introduction" placeholder="请填写券包介绍" maxlength="255" value="${couponPackage.introduction }">
+										<input type="text" class="form-control" name="introduction" placeholder="请填写会员卡介绍" maxlength="255" value="${couponPackage.introduction }">
 									</div>
 								</div>
 

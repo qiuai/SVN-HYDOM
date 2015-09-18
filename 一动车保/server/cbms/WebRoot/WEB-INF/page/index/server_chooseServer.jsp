@@ -55,7 +55,20 @@ img.brandImage{
 			var table = $(tables[i]);
 			var service = table.find("tr.serviceType");
 			var serviceId = service.attr("serviceTypeId");
-			var serverPrice = service.attr("serviceTypePrice");
+			
+			//没有商品时显示纯服务价格
+			var serverPrice = 0;
+			var productTotals = $("span.productTotal");
+			if(productTotals.length==0){
+				if(i==0){//服务费只算一次
+					serverPrice = $(".serviceType").attr("onlyserviceprice");
+				}else{
+					serverPrice = 0;
+				}
+			}else{
+				serverPrice = service.attr("serviceTypePrice");
+			}
+
 			var serverName = service.find("span.serviceTypeImgSpan").text();
 			var serviceData = {
 				serverId : serviceId,//服务ID
@@ -329,7 +342,7 @@ img.brandImage{
 							hasProduct = "<span class='chooseServerNoAdd'></span>";
 						}
 						
-						var serviceTR = "<tr class='titlebg serviceType' serviceTypeId='"+value.serviceType.serviceId+"' serviceTypePrice='"+value.serviceType.servicePrice+"'>"+
+						var serviceTR = "<tr class='titlebg serviceType' servicePrice='"+value.serviceType.servicePrice+"' onlyServicePrice='"+value.serviceType.onlyServicePrice+"' serviceTypeId='"+value.serviceType.serviceId+"' serviceTypePrice='"+value.serviceType.servicePrice+"'>"+
 										"<td class='td1 tdtitle'><span class='serviceTypeImgSpan'>"+value.serviceType.serviceName+"</span></td>"+
 										"<td class='td2'><i>￥"+value.serviceType.servicePrice+"</i></td>"+
 										"<td class='td3'></td>"+
@@ -358,7 +371,7 @@ img.brandImage{
 									"<td class='td5'></td>"+
 								 "</tr>";	
 						}else{
-							product = "<tr class='product_tr' id='"+value.id+"'>"+
+							product = "<tr class='product_tr "+value.serviceId+"' id='"+value.id+"'>"+
 								"<td class='td1'><a href='javascritp:void(0);'>"+value.name+"</a></td>"+
 								"<td class='td2'><i>￥<span class='productPrice'>"+value.price+"</span></i></td>"+
 								"<td class='td3'><input type='text' id='spin1' value='"+value.count+"' class='productCount'/></td>"+
@@ -475,7 +488,7 @@ img.brandImage{
 					<div class="orderInformation">
 						<ul class="title">
 							<li class="li1">商品</li>
-							<li>价格</li>
+							<li class="li2">价格</li>
 							<li>数量</li>
 							<li>小计</li>
 							<li class="li5">操作</li>
@@ -515,6 +528,32 @@ img.brandImage{
 							sum = parseFloat(parseFloat(sum) + parseFloat(productTotal)).toFixed(2);
 						}
 						$("#productSum").text(sum);
+						
+						//纯服务时商品价格不显示
+						if(productTotals.length==0){
+							$("#productPriceDiv").hide();
+							document.getElementById("serviceCheckbox").checked=true;
+							document.getElementById("serviceCheckbox").disabled=true;
+							$(".li2").css('opacity','0');
+							$(".td2").css('opacity','0');
+						}else{
+							$("#productPriceDiv").show();
+							document.getElementById("serviceCheckbox").disabled=false;
+							$(".li2").css('opacity','1');
+							$(".td2").css('opacity','1');
+						}
+						
+						//服务不含商品时显示纯服务价格
+// 						$(".serviceType").each(function(){
+// 							if(!$(".product_tr").hasClass($(this).attr("servicetypeid"))){
+// 								$(this).attr("servicetypeprice",$(this).attr("onlyserviceprice"));
+// 								$(this).find(".td2 i").html("￥"+$(this).attr("onlyserviceprice"));
+// 							}else{
+// 								$(this).attr("servicetypeprice",$(this).attr("servicePrice"));
+// 								$(this).find(".td2 i").html("￥"+$(this).attr("servicePrice"));
+// 							}
+// 						});
+						
 						return sum;
 					}
 					
@@ -532,6 +571,13 @@ img.brandImage{
 							//没选中  0
 							$("#chooseServer").val(0);
 						}
+						
+						//所有服务都不含商品时显示纯服务价格
+						var productTotals = $("span.productTotal");
+						if(productTotals.length==0){
+							sum = $(".serviceType").attr("onlyserviceprice");
+						}
+						
 						$("#serviceSum").text(sum);
 						return sum;
 					}
@@ -564,12 +610,12 @@ img.brandImage{
 				</script>
 				<div class="ma_buy_total0" style="border-top: none; margin-top: -20px; margin-bottom: 40px; ">
 					<div class="ma_buy_total_right">
-						<div>
+						<div id="productPriceDiv">
 							<div class="ma_buy_1 ma_buy_111">共<i id="productCount">0</i>件 商品金额：</div>
 							<div class="ma_buy_2" >￥<span id="productSum">0.00</span></div>
 						</div>
 						<div>
-							<div class="ma_buy_13"><label for="checkbox"><input type="checkbox" class="checkbox" id="serviceCheckbox" checked="checked" onclick="totalSum();"/>一动车保服务：</label></div>
+							<div class="ma_buy_13"><label for="checkbox"><input type="checkbox" class="checkbox" id="serviceCheckbox" checked="checked" onclick="totalSum();" disabled/>一动车保服务：</label></div>
 							<div class="ma_buy_2">￥<span id="serviceSum">0.00</span></div>
 						</div>
 						<%-- <div>

@@ -149,7 +149,7 @@
 					<li><a href='${pageContext.request.contextPath}/manage/rechargebenefits/list'>充值返现/送优惠券</a></li>
 				</td:permission>
 				<td:permission privilegeValue="manage/couponPackage/list">
-					<li><a href='${pageContext.request.contextPath}/manage/couponPackage/list'>优惠券包管理</a></li>
+					<li><a href='${pageContext.request.contextPath}/manage/couponPackage/list'>会员卡管理</a></li>
 				</td:permission>
 				<td:permission privilegeValue="manage/firstSpendSendCoupon/list">
 					<li><a href='${pageContext.request.contextPath}/manage/firstSpendSendCoupon/list'>首次消费赠送优惠券管理</a></li>

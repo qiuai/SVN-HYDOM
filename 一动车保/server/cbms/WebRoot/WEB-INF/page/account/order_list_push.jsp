@@ -185,10 +185,10 @@
 										<td>
 											<span id="ostatus_${order.id}">
 											<!-- data-toggle="modal" data-target=".bs-example-modal-lg" -->
-											<c:if test="${order.type eq 0 }">已完结</c:if> 
-											<c:if test="${order.type eq 1 }">派单中</c:if> 
-											<c:if test="${order.type eq 2 }">路途中</c:if> 
-											<c:if test="${order.type eq 3 }">服务中</c:if> 
+										    <c:if test="${order.status eq 0 }">已完结</c:if> 
+											<c:if test="${order.status eq 1 }">派单中</c:if> 
+											<c:if test="${order.status eq 2 }">路途中</c:if> 
+											<c:if test="${order.status eq 3 }">服务中</c:if> 
 											</span>
 										</td>
 										<td><span><fmt:formatDate value="${order.createDate}" pattern="yyyy-MM-dd" /></span></td>

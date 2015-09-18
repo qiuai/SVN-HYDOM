@@ -279,7 +279,7 @@ function saveOrder() {
 									<c:when test="${!empty sessionScope.member_session }">
 										<li>
 											<label>
-												<input type="radio" name="payWay" class="payInput" value="1" checked="checked" />会员卡支付
+												<input type="radio" name="payWay" class="payInput" value="1" checked="checked" />余额支付
 											</label>
 										</li>
 									</c:when>

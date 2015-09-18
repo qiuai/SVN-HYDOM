@@ -170,6 +170,13 @@ public class OrderAction extends BaseAction {
 
 		model.addAttribute("productSum", productSum);
 		model.addAttribute("serverSum", serverSum);
+		if (order.getServerOrderDetail().size() == 0) { // 纯保养服务
+			model.addAttribute(
+					"serverSum",
+					CommonUtil.add(order.getPrice() + "",
+							order.getAmount_paid() + "")
+							+ "");
+		}
 		model.addAttribute("youhuiSum",
 				CommonUtil.scale2Number(order.getAmount_paid() + "", 2) + "");
 		if (order.getAmount_paid() > 0) {// 优惠金额大于0

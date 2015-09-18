@@ -1489,8 +1489,8 @@ public class AppServer {
 			params.add(true);
 			params.add(0); // 0顶级、然后子类依次增加
 			List<ProductCategory> topList = productCategoryService
-					.getScrollData(jpql.toString(), params.toArray(),
-							orderby).getResultList();
+					.getScrollData(jpql.toString(), params.toArray(), orderby)
+					.getResultList();
 			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 			for (ProductCategory topPC : topList) {
 				Map<String, Object> map = new LinkedHashMap<String, Object>();
@@ -3461,7 +3461,7 @@ public class AppServer {
 			params.add(new Date());
 
 			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
-			List<Coupon> couponList = couponService.getScrollData(0, 20,
+			List<Coupon> couponList = couponService.getScrollData(
 					jpql.toString(), params.toArray(), orderby).getResultList();
 			for (Coupon cp : couponList) {
 				Map<String, Object> map = new LinkedHashMap<String, Object>();
@@ -3854,8 +3854,8 @@ public class AppServer {
 			params.add(true);
 			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 			List<CouponPackage> couponList = couponPackageService
-					.getScrollData(0, 20, jpql.toString(), params.toArray(),
-							orderby).getResultList();
+					.getScrollData(jpql.toString(), params.toArray(), orderby)
+					.getResultList();
 			for (CouponPackage cpp : couponList) {
 				Map<String, Object> map = new LinkedHashMap<String, Object>();
 				map.put("cppid", cpp.getId());
@@ -4480,39 +4480,6 @@ public class AppServer {
 	}
 
 	public static void main(String[] args) throws Exception {
-		float f = 123f;
-		// long l = CommonUtil.getLong(f, 1, 0);
-		// System.out.println(l);
-		String stime = "2015-09-16 9:00";
-		String etime = "2015-09-16 11:00";
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		Calendar calendar = Calendar.getInstance();
-		int hour = calendar.get(Calendar.HOUR_OF_DAY);
-		Date now = new Date();
-		Date shouldStartDate = DateTimeHelper.addDays(now, 1);
-		Date shouldEndDate = DateTimeHelper.addDays(shouldStartDate, 6);
-		System.out.println(shouldStartDate);
-		System.out.println(shouldEndDate);
-		if (hour >= 16) { // 16:00以后
-			shouldStartDate = DateTimeHelper.addDays(now, 2);
-			shouldEndDate = DateTimeHelper.addDays(shouldStartDate, 6);
-		}
-		SimpleDateFormat sdfDate = new SimpleDateFormat("yyyy-MM-dd");
-		Date shouldStartTime = DateTimeHelper.parseToDate(
-				sdfDate.format(shouldStartDate) + " 09:00", "yyyy-MM-dd HH:mm");
-		Date shouldEndTime = DateTimeHelper.parseToDate(
-				sdfDate.format(shouldEndDate) + " 19:00", "yyyy-MM-dd HH:mm");
-		Date startTime = sdf.parse(stime);
-		Date endTime = sdf.parse(etime);
-		System.out.println(shouldStartTime);
-		System.out.println(shouldEndTime);
-		boolean stimeValidate = startTime.getTime() >= shouldStartTime
-				.getTime() && endTime.getTime() <= shouldEndTime.getTime();
-		boolean etimeValidate = endTime.getTime() >= shouldStartTime.getTime()
-				&& endTime.getTime() <= shouldEndTime.getTime();
-		if (!(stimeValidate && etimeValidate)) {
-			System.out.println("格式错");
-		}
 	}
 
 }
