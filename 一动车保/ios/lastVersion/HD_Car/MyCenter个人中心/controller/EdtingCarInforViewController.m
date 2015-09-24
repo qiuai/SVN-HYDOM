@@ -66,6 +66,7 @@
 //日期选择器
 - (void)datePickViewSelector
 {
+    [self.view endEditing:YES];
     [_pickView remove];
     NSDate * date = [NSDate date];
     _pickView = [[ZHPickView alloc]initDatePickWithDate:date
@@ -84,11 +85,17 @@
 - (void)setUpUserInterface{
     self.edtingView = [[[NSBundle mainBundle]loadNibNamed:@"EdtingCarsInforView" owner:self options:nil]lastObject];
     self.edtingView.frame=CGRM(0, CGRectGetMaxY(self.nav.frame), SCREEN_WIDTH, 300);
-    self.edtingView.pushVC = self;
+//    self.edtingView.pushVC = self;
     self.edtingView.vc = self;
+    self.edtingView.carColorTextField.delegate = self;
+    self.edtingView.carNumberTextField.delegate = self;
+    self.edtingView.carOilTextField.delegate = self;
+    self.edtingView.carOutPutTextField.delegate = self;
+    self.edtingView.carRunTextField.delegate = self;
     [self.edtingView setUpUserInterfaceWith:_model];
     [self.edtingView.comeBackCarView addTapGestureRecognizerWithTarget:self action:@selector(backSelectCarVC)];
     [self.view addSubview:_edtingView];
+    [self.view bringSubviewToFront:_nav];
     UIButton* saveBtn=[UIButton buttonWithType:UIButtonTypeCustom];
     saveBtn.frame=CGRM(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 50);
     [saveBtn setTitle:@"保存" forState:0];
@@ -292,7 +299,20 @@
 
 #pragma -mark 关闭键盘
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event{
+    if(_pickView)
+    {
+        [_pickView remove];
+    }
     [self.view endEditing:YES];
+}
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if(_pickView)
+    {
+        [_pickView remove];
+    }
+    return YES;
 }
 
 @end

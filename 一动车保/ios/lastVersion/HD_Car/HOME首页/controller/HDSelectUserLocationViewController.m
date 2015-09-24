@@ -49,6 +49,17 @@
 }
 
 #pragma mark - MAMapViewDelegate
+- (void)mapViewDidStopLocatingUser:(MAMapView *)mapView{
+    
+}
+
+- (void)mapView:(MAMapView *)mapView didUpdateUserLocation:(MAUserLocation *)userLocation{
+    self.myGeocodeAnnotation = (ReGeocodeAnnotation*)userLocation;
+    [self searchReGeocodeWithCoordinate:self.myGeocodeAnnotation.coordinate];
+    
+
+}
+
 
 - (void)mapView:(MAMapView *)mapView annotationView:(MAAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
 {
@@ -84,18 +95,7 @@
                                                           reuseIdentifier:reuseIndetifier];
         UIImage* image=[UIImage imageNamed:@"mapLabel"];
         annotationView.image = image;
-//            弹出提示
-            self.myGeocodeAnnotation=(ReGeocodeAnnotation*)annotation;
-    if (self.infoLabel==nil) {
-            UILabel* infoLabel=[[UILabel alloc]initWithFrame:CGRM(20, SCREEN_HEIGHT-35-15-60, SCREEN_WIDTH-40, 35)];
-           [self.view addSubview:infoLabel];
-                self.infoLabel=infoLabel;
-        infoLabel.backgroundColor=[UIColor grayColor];
-        infoLabel.textAlignment=1;
-        infoLabel.font=FONT12;
-    }
-      self.infoLabel.text=[NSString stringWithFormat:@"%@,%@",self.myGeocodeAnnotation.title,self.myGeocodeAnnotation.subtitle];
-      [self.infoLabel setHidden:NO];
+
        self.onceAnnotation=annotationView;
        return annotationView;
     }
@@ -117,6 +117,21 @@
         CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(request.location.latitude, request.location.longitude);
         ReGeocodeAnnotation *reGeocodeAnnotation = [[ReGeocodeAnnotation alloc] initWithCoordinate:coordinate
                                                                                          reGeocode:response.regeocode];
+        
+        //            弹出提示
+        self.myGeocodeAnnotation=(ReGeocodeAnnotation*)reGeocodeAnnotation;
+            if (self.infoLabel==nil) {
+                    UILabel* infoLabel=[[UILabel alloc]initWithFrame:CGRM(20, SCREEN_HEIGHT-35-15-60, SCREEN_WIDTH-40, 35)];
+                   [self.view addSubview:infoLabel];
+                        self.infoLabel=infoLabel;
+                infoLabel.backgroundColor=[UIColor grayColor];
+                infoLabel.textAlignment=1;
+                infoLabel.font=FONT12;
+            }
+        self.infoLabel.text=[NSString stringWithFormat:@"%@,%@",self.myGeocodeAnnotation.title,self.myGeocodeAnnotation.subtitle];
+        [self.infoLabel setHidden:NO];
+        
+        
         [self.mapView addAnnotation:reGeocodeAnnotation];
         [self.mapView selectAnnotation:reGeocodeAnnotation animated:YES];
     }
@@ -190,6 +205,9 @@
     }];
     
     [self.navView tapRightViewWithImageName:@"确认" tapBlock:^{
+        if ([[NSString stringWithFormat:@"%.1f",weakSelf.myGeocodeAnnotation.coordinate.latitude]isEqualToString:@"0.0"]) {
+            return ;
+        }
         if (weakSelf.locationBlock) {
             NSMutableDictionary* dict=[NSMutableDictionary dictionary];
             NSString * location=[NSString stringWithFormat:@"%@%@",weakSelf.myGeocodeAnnotation.title,weakSelf.myGeocodeAnnotation.subtitle];
@@ -215,6 +233,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated

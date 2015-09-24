@@ -29,6 +29,7 @@
     NSInteger cancelFooterStyleClick;
     NSInteger httpDataStyle;
     NSInteger intPage;
+    BOOL goods;
 }
 
 @property(nonatomic,strong)UITableView* tableView;
@@ -149,6 +150,7 @@
         }else{
             listModel.showContact=YES;
         }
+        goods = NO;
         //处理cell 数据 array
         NSMutableArray* array=[NSMutableArray array];
         NSArray* valueArray=d[@"sclist"];
@@ -168,6 +170,7 @@
                 [array addObject:model];
             }
             for (NSInteger i=0;i<dArray.count;i++) {
+                goods = YES;
                 JVorderDataModel* model=[[JVorderDataModel alloc]init];
                 model.scid=scid;
                 model.scname=scname;
@@ -184,11 +187,16 @@
                     model.cellStyle=0;
                 }else if(i!=0&&[listModel.otype integerValue]==2){
                     model.cellStyle=2;
+                }if([listModel.otype integerValue]==3){
+                    model.cellStyle=2;
                 }else if([listModel.otype integerValue]==1){
                     model.cellStyle=1;
                 }
                 [array addObject:model];
             }
+        }
+        if (goods == YES) {
+            listModel.goods = YES;
         }
         listModel.orderDataArray=array;
         [self.dataSource addObject:listModel];
@@ -201,6 +209,7 @@
     }
     orderListModel* listModel=self.dataSource[indexpath.section];
     JVorderDataModel* dataModel=listModel.orderDataArray[indexpath.row];
+    dataModel.goods = listModel.goods;
     return dataModel;
 }
 
@@ -233,11 +242,12 @@
             [cell.icon sd_setImageWithURL:imageURLWithPath(dataModel.scimg) placeholderImage:[UIImage imageNamed:FillImage]];
             [cell.goodsImage sd_setImageWithURL:imageURLWithPath(dataModel.pimg) placeholderImage:[UIImage imageNamed:FillImage]];
             cell.serviceName.text=dataModel.scname;
-            cell.servicePrices.text=[UtilityMethod addRMB:[NSString stringWithFormat:@"%@",dataModel.pprice]];
+            cell.servicePrices.text=[UtilityMethod addRMB:[NSString stringWithFormat:@"%@",globalPrices(dataModel.scprice)]];
             cell.goodsName.text=dataModel.pname;
-            cell.goodsPrices.text=[UtilityMethod addRMB:[NSString stringWithFormat:@"%@",dataModel.pprice]];
+            cell.goodsPrices.text=[UtilityMethod addRMB:[NSString stringWithFormat:@"%@",globalPrices(dataModel.pprice)]];
             cell.goodsCount.text=[NSString stringWithFormat:@"X %@",dataModel.pnum];
             [cell showEvaluate:NO];
+            [cell hideEvaluate];
             return cell;
         }
             break;
@@ -253,6 +263,7 @@
             cell.washCar.text=dataModel.pname;
             cell.servicesDescription.text=dataModel.premark;
             [cell showEvaluate:NO];
+            [cell hideEvaluate];
             return cell;
         }
             break;
@@ -269,6 +280,7 @@
             cell.prices.text=[UtilityMethod addRMB:[NSString stringWithFormat:@"%@",dataModel.pprice]];
             cell.count.text= [NSString stringWithFormat:@"X %@",dataModel.pnum];
             [cell showEvaluate:NO];
+            [cell hideEvaluate];
             return cell;
         }
             break;
@@ -279,11 +291,16 @@
             if (cell==nil) {
                 cell=[[[NSBundle mainBundle]loadNibNamed:@"noGoodsListTableViewCell" owner:nil options:nil]lastObject];
             }
+            if (dataModel.goods == NO) {
+                cell.priceDescribe.hidden = YES;
+                cell.prices.hidden = YES;
+            }
+            cell.selectionStyle = 0;
             [cell.icon sd_setImageWithURL:imageURLWithPath(dataModel.scimg) placeholderImage:[UIImage imageNamed:FillImage]];
             cell.servicesTitle.text=dataModel.scname;
-            cell.prices.text=[UtilityMethod addRMB:[NSString stringWithFormat:@"%@",dataModel.scprice]];
-            
+            cell.prices.text=[UtilityMethod addRMB:globalPrices(dataModel.scprice)];
             [cell showEvaluate:NO];
+            [cell hideEvaluate];
             return cell;
         }
             break;
@@ -304,8 +321,11 @@
         case 2:
         {JVcommonOrderInfoViewController *vc=[[JVcommonOrderInfoViewController alloc]init];
             vc.orderID=listModel.oid;
+            vc.goods = listModel.goods;
+            vc.price = [NSString stringWithFormat:@"￥ %@", globalPrices(listModel.oprice)];
             [self.navigationController pushViewController:vc animated:NO];
         }
+            break;
         default:
         {JVshowOnceProductViewController *vc=[[JVshowOnceProductViewController alloc]init];
             vc.orderID=listModel.oid;
@@ -355,12 +375,12 @@
     footerTag=section+50;
     if (listModel.showContact) {
         JVorderFooterView*   footView = [[[NSBundle mainBundle]loadNibNamed:@"JVorderFooterView" owner:nil options:nil]lastObject];
-        footView.prices.text=listModel.oprice;
+        footView.prices.text= [NSString stringWithFormat:@"￥%@", globalPrices(listModel.oprice)];
         footView.tag=footerTag;
         return footView;
     }else{
         JvOrderFooterStyleTwoView* footView = [[[NSBundle mainBundle]loadNibNamed:@"JvOrderFooterStyleTwoView" owner:nil options:nil]lastObject];
-        footView.prices.text=listModel.oprice;
+        footView.prices.text= [NSString stringWithFormat:@"￥%@", globalPrices(listModel.oprice)];
         footView.viewStyle=[listModel.ocanop integerValue];
         footView.tag=footerTag;
         footView.viewController=self;

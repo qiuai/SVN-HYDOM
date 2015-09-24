@@ -94,7 +94,7 @@
             self.HUD.labelText =@"修改成功";
             self.HUD.mode=MBProgressHUDModeText;
             [self.HUD showAnimated:YES whileExecutingBlock:^{
-                sleep(2);
+                sleep(1);
             } completionBlock:^{
                 [self.HUD removeFromSuperview];
                 [self.navigationController popViewControllerAnimated:NO];
@@ -136,6 +136,12 @@
                 [userDefaultManager saveUserModel:m];
                 warn(@"修改成功");
                 [hud hide:YES];
+                [self.HUD showAnimated:YES whileExecutingBlock:^{
+                    sleep(1);
+                } completionBlock:^{
+                    [self.HUD removeFromSuperview];
+                    [self.navigationController popViewControllerAnimated:NO];
+                }];
             }else{
                 warn(@"修改失败");
                 [hud hide:YES];

@@ -38,7 +38,7 @@
 #import "JVaffirmServicesOrderViewController.h"
 #import "JVDisplayMaintenanceServicesViewController.h"
 #import "YC_SelectDiscountViewController.h"
-
+#import "YC_SelectTimeViewController.h"
 
 @interface JVservicesOrderViewController (){
     BOOL selectDiscount;
@@ -137,7 +137,7 @@
 -(UIView *)submitView{
     if (!_submitView) {
         _submitView=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 50)];
-        _submitView.backgroundColor=[UIColor blackColor];
+        _submitView.backgroundColor=SUBMITVIEWCOLOR;
     }
     return _submitView;
 }
@@ -198,6 +198,7 @@
     pricesModel.scidArray=@[model.scid];
     NSMutableArray* sArray=[NSMutableArray array];
     NSMutableArray* pArray=[NSMutableArray array];
+
     
     NSMutableString* pidMutableStr=[NSMutableString new];
     for (NSDictionary* dic in self.dataArray) {
@@ -216,6 +217,7 @@
     if (pArray.count>0) {
         NSRange range=NSMakeRange(pidMutableStr.length-1, 1);
         [pidMutableStr deleteCharactersInRange:range];
+        pricesModel.pidNew = pidMutableStr;
         pricesModel.pidArray=pArray;
     }
     
@@ -279,7 +281,7 @@
     self.selectCarView.frame=CGRM(0, 0, SCREEN_WIDTH, 30);
     [self.selectCarView.rightLabel setHidden:YES];
     _selectCarView.carNameLabel.text=[NSString stringWithFormat:@"%@",_selectCarmodel.csname];
-    [self.selectCarView.tapChangeCarView addTapGestureRecognizerWithTarget:self action:@selector(comebackCarManager)];
+//    [self.selectCarView.tapChangeCarView addTapGestureRecognizerWithTarget:self action:@selector(comebackCarManager)];
     [self.osScrollView addSubview:self.selectCarView];
     
     //判断 是否显示商品
@@ -314,7 +316,7 @@
         rightlb.font=[UIFont systemFontOfSize:16.0];
         [serviceCountView addSubview:rightlb];
         UIButton* bu=[[UIButton alloc]initWithFrame:CGRM(CGRectGetMaxX(lb.frame)+5, 0, SCREEN_WIDTH-CGRectGetMaxX(lb.frame)-5-10-25, 35)];
-        self.servicesCount=[NSString stringWithFormat:@"共%ld种服务",self.dataArray.count];
+        self.servicesCount=[NSString stringWithFormat:@"共%ld种服务",(unsigned long)self.dataArray.count];
         [bu setTitle:_servicesCount forState:0];
         [bu setTitleColor:[UIColor blackColor] forState:0];
         [bu addTarget:self action:@selector(lookServiceCount) forControlEvents:UIControlEventTouchUpInside];
@@ -327,12 +329,14 @@
     }
     
     self.productOrderInfoView=[[[NSBundle mainBundle]loadNibNamed:@"JVproductOrderInfoView" owner:nil options:nil]lastObject];
-    self.productOrderInfoView.frame=CGRM(0,CGRectGetMaxY(painterView.frame)+15, SCREEN_WIDTH, 510);
+    self.productOrderInfoView.frame=CGRM(0,CGRectGetMaxY(painterView.frame)+15, SCREEN_WIDTH, 540);
     
     self.productOrderInfoView.remarksTextField.moveView=self.osScrollView;
     [self.productOrderInfoView.selectTime addTapGestureRecognizerWithTarget:self action:@selector(selectTImeClick)];
     [self.productOrderInfoView.locationLabel addTapGestureRecognizerWithTarget:self action:@selector(pushLocationVC)];
     [self.productOrderInfoView.couponsLabel addTapGestureRecognizerWithTarget:self action:@selector(pushYHJVC)];
+    self.productOrderInfoView.personTextField.moveView = _osScrollView;
+    self.productOrderInfoView.phoneNumberTextField.moveView = _osScrollView;
     self.pricesView=[[[NSBundle mainBundle]loadNibNamed:@"JV_newPricesView" owner:nil options:nil]lastObject];
     self.pricesView.frame=CGRM(0, CGRectGetMaxY(self.productOrderInfoView.frame)+20, SCREEN_WIDTH, 115);
 
@@ -355,7 +359,7 @@
     self.pricesLabel.textColor=WHITECOLOR;
     [self.submitView addSubview:self.pricesLabel];
     self.submitBtn=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-submitWith, 0, submitWith, self.submitView.frame.size.height)];
-    self.submitBtn.backgroundColor=[UIColor redColor];
+    self.submitBtn.backgroundColor=SUBMITCOLOR;
     self.submitBtn.titleLabel.textColor=[UIColor whiteColor];
     [self.submitBtn setTitle:@"提交" forState:UIControlStateNormal];
     [self.submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -368,9 +372,10 @@
 -(void)pushYHJVC{
     if (selectDiscount==YES) {
         YC_SelectDiscountViewController* vc=[[YC_SelectDiscountViewController alloc]init];
+        _po([UtilityMethod getObjectData:self.pricesModel]);
         vc.sendModel=self.pricesModel;
         WEAKSELF;
-        vc.pricesArrayblock=^(NSArray* array){
+        vc.pricesArrayblock=^(NSArray* array, NSString * cpid){
             weakSelf.sumProductPrices=array[1];
             weakSelf.pricesView.productPrices.text=[UtilityMethod addRMB:array[1]];
             weakSelf.realyPrices=array[4];
@@ -379,6 +384,8 @@
             weakSelf.pricesView.servicesPrices.text=[UtilityMethod addRMB:array[0]];
             weakSelf.couponPrices=array[3];
             weakSelf.pricesView.couponsPrices.text= [UtilityMethod addSubRMB: array[3]];
+            weakSelf.cpid = cpid;
+            weakSelf.productOrderInfoView.couponsLabel.text=@"已使用";
         };
         [self.navigationController pushViewController:vc animated:NO];
     }
@@ -400,6 +407,7 @@
         weakSelf.longitude=[dict objectForKey:@"longitude"];
         weakSelf.locationInfo=[dict objectForKey:@"locationInfo"];
         weakSelf.productOrderInfoView.locationLabel.text=@"已选择";
+        weakSelf.productOrderInfoView.locationLabel.textColor = [UIColor blackColor];
     };
 }
 #pragma -mark 查看商品详情
@@ -416,6 +424,7 @@
 -(void)lookServiceCount{
     
     JVDisplayMaintenanceServicesViewController* vc=[[JVDisplayMaintenanceServicesViewController alloc]init];
+    vc.price = self.pricesView.servicesPrices.text;
     vc.dataArray=self.dataArray;
     [self.navigationController pushViewController:vc animated:NO];
 }
@@ -442,28 +451,18 @@
 
 #pragma -mark 选择时间
 -(void)selectTImeClick{
+    YC_SelectTimeViewController * vc = [[YC_SelectTimeViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:NO];
+    WEAKSELF;
+    vc.selectViewController=^(NSString* str){
+//
+//        weakSelf.periodTime=str;
     
-    [HTTPconnect sendPOSTHttpWithUrl:getServerDataAPI parameters:[userDefaultManager getUserWithToken] success:^(id responseObject) {
-        if (![responseObject isKindOfClass:[NSString class]]) {
-            _fromServiceTime=responseObject[@"date"];
-            if (self.selectTimeView==nil) {
-                self.selectTimeView=[[[NSBundle mainBundle]loadNibNamed:@"JV_selectTimeView" owner:nil options:nil]lastObject];
-                [self.view addSubview:self.selectTimeView];
-                self.selectTimeView.frame=CGRM(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
-            }
-            self.selectTimeView.timeDescription.text=self.fromServiceTime;
-            WEAKSELF;
-            self.selectTimeView.selectTimeBlock=^(NSString* str){
-                weakSelf.periodTime=str;
-                weakSelf.productOrderInfoView.selectTime.text=[NSString stringWithFormat:@"%@ %@",weakSelf.fromServiceTime,weakSelf.periodTime];
-            };
-            [self.selectTimeView setHidden:NO];
-        }else{
-            warn(responseObject);
-        }
-    } failure:^(NSError *error) {
-        
-    }];
+//        weakSelf.productOrderInfoView.selectTime.text=[NSString stringWithFormat:@"%@ %@",weakSelf.fromServiceTime,weakSelf.periodTime];
+        weakSelf.productOrderInfoView.selectTime.text=[NSString stringWithFormat:@"%@",str];
+        weakSelf.productOrderInfoView.selectTime.textColor = [UIColor blackColor];
+    };
+    
 }
 
 
@@ -505,7 +504,7 @@
     orderModel.lat=self.latitude;
     orderModel.lng=self.longitude;
     orderModel.address=self.locationInfo;
-    orderModel.cpid=self.cpid;
+    orderModel.cpid=self.cpid==nil?@"":self.cpid;
     orderModel.payWayDescriotion=self.productOrderInfoView.payStyleDescription;
     orderModel.payWay=self.productOrderInfoView.payStyle;
     orderModel.remark=self.productOrderInfoView.remarksTextField.text;

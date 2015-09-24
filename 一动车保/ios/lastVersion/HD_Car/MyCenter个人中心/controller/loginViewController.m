@@ -56,7 +56,7 @@
     self.CaptchaText.placeholder=@"请输入验证码";
     self.phoneText.wordsMaxLenght=11;
     self.phoneText.keyboardType=UIKeyboardTypeNumberPad;
-    self.CaptchaText.wordsMaxLenght=4;
+    self.CaptchaText.wordsMaxLenght=6;
     self.CaptchaText.keyboardType=UIKeyboardTypeNumberPad;
     self.CaptchaText.moveView=self.view;
     self.phoneText.moveView=self.view;
@@ -113,7 +113,7 @@ else{
 
 #pragma -mark登陆
 -(void)loginClick{
-    if (self.phoneText.text.length==11&&self.CaptchaText.text.length==4){
+    if (self.phoneText.text.length==11&&self.CaptchaText.text.length==6){
         NSDictionary* cDictionary=[NSDictionary dictionaryWithObjects:@[self.phoneText.text,self.CaptchaText.text] forKeys:@[@"phone",@"code"]];
         
         _po([UtilityMethod JVDebugUrlWithdict:cDictionary nsurl:loginAPI]);

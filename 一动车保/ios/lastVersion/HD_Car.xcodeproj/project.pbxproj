@@ -305,8 +305,16 @@
 		CF2E6DDA1B748E8200B50120 /* YC_AddGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2E6DD91B748E8200B50120 /* YC_AddGoodsViewController.m */; };
 		CF2E6DDD1B74BC2E00B50120 /* YC_GoodsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CF2E6DDC1B74BC2E00B50120 /* YC_GoodsModel.m */; };
 		CF30D20C1B84614A00D22053 /* JVlookScopeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF30D20B1B84614A00D22053 /* JVlookScopeViewController.m */; };
+		CF57797C1BA26FCB00771CEF /* YC_VipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = CF57797B1BA26FCB00771CEF /* YC_VipModel.m */; };
+		CF57797F1BA2792500771CEF /* JVshowKeyboardManger.m in Sources */ = {isa = PBXBuildFile; fileRef = CF57797E1BA2792500771CEF /* JVshowKeyboardManger.m */; };
+		CF5779821BA2807600771CEF /* YC_VipView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5779811BA2807600771CEF /* YC_VipView.m */; };
+		CF5779841BA2809F00771CEF /* YC_VipView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CF5779831BA2809F00771CEF /* YC_VipView.xib */; };
 		CF598BDE1B86D76F00F25624 /* ZHPickView.m in Sources */ = {isa = PBXBuildFile; fileRef = CF598BDD1B86D76F00F25624 /* ZHPickView.m */; };
+		CF5A0CC71BA17A7000513B26 /* YC_VIPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5A0CC61BA17A7000513B26 /* YC_VIPViewController.m */; };
+		CF5A0CCA1BA185F500513B26 /* YC_VIPBuyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF5A0CC91BA185F500513B26 /* YC_VIPBuyViewController.m */; };
 		CF6CB10F1B7A366200A862D3 /* YC_OrderServerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF6CB10E1B7A366200A862D3 /* YC_OrderServerViewController.m */; };
+		CF8E81D81BA909FB00A36D10 /* YC_SelectTimeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CF8E81D71BA909FB00A36D10 /* YC_SelectTimeViewController.m */; };
+		CF908FE31BAA530C000F1343 /* libUPPayPlugin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CF908FE21BAA530C000F1343 /* libUPPayPlugin.a */; };
 		CFF0C6FD1B79F10C00342A62 /* YC_HotGoodsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFF0C6FC1B79F10C00342A62 /* YC_HotGoodsViewController.m */; };
 		CFF0C7001B79F16E00342A62 /* YC_HotDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CFF0C6FF1B79F16E00342A62 /* YC_HotDetailViewController.m */; };
 		CFF0C7041B7A01E500342A62 /* YC_CarDetailInforView.xib in Resources */ = {isa = PBXBuildFile; fileRef = CFF0C7011B7A01E500342A62 /* YC_CarDetailInforView.xib */; };
@@ -902,10 +910,26 @@
 		CF2E6DDC1B74BC2E00B50120 /* YC_GoodsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YC_GoodsModel.m; sourceTree = "<group>"; };
 		CF30D20A1B84614A00D22053 /* JVlookScopeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVlookScopeViewController.h; sourceTree = "<group>"; };
 		CF30D20B1B84614A00D22053 /* JVlookScopeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVlookScopeViewController.m; sourceTree = "<group>"; };
+		CF57797A1BA26FCB00771CEF /* YC_VipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YC_VipModel.h; sourceTree = "<group>"; };
+		CF57797B1BA26FCB00771CEF /* YC_VipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YC_VipModel.m; sourceTree = "<group>"; };
+		CF57797D1BA2792500771CEF /* JVshowKeyboardManger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVshowKeyboardManger.h; sourceTree = "<group>"; };
+		CF57797E1BA2792500771CEF /* JVshowKeyboardManger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVshowKeyboardManger.m; sourceTree = "<group>"; };
+		CF5779801BA2807600771CEF /* YC_VipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YC_VipView.h; sourceTree = "<group>"; };
+		CF5779811BA2807600771CEF /* YC_VipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YC_VipView.m; sourceTree = "<group>"; };
+		CF5779831BA2809F00771CEF /* YC_VipView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YC_VipView.xib; sourceTree = "<group>"; };
 		CF598BDC1B86D76F00F25624 /* ZHPickView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZHPickView.h; sourceTree = "<group>"; };
 		CF598BDD1B86D76F00F25624 /* ZHPickView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZHPickView.m; sourceTree = "<group>"; };
+		CF5A0CC51BA17A7000513B26 /* YC_VIPViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YC_VIPViewController.h; sourceTree = "<group>"; };
+		CF5A0CC61BA17A7000513B26 /* YC_VIPViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YC_VIPViewController.m; sourceTree = "<group>"; };
+		CF5A0CC81BA185F500513B26 /* YC_VIPBuyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YC_VIPBuyViewController.h; sourceTree = "<group>"; };
+		CF5A0CC91BA185F500513B26 /* YC_VIPBuyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YC_VIPBuyViewController.m; sourceTree = "<group>"; };
 		CF6CB10D1B7A366200A862D3 /* YC_OrderServerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YC_OrderServerViewController.h; sourceTree = "<group>"; };
 		CF6CB10E1B7A366200A862D3 /* YC_OrderServerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YC_OrderServerViewController.m; sourceTree = "<group>"; };
+		CF8E81D61BA909FB00A36D10 /* YC_SelectTimeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YC_SelectTimeViewController.h; sourceTree = "<group>"; };
+		CF8E81D71BA909FB00A36D10 /* YC_SelectTimeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YC_SelectTimeViewController.m; sourceTree = "<group>"; };
+		CF908FE21BAA530C000F1343 /* libUPPayPlugin.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUPPayPlugin.a; sourceTree = "<group>"; };
+		CF908FE41BAA5321000F1343 /* UPPayPlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPayPlugin.h; sourceTree = "<group>"; };
+		CF908FE51BAA5321000F1343 /* UPPayPluginDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UPPayPluginDelegate.h; sourceTree = "<group>"; };
 		CFF0C6F41B79979E00342A62 /* YC_HotSaleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YC_HotSaleViewController.h; sourceTree = "<group>"; };
 		CFF0C6F51B79979E00342A62 /* YC_HotSaleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YC_HotSaleViewController.m; sourceTree = "<group>"; };
 		CFF0C6FB1B79F10C00342A62 /* YC_HotGoodsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YC_HotGoodsViewController.h; sourceTree = "<group>"; };
@@ -932,6 +956,7 @@
 				1CA9FF7B1B7F312D0059EAEB /* CoreText.framework in Frameworks */,
 				1CA9FF771B7F31110059EAEB /* QuartzCore.framework in Frameworks */,
 				1CA9FF751B7F31090059EAEB /* CoreTelephony.framework in Frameworks */,
+				CF908FE31BAA530C000F1343 /* libUPPayPlugin.a in Frameworks */,
 				1CA9FE961B7F28F90059EAEB /* SystemConfiguration.framework in Frameworks */,
 				729DF5D60F9CE796522392B5 /* libPods.a in Frameworks */,
 				1CA9FF691B7F2F7C0059EAEB /* AlipaySDK.framework in Frameworks */,
@@ -1017,6 +1042,8 @@
 				1C6EB2D81B76F846001092E8 /* JVaffirmServicesOrderViewController.m */,
 				1C87F05B1B7DF19D003BEDB3 /* JVDisplayMaintenanceServicesViewController.h */,
 				1C87F05C1B7DF19D003BEDB3 /* JVDisplayMaintenanceServicesViewController.m */,
+				CF8E81D61BA909FB00A36D10 /* YC_SelectTimeViewController.h */,
+				CF8E81D71BA909FB00A36D10 /* YC_SelectTimeViewController.m */,
 			);
 			name = "保养";
 			sourceTree = "<group>";
@@ -1595,6 +1622,7 @@
 		1CBF99CD1B3D206F006B791A /* HD_Car */ = {
 			isa = PBXGroup;
 			children = (
+				CF5F54B91B90038400EAFC33 /* Banks */,
 				1C65217E1B857A3B00721891 /* WePay */,
 				1CA9FF031B7F2F7C0059EAEB /* zhifubao */,
 				BC69E1791B7C2E0B0077EEAA /* HZY */,
@@ -1795,6 +1823,8 @@
 				1C7FE4101B5DD6AB001B0B52 /* aboutMaps */,
 				1C7FE4291B5E2202001B0B52 /* JVshowkeyboardTextFiled.h */,
 				1C7FE42A1B5E2202001B0B52 /* JVshowkeyboardTextFiled.m */,
+				CF57797D1BA2792500771CEF /* JVshowKeyboardManger.h */,
+				CF57797E1BA2792500771CEF /* JVshowKeyboardManger.m */,
 				1C4588C41B5F74EF00276867 /* AdaptiveKeyBordViewController.h */,
 				1C4588C51B5F74EF00276867 /* AdaptiveKeyBordViewController.m */,
 				1CBF9A511B3D2175006B791A /* HDApiUrl.h */,
@@ -2052,6 +2082,15 @@
 				1CDCCBE81B81ABA50001F1B4 /* JVcontactUsViewController.h */,
 				1CDCCBE91B81ABA50001F1B4 /* JVcontactUsViewController.m */,
 				1CDCCBEA1B81ABA50001F1B4 /* JVcontactUsViewController.xib */,
+				CF5A0CC51BA17A7000513B26 /* YC_VIPViewController.h */,
+				CF5A0CC61BA17A7000513B26 /* YC_VIPViewController.m */,
+				CF57797A1BA26FCB00771CEF /* YC_VipModel.h */,
+				CF57797B1BA26FCB00771CEF /* YC_VipModel.m */,
+				CF5779801BA2807600771CEF /* YC_VipView.h */,
+				CF5779811BA2807600771CEF /* YC_VipView.m */,
+				CF5779831BA2809F00771CEF /* YC_VipView.xib */,
+				CF5A0CC81BA185F500513B26 /* YC_VIPBuyViewController.h */,
+				CF5A0CC91BA185F500513B26 /* YC_VIPBuyViewController.m */,
 			);
 			path = controller;
 			sourceTree = "<group>";
@@ -2158,6 +2197,17 @@
 			children = (
 			);
 			name = "New Group";
+			sourceTree = "<group>";
+		};
+		CF5F54B91B90038400EAFC33 /* Banks */ = {
+			isa = PBXGroup;
+			children = (
+				CF908FE41BAA5321000F1343 /* UPPayPlugin.h */,
+				CF908FE51BAA5321000F1343 /* UPPayPluginDelegate.h */,
+				CF908FE21BAA530C000F1343 /* libUPPayPlugin.a */,
+			);
+			name = Banks;
+			path = WePay;
 			sourceTree = "<group>";
 		};
 		CFF0C6FA1B79F04D00342A62 /* 热门分类 */ = {
@@ -2319,6 +2369,7 @@
 				1CB039F81B57939C005C72D4 /* homeTest213321.png in Resources */,
 				1CBF9ABF1B3D2175006B791A /* 门店_03.png in Resources */,
 				1C736C581B75F1B1005F343B /* JV_selectTimeView.xib in Resources */,
+				CF5779841BA2809F00771CEF /* YC_VipView.xib in Resources */,
 				1C7EF5791B787F040046566B /* noGoodsListTableViewCell.xib in Resources */,
 				1CBF9AE81B3D2175006B791A /* storeHome.xib in Resources */,
 				1CBF9A981B3D2175006B791A /* weatherBack33.jpg in Resources */,
@@ -2408,6 +2459,7 @@
 				1C4A049B1B53B11300DFD532 /* selectCarModelViewController.m in Sources */,
 				1C7997DA1B4E524800360EDD /* characteristicMarketView.m in Sources */,
 				1CD87D141B71A8F900684534 /* JVorderImportantView.m in Sources */,
+				CF8E81D81BA909FB00A36D10 /* YC_SelectTimeViewController.m in Sources */,
 				1C79C4FC1B79AA3200D29F14 /* YC_HotSaleViewController.m in Sources */,
 				1CA9FF6C1B7F2F7C0059EAEB /* base64.m in Sources */,
 				1C6521941B85805700721891 /* payRequsestHandler.mm in Sources */,
@@ -2432,6 +2484,7 @@
 				1CA9FF721B7F2F7C0059EAEB /* RSADataSigner.m in Sources */,
 				1CD87D351B71AB6B00684534 /* OrderCarWashModel.m in Sources */,
 				CF598BDE1B86D76F00F25624 /* ZHPickView.m in Sources */,
+				CF5A0CCA1BA185F500513B26 /* YC_VIPBuyViewController.m in Sources */,
 				1C60BAC01B7B70D90058C0F1 /* JVStarView.m in Sources */,
 				1C7EF5811B78A96E0046566B /* JVsuggestViewController.m in Sources */,
 				1C7FE42B1B5E2202001B0B52 /* JVshowkeyboardTextFiled.m in Sources */,
@@ -2546,6 +2599,8 @@
 				1CBF9ADB1B3D2175006B791A /* CYScollViewContainer.m in Sources */,
 				1C8674C31B5602BE0025CA38 /* NSString+MJExtension.m in Sources */,
 				CF29C4F31B8310F600203418 /* YC_RechargeViewController.m in Sources */,
+				CF5A0CC71BA17A7000513B26 /* YC_VIPViewController.m in Sources */,
+				CF5779821BA2807600771CEF /* YC_VipView.m in Sources */,
 				1C87F0591B7DE43C003BEDB3 /* YC_EvaluteCell.m in Sources */,
 				1C7FE4281B5E1606001B0B52 /* appointmentStoresCell.m in Sources */,
 				1C5B56EF1B54EDAB00D8727F /* JTCalendarMonthView.m in Sources */,
@@ -2579,6 +2634,7 @@
 				1CBF9AE21B3D2175006B791A /* storesDetailController.m in Sources */,
 				1C7EF5701B786ECC0046566B /* JVservicesOrderTableViewCell.m in Sources */,
 				1C8674C01B5602BE0025CA38 /* NSObject+MJCoding.m in Sources */,
+				CF57797C1BA26FCB00771CEF /* YC_VipModel.m in Sources */,
 				CF29C4FE1B8328F700203418 /* YC_RechargePriceViewController.m in Sources */,
 				1C8674BE1B5602BE0025CA38 /* MJProperty.m in Sources */,
 				1CD87D101B71A8D800684534 /* JVconfirmOrderViewController.m in Sources */,
@@ -2586,6 +2642,7 @@
 				1CDCFF871B7601920057AD25 /* JV_newPricesView.m in Sources */,
 				BC69E1A51B7C86340077EEAA /* HRechargeTableViewCell.m in Sources */,
 				1CA9FF711B7F2F7C0059EAEB /* openssl_wrapper.m in Sources */,
+				CF57797F1BA2792500771CEF /* JVshowKeyboardManger.m in Sources */,
 				1CBF9AE11B3D2175006B791A /* qqMusicContainer.m in Sources */,
 				1C8674C61B56581A0025CA38 /* signValueObject.m in Sources */,
 				1CD87D241B71AB0000684534 /* HChooseCommodityTableViewCell.m in Sources */,
@@ -2657,8 +2714,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Cheng Zeng (A699R7437V)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Cheng Zeng (A699R7437V)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guizhou YiDongCheBo Co., Ltd. (R8YQ28Z67G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guizhou YiDongCheBo Co., Ltd. (R8YQ28Z67G)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2678,7 +2735,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "3b9f5490-7141-47a7-b3b6-bd8e714b0d69";
+				PROVISIONING_PROFILE = "76346994-26b3-4f7c-8c1f-7b717f08a6c7";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2701,8 +2758,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Cheng Zeng (A699R7437V)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Cheng Zeng (A699R7437V)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guizhou YiDongCheBo Co., Ltd. (R8YQ28Z67G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guizhou YiDongCheBo Co., Ltd. (R8YQ28Z67G)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2716,7 +2773,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "3b9f5490-7141-47a7-b3b6-bd8e714b0d69";
+				PROVISIONING_PROFILE = "76346994-26b3-4f7c-8c1f-7b717f08a6c7";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -2729,8 +2786,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Cheng Zeng (A699R7437V)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Cheng Zeng (A699R7437V)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guizhou YiDongCheBo Co., Ltd. (R8YQ28Z67G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guizhou YiDongCheBo Co., Ltd. (R8YQ28Z67G)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HD_Car/支付宝",
@@ -2758,7 +2815,8 @@
 					"$(PROJECT_DIR)/HD_Car/WePay",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "661c60a8-fa85-4ec9-a085-86912ae3ef2c";
+				PROVISIONING_PROFILE = "76346994-26b3-4f7c-8c1f-7b717f08a6c7";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2768,8 +2826,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Cheng Zeng (A699R7437V)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Cheng Zeng (A699R7437V)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Guizhou YiDongCheBo Co., Ltd. (R8YQ28Z67G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Guizhou YiDongCheBo Co., Ltd. (R8YQ28Z67G)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/HD_Car/支付宝",
@@ -2797,8 +2855,9 @@
 					"$(PROJECT_DIR)/HD_Car/WePay",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "661c60a8-fa85-4ec9-a085-86912ae3ef2c";
+				PROVISIONING_PROFILE = "76346994-26b3-4f7c-8c1f-7b717f08a6c7";
 				SKIP_INSTALL = NO;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

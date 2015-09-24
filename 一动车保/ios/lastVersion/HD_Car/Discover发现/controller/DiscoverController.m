@@ -100,6 +100,7 @@
                 [model setValuesForKeysWithDictionary:dic];
                 [_dataArray addObject:model];
             }
+            [_discoverTableView reloadData];
         }else{
             warn(responseObject);
         }

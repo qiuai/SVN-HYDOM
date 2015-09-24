@@ -1,4 +1,4 @@
-//
+ //
 //  YC_SelectDiscountViewController.m
 //  HD_Car
 //
@@ -33,7 +33,7 @@
     _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 94, SCREEN_WIDTH, SCREEN_HEIGHT-94) style:UITableViewStylePlain];
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    _tableView.rowHeight = SCREEN_WIDTH*0.25;
+    _tableView.rowHeight = SCREEN_WIDTH*0.33;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -42,18 +42,17 @@
 
 -(void)getHttpData
 {
-    
-    
+//    self.sendModel.pid = self.sendModel.pidNew;
+    NSDictionary * dic = [UtilityMethod getObjectData:self.sendModel];
+    [dic setValue:dic[@"pidNew"] forKey:@"pid"];
     _po([UtilityMethod JVDebugUrlWithdict:[UtilityMethod getObjectData:self.sendModel] nsurl:getDiscountAbleListAPI]);
-    
-    [HTTPconnect sendGETWithUrl:getDiscountAbleListAPI parameters:[UtilityMethod getObjectData:self.sendModel] success:^(id responseObject) {
+    [HTTPconnect sendPOSTHttpWithUrl:getDiscountAbleListAPI parameters:dic success:^(id responseObject) {
         if (![responseObject isKindOfClass:[NSString class]]) {
-            NSLog(@"%@",responseObject);
             _dataArray = [NSMutableArray new];
-            _model = [discountModel new];
             for (NSDictionary * dic in responseObject[@"list"]) {
-                [_model setValuesForKeysWithDictionary:dic];
-                [_dataArray addObject:_model];
+                discountModel * model = [discountModel new];
+                [model setValuesForKeysWithDictionary:dic];
+                [_dataArray addObject:model];
             }
             [_tableView reloadData];
         }
@@ -120,7 +119,7 @@
             [huddd hide:YES];
             if (self.pricesArrayblock!=nil) {
                 NSArray* array=@[globalPrices(responseObject[@"ocmoney"]),globalPrices(responseObject[@"opmoney"]),globalPrices(responseObject[@"orimoney"]),globalPrices(responseObject[@"cpmoney"]),globalPrices(responseObject[@"paymoney"])];
-                self.pricesArrayblock(array);
+                self.pricesArrayblock(array, cell.model.cpid);
             }
             [self.navigationController popViewControllerAnimated:YES];
         }else{

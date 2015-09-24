@@ -18,13 +18,17 @@
 #import "carListViewController.h"
 #import "carModel.h"
 #import "Global.pch"
+#import <MJRefresh.h>
 @interface YC_HotGoodsViewController ()<UITableViewDataSource,UITableViewDelegate>
-
+{
+    NSInteger index;
+}
 @property(nonatomic, assign)NSInteger maxPage;
-@property(nonatomic, strong)NSMutableArray * dataArray;
+@property(nonatomic, copy)NSMutableArray * dataArray;
 @property(nonatomic, strong)UITableView * tableView;
 /**父容器*/
 @property(nonatomic, weak)CYTabbarContainer* parentContainer;
+@property(nonatomic, weak)JVCommonSelectCarView * carView;
 @property(nonatomic, strong)YC_MarketModel * marketModel;
 @end
 
@@ -46,6 +50,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    index = 1;
+    _dataArray = [NSMutableArray new];
     self.view.backgroundColor = [UIColor whiteColor];
     [self.parentContainer hiddenTabbar];
     HDNavigationView * navc = [HDNavigationView navigationViewWithTitle:self.pname];
@@ -55,26 +61,47 @@
     }];
     [self.view addSubview:navc];
     
+    [self initInterface];
+    
+    [self getDataFromServer:NO];
+
+}
+
+-(void)getDataFromServer:(BOOL)bl{
+    if (bl==YES) {
+//        if(index < _maxPage) {
+            index++;
+//        }
+    }else{
+        [_dataArray removeAllObjects];
+        index = 1;
+    }
+    _tableView.userInteractionEnabled = NO;
     NSMutableDictionary * parameters = [NSMutableDictionary new];
-    [parameters setObject:@1 forKey:@"page"];
+    [parameters setObject:@(index) forKey:@"page"];
     [parameters setObject:@10 forKey:@"maxresult"];
     [parameters setObject:self.pcid forKey:@"pcid"];
     [HTTPconnect sendGETWithUrl:getHotGoodsAPI parameters:parameters success:^(id responseObject) {
+
         if (![responseObject isKindOfClass:[NSString class]]) {
+            _maxPage = [responseObject[@"pages"] integerValue];
             for( NSDictionary* dict in responseObject[@"list"]){
                 YC_MarketModel * marketModel = [YC_MarketModel getMarketModelFromDic:dict];
                 [self.dataArray addObject:marketModel];
             }
             [_tableView reloadData];
-
+            [_tableView.header endRefreshing];
+            [_tableView.footer endRefreshing];
         }
+        _tableView.userInteractionEnabled = YES;
     } failure:^(NSError *error) {
-        
+        [_tableView.header endRefreshing];
+        [_tableView.footer endRefreshing];
+            _tableView.userInteractionEnabled = YES;
     }];
     
-    [self initInterface];
-
 }
+
 
 -(void)initInterface
 {
@@ -83,6 +110,7 @@
     topView.frame = CGRectMake(0, 64, SCREEN_WIDTH, 36);
     topView.carNameLabel.text=[NSString stringWithFormat:@"%@",_car.csname];
     UITapGestureRecognizer * topViewTapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(topViewTapGR:)];
+    self.carView = topView;
     [topView addGestureRecognizer:topViewTapGR];
     [self.view addSubview:topView];
     UIView * topViewLine = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(topView.frame)-1, SCREEN_WIDTH, 1)];
@@ -98,6 +126,15 @@
     _tableView.rowHeight = 90;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+    WEAKSELF;
+    _tableView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        //             进入刷新状态后会自动调用这个block
+        [weakSelf getDataFromServer:NO];
+    }];
+    
+    _tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [weakSelf getDataFromServer:YES];
+    }];
     [self.view addSubview:_tableView];
  
 }
@@ -105,7 +142,7 @@
 #pragma -mark tableView代理
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.dataArray.count;
+    return self.dataArray.count>0?_dataArray.count:0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -113,6 +150,10 @@
     HChooseCommodityTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"HChooseCommodityTableViewCell"];
     if (!cell) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"HChooseCommodityTableViewCell" owner:nil options:nil].lastObject;
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    if (_dataArray.count < 1) {
+        return cell;
     }
     YC_MarketModel * marketModel = _dataArray[indexPath.row];
     cell.markeModel = marketModel;
@@ -142,8 +183,9 @@
 {
     carListViewController * vc = [[carListViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
+    WEAKSELF;
     vc.defaultCarModel = ^(carModel * model){
-        NSLog(@"回调模型");
+         weakSelf.carView.carNameLabel.text=[NSString stringWithFormat:@"%@",model.csname];
     };
 }
 

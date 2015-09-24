@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "carModel.h"
 #import "YC_GoodsModel.h"
-@interface YC_AddGoodsViewController : UIViewController
+#import "JVbaseViewController.h"
+@interface YC_AddGoodsViewController : JVbaseViewController
 
 @property (nonatomic, strong) NSString * cmid;
 @property (nonatomic, strong) NSString * scid;

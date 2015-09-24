@@ -12,7 +12,7 @@
 @interface JVweiXinPay : NSObject<WXApiDelegate>
 
 //微信支付 需要prepayID
-+(void)payFromWeXin:(NSString*)prepayId;
++(void)payFromWeXin:(NSString*)prepayID;
 
 //判断是否 安装微信
 +(BOOL)isWXAppInstalled;

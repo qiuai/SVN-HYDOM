@@ -23,8 +23,12 @@
 #import "Global.pch"
 #import "payRequsestHandler.h"
 #import "WXApi.h"
-
-@interface JVconfirmOrderViewController ()<WXApiDelegate>
+#import <objc/runtime.h>
+#import "JVweiXinPay.h"
+#import "UPPayPlugin.h"
+#import "UPPayPluginDelegate.h"
+#import "AppDelegate.h"
+@interface JVconfirmOrderViewController ()<WXApiDelegate,UPPayPluginDelegate>
 @property(strong,nonatomic)UIScrollView* baseScrollView;
 /**附近是否有技师提供服务*/
 @property(strong,nonatomic)UILabel* bulletinLabel;
@@ -116,6 +120,7 @@
     }
     [self initData];
     
+    _po([UtilityMethod getObjectData:self.model]);
 }
 
 -(void)noPersonForServicesLayout{
@@ -171,7 +176,7 @@
 }
 
 -(void)layoutUI{
-    self.baseScrollView=[[UIScrollView alloc]initWithFrame:CGRM(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-55)];
+    self.baseScrollView=[[UIScrollView alloc]initWithFrame:CGRM(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-50)];
     self.baseScrollView.backgroundColor=HDfillColor;
     self.baseScrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 600);
     [self.view addSubview:self.baseScrollView];
@@ -196,10 +201,10 @@
 
 #pragma -mark submitView Layout
 -(void)submitViewLayout{
-    self.submitView=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 55)];
+    self.submitView=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 50)];
     self.submitView.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:self.submitView];
-    UIButton* comebackBtn=[[UIButton alloc]initWithFrame:CGRM(SCREEN_WIDTH/2.0, 7, 65,30)];
+    UIButton* comebackBtn=[[UIButton alloc]initWithFrame:CGRM(SCREEN_WIDTH/2.0, 10, 65,30)];
     [comebackBtn setTitle:@"修改" forState:0];
     [comebackBtn setTitleColor:[UIColor blackColor] forState:0];
     [self.submitView addSubview:comebackBtn];
@@ -210,10 +215,10 @@
     [comebackBtn.layer setBorderColor:colorref];
     comebackBtn.titleLabel.font=FONT14;
     [comebackBtn addTarget:self action:@selector(combaceClick) forControlEvents:UIControlEventTouchUpInside];
-    UIButton* submitBTN=[[UIButton alloc]initWithFrame:CGRM(SCREEN_WIDTH-20-65, 7, 65,30)];
+    UIButton* submitBTN=[[UIButton alloc]initWithFrame:CGRM(SCREEN_WIDTH-20-65, 10, 65,30)];
     submitBTN.titleLabel.font=FONT14;
     [submitBTN setTitle:@"支付" forState:0];
-    submitBTN.backgroundColor=[UIColor redColor];
+    submitBTN.backgroundColor=SUBMITCOLOR;
     [submitBTN setTitleColor:[UIColor whiteColor] forState:0];
     [submitBTN.layer setMasksToBounds:YES];
     [submitBTN.layer setCornerRadius:5.0]; //设置矩形四个圆角半径
@@ -301,11 +306,28 @@
 
 #pragma -mark 提交订单
 -(void)submitClick:(UIButton*)btn{
+    _po([UtilityMethod getObjectData:self.model]);
     btn.userInteractionEnabled=NO;
     NSMutableDictionary* dict=[NSMutableDictionary dictionaryWithDictionary:[userDefaultManager getUserWithToken]];
-    [dict addEntriesFromDictionary:[UtilityMethod getObjectData:self.model]];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    unsigned int propsCount;
+    objc_property_t *props = class_copyPropertyList([self.model class], &propsCount);
+    for(int i = 0;i < propsCount; i++)
+    {
+        objc_property_t prop = props[i];
+        NSString *propName = [NSString stringWithUTF8String:property_getName(prop)];
+            id value = [self.model valueForKey:propName];
+            if(value != nil)
+            {
+                [dic setObject:value forKey:propName];
+            }
+    }
+    [dict addEntriesFromDictionary:dic];
     
-    _po([UtilityMethod JVDebugUrlWithdict:dict nsurl:submitWashCarAPI]);
+//    _po([UtilityMethod JVDebugUrlWithdict:dict nsurl:submitWashCarAPI]);
+    
+    
+    
     
     [HTTPconnect sendGETWithUrl:submitWashCarAPI parameters:dict success:^(id responseObject) {
         
@@ -323,9 +345,17 @@
                     }
                     //微信支付
                     if ([self.model.payWay isEqualToString:@"4"]) {
-                        [self payFromWeXin:responseObject[@"onum"]];
+                        AppDelegate * appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                        appdelegate.playViewController=self;
+                         [JVweiXinPay payFromWeXin:responseObject[@"onum"]];
                         return;
                     }
+                    //银联支付
+                    if ([self.model.payWay isEqualToString:@"3"]) {
+                        [UPPayPlugin startPay:responseObject[@"onum"] mode:@"00" viewController:self delegate:self];
+                        return;
+                    }
+
                 }
                     break;
                 case 2:
@@ -355,25 +385,25 @@
     if (state==NO) {
         warn(@"请安装微信！！");return;
     }
-    //创建支付签名对象
-    payRequsestHandler *requse = [[payRequsestHandler alloc] init];
-    //初始化支付签名对象
-    [requse init:APP_ID mch_id:MCH_ID];
-    //设置密钥
-    [requse setKey:PARTNER_ID];
-    //获取到实际调起微信支付的参数后，在app端调起支付
-    NSMutableDictionary *dict = [requse sendPay_demo];
-    NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
-        //调起微信支付
-        PayReq* req             = [[PayReq alloc] init];
-        req.openID              = [dict objectForKey:@"appid"];
-        req.partnerId           = [dict objectForKey:@"partnerid"];
-        req.prepayId            =onum;
-        req.nonceStr            = [dict objectForKey:@"noncestr"];
-        req.timeStamp           = stamp.intValue;
-        req.package             = [dict objectForKey:@"package"];
-        req.sign                = [dict objectForKey:@"sign"];
-        [WXApi sendReq:req];
+//    //创建支付签名对象
+//    payRequsestHandler *requse = [[payRequsestHandler alloc] init];
+//    //初始化支付签名对象
+//    [requse init:APP_ID mch_id:MCH_ID];
+//    //设置密钥
+//    [requse setKey:PARTNER_ID];
+//    //获取到实际调起微信支付的参数后，在app端调起支付
+//    NSMutableDictionary *dict = [requse sendPay_demo:onum];
+//    NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
+//        //调起微信支付
+//        PayReq* req             = [[PayReq alloc] init];
+//        req.openID              = [dict objectForKey:@"appid"];
+//        req.partnerId           = [dict objectForKey:@"partnerid"];
+//        req.prepayId            = onum;
+//        req.nonceStr            = [dict objectForKey:@"noncestr"];
+//        req.timeStamp           = stamp.intValue;
+//        req.package             = [dict objectForKey:@"package"];
+//        req.sign                = [dict objectForKey:@"sign"];
+//        [WXApi sendReq:req];
 }
 
 
@@ -432,5 +462,46 @@
 {
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
+
+#pragma mark 银联回调
+-(void)UPPayPluginResult:(NSString*)result{
+    _po(result);
+    if ([result isEqualToString:@"cancel"]) {
+        warn(@"支付失败");
+    } else {
+        [self successPay];
+    }
+}
+
+#pragma -mark 微信支付成功
+-(void)onResp:(BaseResp*)resp
+{
+//    NSString *strMsg = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
+    NSString *strTitle;
+    if([resp isKindOfClass:[SendMessageToWXResp class]])
+    {
+        strTitle = [NSString stringWithFormat:@"发送媒体消息结果"];
+    }
+    if([resp isKindOfClass:[PayResp class]]){
+        //支付返回结果，实际支付结果需要去微信服务器端查询
+        strTitle = [NSString stringWithFormat:@"支付结果"];
+        
+        switch (resp.errCode) {
+            case WXSuccess:
+                [self successPay];
+
+                break;
+                
+            default:
+                warn(@"支付失败!");
+                //                NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
+                break;
+        }
+    }
+
+}
+
+
+
 
 @end

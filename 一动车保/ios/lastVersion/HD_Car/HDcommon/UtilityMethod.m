@@ -143,6 +143,7 @@
             }
         }
     }
+    free(props);
     return dic;
 }
 

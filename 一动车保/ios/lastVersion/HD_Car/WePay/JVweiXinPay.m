@@ -16,28 +16,42 @@
 
 
 
+
+
+
 //微信支付 需要prepayID
-+(void)payFromWeXin:(NSString*)prepayId{
++(void)payFromWeXin:(NSString*)prepayID{
+    
+    //本实例只是演示签名过程， 请将该过程在商户服务器上实现
     //创建支付签名对象
-    payRequsestHandler *requse = [[payRequsestHandler alloc] init];
+    payRequsestHandler *reqR = [[payRequsestHandler alloc] init];
     //初始化支付签名对象
-    [requse init:APP_ID mch_id:MCH_ID];
+    [reqR init:APP_ID mch_id:MCH_ID];
     //设置密钥
-    [requse setKey:PARTNER_ID];
+    [reqR setKey:PARTNER_ID];
+    
+    
     //获取到实际调起微信支付的参数后，在app端调起支付
-    NSMutableDictionary *dict = [requse sendPay_demo];
-    NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
-    //调起微信支付
-    PayReq* req             = [[PayReq alloc] init];
-    req.openID              = [dict objectForKey:@"appid"];
-    req.partnerId           = [dict objectForKey:@"partnerid"];
-    req.prepayId            =prepayId;
-    req.nonceStr            = [dict objectForKey:@"noncestr"];
-    req.timeStamp           = stamp.intValue;
-    req.package             = [dict objectForKey:@"package"];
-    req.sign                = [dict objectForKey:@"sign"];
-    [WXApi sendReq:req];
+    NSMutableDictionary *dict = [reqR sendPayWith:prepayID];
+  
+        //[self alert:@"确认" msg:@"下单成功，点击OK后调起支付！"];
+        
+        NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
+        
+        //调起微信支付
+        PayReq* req             = [[PayReq alloc] init];
+        req.openID              = [dict objectForKey:@"appid"];
+        req.partnerId           = [dict objectForKey:@"partnerid"];
+        req.prepayId            = [dict objectForKey:@"prepayid"];
+        req.nonceStr            = [dict objectForKey:@"noncestr"];
+        req.timeStamp           = stamp.intValue;
+        req.package             = [dict objectForKey:@"package"];
+        req.sign                = [dict objectForKey:@"sign"];
+        
+        [WXApi sendReq:req];
+    
 }
+
 
 //判断是否 安装微信
 +(BOOL)isWXAppInstalled{

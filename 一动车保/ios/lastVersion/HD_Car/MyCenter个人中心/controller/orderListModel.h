@@ -29,6 +29,7 @@
 
 @property(nonatomic,strong)NSString* ophone;
 
+@property(nonatomic,strong)NSString* ostar;
 
 //是否显示联系人 电话
 @property(nonatomic,assign)BOOL showContact;
@@ -36,6 +37,6 @@
 /**JVorderDataModel array*/
 @property(nonatomic,strong)NSMutableArray* orderDataArray;
 
-
+@property (nonatomic, assign) BOOL goods;
 
 @end

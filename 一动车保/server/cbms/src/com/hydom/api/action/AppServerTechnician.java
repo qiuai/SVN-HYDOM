@@ -156,6 +156,13 @@ public class AppServerTechnician {
 			if (technician.isJobstatus() && order == null) {
 				order = orderService.matchOrder(techId, technician.getLatitude(), technician.getLongitude());
 			}
+			if (order != null && (order.getStatus() >= 31 && order.getStatus() <= 39)) {
+				technician.setOrder(null);
+				order.setTechMember(null);
+				technicianService.update(technician);
+				orderService.update(order);
+				return "{\"result\":\"1002\"}";
+			}
 			if (technician.getOrder() != null) {
 				dataMap.put("result", "001");
 				dataMap.put("stats", order.getStatus()-1);

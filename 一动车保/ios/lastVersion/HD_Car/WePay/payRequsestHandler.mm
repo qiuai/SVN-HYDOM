@@ -139,6 +139,43 @@
 
     return prepayid;
 }
+//支付签名
+- ( NSMutableDictionary *)sendPayWith:(NSString*)prePayid{
+    //获取到prepayid后进行第二次签名
+    NSString *package, *time_stamp, *nonce_str;
+    //设置支付参数
+    time_t now;
+    time(&now);
+    time_stamp  = [NSString stringWithFormat:@"%ld", now];
+    nonce_str	= [WXUtil md5:time_stamp];
+    //重新按提交格式组包，微信客户端暂只支持package=Sign=WXPay格式，须考虑升级后支持携带package具体参数的情况
+    //package       = [NSString stringWithFormat:@"Sign=%@",package];
+    package         = @"Sign=WXPay";
+    //第二次签名参数列表
+    NSMutableDictionary *signParams = [NSMutableDictionary dictionary];
+    [signParams setObject: appid        forKey:@"appid"];
+    [signParams setObject: nonce_str    forKey:@"noncestr"];
+    [signParams setObject: package      forKey:@"package"];
+    [signParams setObject: mchid        forKey:@"partnerid"];
+    [signParams setObject: time_stamp   forKey:@"timestamp"];
+    [signParams setObject: prePayid     forKey:@"prepayid"];
+    //[signParams setObject: @"MD5"       forKey:@"signType"];
+    //生成签名
+    NSString *sign  = [self createMd5Sign:signParams];
+    
+    //添加签名
+    [signParams setObject: sign         forKey:@"sign"];
+    
+    [debugInfo appendFormat:@"第二步签名成功，sign＝%@\n",sign];
+    
+    //返回参数列表
+    return signParams;
+
+
+}
+
+
+
 //============================================================
 // V3V4支付流程模拟实现，只作帐号验证和演示
 // 注意:此demo只适合开发调试，参数配置和参数加密需要放到服务器端处理
@@ -148,13 +185,13 @@
 //============================================================
 - ( NSMutableDictionary *)sendPay_demo
 {
-
+    
     //订单标题，展示给用户
     NSString *order_name    = @"V3支付测试";
     //订单金额,单位（分）
     NSString *order_price   = @"1";//1分钱测试
-
-
+    
+    
     //================================
     //预付单参数订单设置
     //================================
@@ -175,10 +212,10 @@
     [packageParams setObject: order_price       forKey:@"total_fee"];       //订单金额，单位为分
     
     //获取prepayId（预支付交易会话标识）
-//    NSString *prePayid;
-//    prePayid            = [self sendPrepay:packageParams];
+    NSString *prePayid;
+    prePayid            = [self sendPrepay:packageParams];
     
-//    if ( prePayid != nil) {
+    if ( prePayid != nil) {
         //获取到prepayid后进行第二次签名
         
         NSString    *package, *time_stamp, *nonce_str;
@@ -188,7 +225,7 @@
         time_stamp  = [NSString stringWithFormat:@"%ld", now];
         nonce_str	= [WXUtil md5:time_stamp];
         //重新按提交格式组包，微信客户端暂只支持package=Sign=WXPay格式，须考虑升级后支持携带package具体参数的情况
-//        package       = [NSString stringWithFormat:@"Sign=%@",package];
+        //package       = [NSString stringWithFormat:@"Sign=%@",package];
         package         = @"Sign=WXPay";
         //第二次签名参数列表
         NSMutableDictionary *signParams = [NSMutableDictionary dictionary];
@@ -197,7 +234,7 @@
         [signParams setObject: package      forKey:@"package"];
         [signParams setObject: mchid        forKey:@"partnerid"];
         [signParams setObject: time_stamp   forKey:@"timestamp"];
-//        [signParams setObject: prePayid     forKey:@"prepayid"];
+        [signParams setObject: prePayid     forKey:@"prepayid"];
         //[signParams setObject: @"MD5"       forKey:@"signType"];
         //生成签名
         NSString *sign  = [self createMd5Sign:signParams];
@@ -210,9 +247,10 @@
         //返回参数列表
         return signParams;
         
-//    }else{
-//        [debugInfo appendFormat:@"获取prepayid失败！\n"];
-//    }
-//    return nil;
+    }else{
+        [debugInfo appendFormat:@"获取prepayid失败！\n"];
+    }
+    return nil;
 }
+
 @end

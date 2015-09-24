@@ -248,6 +248,13 @@
 /**获取用户充值编号*/
 #define getRechargeNumberAPI  [rootUrl stringByAppendingString:@"/api/user/fee/rechareg/number"]
 
+/**保养服务价格**/
+#define getBaoyangPriceAPI  [rootUrl stringByAppendingString:@"/api/server/puremaintenance/price"]
 
+/**会员卡列表**/
+#define getVipAPI  [rootUrl stringByAppendingString:@"/api/user/couponpack/list"]
+
+/**会员卡购买**/
+#define getBuyVipAPI  [rootUrl stringByAppendingString:@"/api/user/couponpack/buy"]
 
 @end

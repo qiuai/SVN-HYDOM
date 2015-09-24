@@ -17,10 +17,12 @@
 @interface YC_EvaluateViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
     NSInteger index;
+    NSInteger page;
 }
 @property(nonatomic, strong)UITableView * tableView;
 @property(nonatomic, strong)NSMutableArray * dataArray;
 @property (nonatomic, assign) CGFloat cellLabelHight;
+
 
 @end
 
@@ -30,7 +32,7 @@
     if (!_dataArray) {
         _dataArray = [NSMutableArray new];
     }
-    return [_dataArray mutableCopy];
+    return _dataArray;
 }
 
 - (void)viewDidLoad {
@@ -74,9 +76,9 @@
 #pragma -mark 请求数据
 -(void)getDataFromServer:(BOOL)bl{
     if (bl==YES) {
-        index++;
+            index++;
     }else{
-        [self.dataArray removeAllObjects];
+        [_dataArray removeAllObjects];
         index = 1;
     }
     NSMutableDictionary * parameters = [NSMutableDictionary new];
@@ -88,7 +90,11 @@
         [_tableView.header endRefreshing];
         [_tableView.footer endRefreshing];
         if (![responseObject isKindOfClass:[NSString class]]) {
-            self.dataArray = responseObject[@"list"];
+            for (NSDictionary * dic in responseObject[@"list"]) {
+                [self.dataArray addObject:dic];
+            }
+            [self.tableView reloadData];
+            page = [responseObject[@"pages"] integerValue];
         } else {
             warn(responseObject);
         }
@@ -114,13 +120,25 @@
     }
 
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    if (_dataArray.count!=0) {
-        [cell.headImageView sd_setImageWithURL:imageURLWithPath(_dataArray[indexPath.row][@"cphoto"])];
+    if (_dataArray.count > 0) {
+        [cell.headImageView sd_setImageWithURL:imageURLWithPath(_dataArray[indexPath.row][@"cphoto"]) placeholderImage:[UIImage imageNamed:FillImage]];
         cell.timeLable.text = _dataArray[indexPath.row][@"ctime"];
         cell.nameLabel.text = _dataArray[indexPath.row][@"cperson"];
         cell.carLabel.text = _dataArray[indexPath.row][@"cmname"];
         _cellLabelHight = [cell setHightWithString:_dataArray[indexPath.row][@"content"]];
-        [cell drawStarWithInt:[_dataArray[indexPath.row][@"star"] integerValue]];
+        if ([_dataArray[indexPath.row][@"imglist"] count] > 0) {
+            cell.imagesView.hidden = NO;
+            [cell setImageListWith:_dataArray[indexPath.row][@"imglist"]];
+            _cellLabelHight = _cellLabelHight + 65;
+        } else {
+            cell.imagesView.hidden = YES;
+        }
+        cell.cellLabelHight = _cellLabelHight;
+        if ([_dataArray[indexPath.row][@"star"] integerValue]) {
+            [cell drawStarWithInt:[_dataArray[indexPath.row][@"star"] integerValue]];
+        } else {
+            [cell drawNoStarWithView];
+        }
     }
     return cell;
 }
@@ -128,9 +146,17 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_cellLabelHight) {
-        return 100-20+_cellLabelHight;
+    if ([_dataArray count] > 0) {
+        CGFloat cellHigt = [YC_EvaluteCell getCellHight:_dataArray[indexPath.row][@"content"]];
+        if ([_dataArray[indexPath.row][@"imglist"] count] > 0)
+        {
+            cellHigt += 65;
+        }
+        return 100-20+cellHigt;
     }
+//    if ([_dataArray count] > 0) {
+//        return 100-20+_cellLabelHight;
+//    }
     return 100;
 }
 

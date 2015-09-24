@@ -20,13 +20,18 @@
 #import "JVcommodityInfoViewController.h"
 
 @interface YC_SelectServerViewController ()<UITableViewDelegate,UITableViewDataSource>
+{
+    float footHight;
+}
 
-
+@property(nonatomic, weak)UIView * priceView;
+@property(nonatomic, weak)UILabel * priceLabel;
 @property(nonatomic, weak)NSMutableArray * dataSource;
 //商品 和服务
 @property(nonatomic, strong)NSMutableArray * dataSourceOne;
 //服务
 @property(nonatomic, strong)NSMutableArray * dataSourceStyleTwo;
+@property(nonatomic, strong)NSMutableArray * totalDataSource;
 
 @property(nonatomic, strong)UITableView * tableView;
 @property(nonatomic, strong)UIButton * selectButton;
@@ -41,7 +46,12 @@
 
 @implementation YC_SelectServerViewController
 
-
+-(NSMutableArray *)totalDataSource{
+    if (!_totalDataSource) {
+        _totalDataSource=[NSMutableArray array];
+    }
+    return _totalDataSource;
+}
 
 -(NSMutableArray *)dataSource{
     if (!_dataSource) {
@@ -65,7 +75,8 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
+    footHight = 30;
     self.view.backgroundColor = COLOR(236, 236, 236, 1);
     for (NSDictionary * dic in self.selectArray) {
         NSMutableDictionary * newDic = [NSMutableDictionary dictionaryWithCapacity:1];
@@ -108,6 +119,7 @@
     [requestDict setObject:cmid forKey:@"cmid"];
     [HTTPconnect sendGETWithUrl:getSelectOrderAPI parameters:requestDict success:^(id responseObject) {
         if (![responseObject isKindOfClass:[NSString class]]) {
+            BOOL goods = NO;
             self.dataSource=self.dataSourceOne;
             for (NSDictionary * dic in [responseObject objectForKey:@"list"]){
                 NSString* scid= [dic objectForKey:@"scid"];
@@ -116,10 +128,27 @@
                     if ([scid isEqualToString:current]) {
                         YC_GoodsModel* model=[YC_GoodsModel goodsModelWithDictionary:dic];
                         [[self.dataSource[i] objectForKey:@"array"] addObject:model];
+                        goods = YES;
                     }
                 }
             }
+            if (goods == NO) {
+                    footHight = 0;
+                    _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+                    self.priceView.hidden = NO;
+            }
             [self.tableView reloadData];
+        }else{
+            warn(responseObject);
+        }
+    } failure:^(NSError *error) {
+        warn(@"网络错误");
+    }];
+    
+    
+    [HTTPconnect sendGETWithUrl:getBaoyangPriceAPI parameters:nil success:^(id responseObject) {
+        if (![responseObject isKindOfClass:[NSString class]]) {
+           self.priceLabel.text = [NSString stringWithFormat:@"￥%@",globalPrices(responseObject[@"price"])];
         }else{
             warn(responseObject);
         }
@@ -177,14 +206,37 @@
     submitButton.layer.cornerRadius = 5;
     submitButton.layer.borderWidth = 1;
     submitButton.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    submitButton.backgroundColor = COLOR(190, 0, 19, 1);
+    submitButton.backgroundColor = SUBMITCOLOR;
     [submitButton setTitle:@"确定" forState:UIControlStateNormal];
     [submitButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [submitButton addTarget:self action:@selector(footButton:) forControlEvents:UIControlEventTouchUpInside];
     [footView addSubview:submitButton];
     
+    
+    //服务费栏
+    UIView * priceView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 120, SCREEN_WIDTH, 35)];
+    priceView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:priceView];
+    self.priceView = priceView;
+    self.priceView.hidden = YES;
+    
+    UIView * priceTopLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
+    priceTopLine.backgroundColor = COLOR(220, 220, 220, 1);
+    [priceView addSubview:priceTopLine];
+    
+    UILabel * priceViewLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 120, 35)];
+    priceViewLabel.text = @"服务费";
+    priceViewLabel.font = [UIFont systemFontOfSize:17];
+    [priceView addSubview:priceViewLabel];
+    
+    UILabel * priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 90, 0, 80, 35)];
+    priceLabel.textColor = [UIColor redColor];
+    priceLabel.textAlignment = NSTextAlignmentRight;
+    self.priceLabel = priceLabel;
+    [priceView addSubview:priceLabel];
+    
     //自备配件栏
-    UIView * selectView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 85, SCREEN_WIDTH, 30)];
+    UIView * selectView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT - 85, SCREEN_WIDTH, 35)];
     selectView.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:selectView];
     
@@ -192,11 +244,11 @@
     SelectTopLine.backgroundColor = COLOR(220, 220, 220, 1);
     [selectView addSubview:SelectTopLine];
     
-    UIView * SelectBottomLine = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(selectView.frame)-1, SCREEN_WIDTH, 1)];
-    SelectBottomLine.backgroundColor = COLOR(220, 220, 220, 1);
-    [selectView addSubview:SelectBottomLine];
+//    UIView * SelectBottomLine = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(selectView.frame)-1, SCREEN_WIDTH, 1)];
+//    SelectBottomLine.backgroundColor = COLOR(220, 220, 220, 1);
+//    [selectView addSubview:SelectBottomLine];
     
-    UILabel * selectLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 120, 30)];
+    UILabel * selectLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 120, 35)];
     selectLabel.text = @"自备配件";
     selectLabel.font = [UIFont systemFontOfSize:17];
     [selectView addSubview:selectLabel];
@@ -205,9 +257,9 @@
     [selectView addGestureRecognizer:tapGR];
     
     _selectButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    _selectButton.frame = CGRectMake(SCREEN_WIDTH - 45, 4, 22, 22);
-    [_selectButton setImage:[UIImage imageNamed:@"redSingle2"] forState:UIControlStateNormal];
-    [_selectButton setImage:[UIImage imageNamed:@"redSingle1"] forState:UIControlStateSelected];
+    _selectButton.frame = CGRectMake(SCREEN_WIDTH - 45, 6, 23, 23);
+    [_selectButton setBackgroundImage:[UIImage imageNamed:@"redSingle2"] forState:UIControlStateNormal];
+    [_selectButton setBackgroundImage:[UIImage imageNamed:@"redSingle1"] forState:UIControlStateSelected];
     [_selectButton addTarget:self action:@selector(selectButton:) forControlEvents:UIControlEventTouchUpInside];
     [selectView addSubview:_selectButton];
     [self.view addSubview:selectView];
@@ -219,8 +271,7 @@
 #pragma -mark 自备配件view
 -(void)InitUseUserPast
 {
-    
-    _selectView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 115, SCREEN_WIDTH, SCREEN_HEIGHT - 165)];
+    _selectView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 115, SCREEN_WIDTH, SCREEN_HEIGHT - 235)];
     _selectView.backgroundColor = COLOR(236, 236, 236, 1);
     _selectView.contentSize=CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT);
     _selectView.hidden = YES;
@@ -241,51 +292,53 @@
         titleLabel.textColor = COLOR(110, 110, 110, 1);
         [view addSubview:titleLabel];
         
-        UILabel * rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-120, 10, 60, 25)];
-        rightLabel.text = @"服务费:";
-        rightLabel.font = [UIFont systemFontOfSize:15];
-        rightLabel.textAlignment = NSTextAlignmentRight;
-        [view addSubview:rightLabel];
-        
-        UILabel * priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-60, 10, 60, 25)];
-        priceLabel.textColor = [UIColor redColor];
-
-        priceLabel.text = [NSString stringWithFormat:@"￥%@",globalPrices(_dataSourceStyleTwo[i][@"scprice"])];
-
-        priceLabel.font = [UIFont systemFontOfSize:17];
-        [view addSubview:priceLabel];
+//        UILabel * rightLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-120, 10, 60, 25)];
+//        rightLabel.text = @"服务费:";
+//        rightLabel.font = [UIFont systemFontOfSize:15];
+//        rightLabel.textAlignment = NSTextAlignmentRight;
+//        [view addSubview:rightLabel];
+//        
+//        UILabel * priceLabel = [[UILabel alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-60, 10, 60, 25)];
+//        priceLabel.textColor = [UIColor redColor];
+//
+//        priceLabel.text = [NSString stringWithFormat:@"￥%@",globalPrices(_dataSourceStyleTwo[i][@"scprice"])];
+//
+//        priceLabel.font = [UIFont systemFontOfSize:17];
+//        [view addSubview:priceLabel];
         
         UIView * line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(view.frame)-1, SCREEN_WIDTH, 1)];
         line.backgroundColor = COLOR(220, 220, 220, 1);
         [view addSubview:line];
     }
     
-    UIView * selectNewView = [[UIView alloc] initWithFrame:CGRectMake(0, _dataSourceStyleTwo.count*45+20 , SCREEN_WIDTH, 40)];
-    selectNewView.backgroundColor = [UIColor whiteColor];
-    [_selectView addSubview:selectNewView];
-    _selectView.contentSize = CGSizeMake(SCREEN_WIDTH, CGRectGetMaxY(selectNewView.frame));
+//    UIView * selectNewView = [[UIView alloc] initWithFrame:CGRectMake(0, _dataSourceStyleTwo.count*45+20 , SCREEN_WIDTH, 40)];
+//    UIView * selectNewView = [[UIView alloc] initWithFrame:CGRectMake(0, SCREEN_HEIGHT-215, SCREEN_WIDTH, 40)];
+//    selectNewView.backgroundColor = [UIColor whiteColor];
+//    [_selectView addSubview:selectNewView];
     
-    UIView * selectNewViewTopLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
-    selectNewViewTopLine.backgroundColor = COLOR(220, 220, 220, 1);
-    [selectNewView addSubview:selectNewViewTopLine];
+    _selectView.contentSize = CGSizeMake(SCREEN_WIDTH, _dataSourceStyleTwo.count*45+20);
     
-    UIView * selectNewViewBottomLine = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(selectNewView.frame)-1, SCREEN_WIDTH, 1)];
-    selectNewViewBottomLine.backgroundColor = COLOR(220, 220, 220, 1);
-    [selectNewView addSubview:selectNewViewBottomLine];
-    
-    UILabel * selectNewLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 120, 40)];
-    selectNewLabel.text = @"自备配件";
-    selectNewLabel.font = [UIFont systemFontOfSize:17];
-    [selectNewView addSubview:selectNewLabel];
-    
-    UITapGestureRecognizer * NewTapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectViewTAP:)];
-    [selectNewView addGestureRecognizer:NewTapGR];
-    
-    UIButton * selectNewButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    selectNewButton.frame = CGRectMake(SCREEN_WIDTH - 50, 8, 24, 24);
-    [selectNewButton setImage:[UIImage imageNamed:@"redSingle1"] forState:UIControlStateNormal];
-    selectNewButton.userInteractionEnabled = NO;
-    [selectNewView addSubview:selectNewButton];
+//    UIView * selectNewViewTopLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 1)];
+//    selectNewViewTopLine.backgroundColor = COLOR(220, 220, 220, 1);
+//    [selectNewView addSubview:selectNewViewTopLine];
+//    
+//    UIView * selectNewViewBottomLine = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(selectNewView.frame)-1, SCREEN_WIDTH, 1)];
+//    selectNewViewBottomLine.backgroundColor = COLOR(220, 220, 220, 1);
+//    [selectNewView addSubview:selectNewViewBottomLine];
+//    
+//    UILabel * selectNewLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 120, 40)];
+//    selectNewLabel.text = @"自备配件";
+//    selectNewLabel.font = [UIFont systemFontOfSize:17];
+//    [selectNewView addSubview:selectNewLabel];
+//    
+//    UITapGestureRecognizer * NewTapGR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(selectViewTAP:)];
+//    [selectNewView addGestureRecognizer:NewTapGR];
+//    
+//    UIButton * selectNewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    selectNewButton.frame = CGRectMake(SCREEN_WIDTH - 50, 8, 24, 24);
+//    [selectNewButton setImage:[UIImage imageNamed:@"redSingle1"] forState:UIControlStateNormal];
+//    selectNewButton.userInteractionEnabled = NO;
+//    [selectNewView addSubview:selectNewButton];
 }
 
 #pragma -mark cell  加  减事件
@@ -297,11 +350,7 @@
     model.myCount=it;
 }
 -(void)subtractMethod:(UITableViewCell*)cell{
-    //    NSIndexPath* indexPath=[self.tableView indexPathForCell:cell];
-    //    NSMutableDictionary* dict=[_dataSource[indexPath.section] objectForKey:@"array"][indexPath.row];
-    //    NSNumber* number=dict[@"pbuynum"];
-    //    NSInteger i=[number integerValue]-1;
-    //    [dict setObject:[NSNumber numberWithInteger:i] forKey:@"pbuynum"];
+    
     NSIndexPath* indexPath=[self.tableView indexPathForCell:cell];
     YC_GoodsModel* model=(YC_GoodsModel*)[_dataSource[indexPath.section] objectForKey:@"array"][indexPath.row];
     NSInteger it=model.myCount-1;
@@ -328,6 +377,7 @@
         cell.sumMethod=@selector(sumMethod:);
     }
     cell.dataSource = [_dataSource[indexPath.section] objectForKey:@"array"][indexPath.row];
+    [self.totalDataSource addObject:cell.dataSource];
     [cell.deleteButton addTarget:self action:@selector(cellDeleteButton:) forControlEvents:UIControlEventTouchUpInside];
     [cell setCellDataSource];
     return cell;
@@ -359,7 +409,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 30;
+    return footHight;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -382,9 +432,9 @@
     [sectionView addSubview:titleLabel];
     
     UIButton * addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    addButton.frame = CGRectMake(SCREEN_WIDTH - 60, 2, 50, 30);
-    addButton.titleLabel.font = [UIFont systemFontOfSize:17];
-    [addButton setTitle:@"新增" forState:UIControlStateNormal];
+    addButton.frame = CGRectMake(SCREEN_WIDTH - 70, 2, 60, 30);
+    addButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [addButton setTitle:@"添加商品" forState:UIControlStateNormal];
     addButton.tag = section + 100;
     [addButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
     [addButton addTarget:self action:@selector(addButton:) forControlEvents:UIControlEventTouchUpInside];
@@ -445,11 +495,16 @@
         vc.pids = pids;
     }
     [self.navigationController pushViewController:vc animated:YES];
+    WEAKSELF;
     vc.addGooldsBlock=^(YC_GoodsModel* model){
         NSInteger index=sender.tag-100;
         NSMutableArray* array=self.dataSource[index][@"array"];
         [array addObject:model];
-        [self.tableView reloadData];
+        footHight = 30;
+        if (weakSelf.priceView.hidden == NO) {
+            weakSelf.priceView.hidden = YES;
+        }
+        [weakSelf.tableView reloadData];
     };
 }
 
@@ -492,8 +547,8 @@
         confirmButton.frame = CGRectMake(130, 115, 70, 30);
         [confirmButton setTitle:@"确定" forState:UIControlStateNormal];
         [confirmButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [confirmButton setBackgroundColor:COLOR(190, 0, 19, 1)];
-        confirmButton.layer.cornerRadius = 3;
+        [confirmButton setBackgroundColor:SUBMITCOLOR];
+         confirmButton.layer.cornerRadius = 3;
         [confirmButton addTarget:self action:@selector(alertViewButton:) forControlEvents:UIControlEventTouchUpInside];
         [alertView addSubview:confirmButton];
         
@@ -510,7 +565,13 @@
     } else if ([sender.titleLabel.text isEqualToString:@"确定"]) {
         [_showView setHidden:YES];
         NSIndexPath * indexPath=[self.tableView indexPathForCell:_deleteCell];
+        [_totalDataSource removeObject:_deleteCell.dataSource];
         [_dataSource[indexPath.section][@"array"] removeObjectAtIndex:indexPath.row];
+        if (_totalDataSource.count == 0) {
+            footHight = 0;
+            _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+            self.priceView.hidden = NO;
+        }
         [_tableView reloadData];
     }
 }
@@ -524,10 +585,14 @@
         _tableView.hidden = YES;
         self.dataSource=self.dataSourceStyleTwo;
         _selectView.hidden = NO;
+        self.priceView.hidden = NO;
     } else {
         _tableView.hidden = NO;
         self.dataSource=self.dataSourceOne;
         _selectView.hidden = YES;
+        if (_totalDataSource.count != 0) {
+            self.priceView.hidden = YES;
+        }
     }
     
 }

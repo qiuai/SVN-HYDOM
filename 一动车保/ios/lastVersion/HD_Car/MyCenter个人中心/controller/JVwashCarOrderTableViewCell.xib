@@ -45,10 +45,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sa6-jI-GTi">
-                                <rect key="frame" x="266" y="61" width="46" height="30"/>
+                                <rect key="frame" x="262" y="71" width="50" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="URU-Aa-edi"/>
-                                    <constraint firstAttribute="height" constant="30" id="cTr-xE-Ilh"/>
+                                    <constraint firstAttribute="width" constant="50" id="URU-Aa-edi"/>
+                                    <constraint firstAttribute="height" constant="20" id="cTr-xE-Ilh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Button">

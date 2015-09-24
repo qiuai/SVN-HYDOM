@@ -29,9 +29,13 @@
 
 
 #if 0
-#define rootUrl  @"http://192.168.0.234:8080"
-#define zhiFuBaoOrderURL @"http://qq826552818.imwork.net:57702/cbms/web/pay/alipay_return"
-#define zhiFuBaoPayURL @"http://qq826552818.imwork.net:57702/cbms/web/pay/alipay_recharge_return"
+//#define rootUrl  @"http://192.168.0.234:8080"
+#define rootUrl  @"http://192.168.0.136:8081"
+//#define zhiFuBaoOrderURL @"http://qq826552818.imwork.net:57702/cbms/web/pay/alipay_return"
+//#define zhiFuBaoPayURL @"http://qq826552818.imwork.net:57702/cbms/web/pay/alipay_recharge_return"
+#define zhiFuBaoOrderURL @"http://qq826552818.imwork.net:27989/web/pay/alipay_return"
+#define zhiFuBaoPayURL @"http://qq826552818.imwork.net:27989/web/pay/alipay_recharge_return"
+
 
 #else
 #define zhiFuBaoOrderURL @"http://www.yidongchebao.com/web/pay/alipay_return"
@@ -61,6 +65,8 @@
 //常用颜色
 #define BLACKCOLOR [UIColor blackColor]
 #define WHITECOLOR [UIColor whiteColor]
+#define SUBMITCOLOR [UIColor colorWithRed:241/255.0 green:83/255.0 blue:82/255.0 alpha:1]
+#define SUBMITVIEWCOLOR [UIColor colorWithRed:38/255.0 green:38/255.0 blue:38/255.0 alpha:1]
 //清除背景色
 #define CLEARCOLOR [UIColor clearColor]
 //字体大小

@@ -32,15 +32,24 @@
 //是否展示评价
 -(void)showEvaluate:(BOOL)b{
     if (b==NO) {
-        self.rightLayout.constant=30;
-        [_evalution setHidden:YES];
-    }else{
+//        self.rightLayout.constant=30;
+//        [_evalution setHidden:YES];
         self.rightLayout.constant=100;
+        [_evalution setTitle:@"已评价" forState:UIControlStateNormal];
+        _evalution.userInteractionEnabled = NO;
+    }else{
+        [_evalution setTitle:@"评价" forState:UIControlStateNormal];
+        self.rightLayout.constant=100;
+        _evalution.userInteractionEnabled = YES;
         [_evalution setHidden:NO];
     }
     
 }
 
+-(void)hideEvaluate{
+    self.rightLayout.constant=30;
+    [_evalution setHidden:YES];
+}
 
 #pragma -mark 商品评价
 -(void)productSubmitClick:(UIButton*)bt{

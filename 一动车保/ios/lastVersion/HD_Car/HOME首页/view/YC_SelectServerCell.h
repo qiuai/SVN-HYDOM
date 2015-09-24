@@ -15,7 +15,7 @@
 -(void)setCellDataSource;
 
 //提供 vc 给予cell 事件处理
-@property(weak,nonatomic)id viewController;
+@property(weak,nonatomic)UIViewController* viewController;
 
 //增加
 @property (nonatomic,assign) SEL  sumMethod;

@@ -18,7 +18,7 @@
 //是否展示评价
 -(void)showEvaluate:(BOOL)b;
 
-
+-(void)hideEvaluate;
 
 //提供 vc 给予view 事件处理
 @property(weak,nonatomic)id viewController;

@@ -4,10 +4,12 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
+	<key>CFBundleDisplayName</key>
+	<string>一动车保</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.hydom.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<string>com.yidongchebao.$(PRODUCT_NAME:rfc1034identifier)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleLocalizations</key>
@@ -28,10 +30,20 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>com.hydom.HD_Car</string>
+			<string>com.yidongchebao.HD_Car</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>hydomCarAlisdk</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>com.yidongchebao.HD_Car</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>wx94943b9a4457af4b</string>
 			</array>
 		</dict>
 	</array>

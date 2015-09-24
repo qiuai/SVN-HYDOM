@@ -70,7 +70,7 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 			          	<tr>
 		                   <!--  <th ><input id="selectAll" type="checkbox" /></th> -->
 		                    <th>标题 </th>
-		                    <th>内容</th>
+		                    <th>发布时间</th>
 		                    <th>操作</th>
 		                </tr>
 			          </thead>
@@ -79,7 +79,7 @@ String base = request.getScheme()+"://"+request.getServerName()+":"+request.getS
 			           	  	<tr id="tr_${entry.id}" class="cartypetr">
 			           	  		 <%-- <td><input type="checkbox" name="ids" value="${entry.id}" class="<c:if test="${entry.carList.size()>0}">hasCar</c:if>"/></td> --%>
 				           		 <td>${entry.title}</td>
-				           		 <td><div style="width:560px; white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${entry.content}</div></td>
+				           		 <td><fmt:formatDate value="${entry.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 				           		 <td><a href="${pageContext.request.contextPath}/manage/advert/edit?id=${entry.id}">修改</a>
 				           		 	<a href="javascript:delEntity('${entry.id }')">删除</a>
 				           		 </td>

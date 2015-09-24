@@ -81,6 +81,7 @@ public class RechargeActivity extends BaseActivity {
 								// d=Double.parseDouble(et_text.getText().toString().trim());
 								if (d == p) {
 									Utils.showMessage(RechargeActivity.this, "输入错误！");
+									return;
 								}
 							} catch (Exception e) {
 								// TODO: handle exception
@@ -235,7 +236,8 @@ public class RechargeActivity extends BaseActivity {
 				} else if (data.equals(MyPayActivity.PAY_CANCEL)) {
 					Utils.showMessage(RechargeActivity.this, "支付已取消");
 				} else {
-					Utils.showMessage(RechargeActivity.this, "支付失败!");//,错误码:" + ma
+					Utils.showMessage(RechargeActivity.this, "支付失败!");// ,错误码:"
+																		// + ma
 				}
 			}
 		}

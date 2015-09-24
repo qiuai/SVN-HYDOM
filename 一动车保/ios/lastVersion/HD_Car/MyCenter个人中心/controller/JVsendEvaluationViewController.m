@@ -223,7 +223,7 @@
     [parameters setObject:self.textview.text forKey:@"content"];
     [parameters setObject:_orderID forKey:@"oid"];
     [parameters setObject:self.style==YES?self.dataModel.scid:self.dataModel.pid forKey:@"pid"];
-    [parameters setObject:self.style==YES?@"1":@"2" forKey:@"type"];
+    [parameters setObject:self.style==YES?@"2":@"1" forKey:@"type"];
     
     _po([UtilityMethod JVDebugUrlWithdict:parameters nsurl:sendEvaluationAPI]);
     

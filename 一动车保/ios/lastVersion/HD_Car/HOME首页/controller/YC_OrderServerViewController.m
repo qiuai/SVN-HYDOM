@@ -17,9 +17,12 @@
 #import "globalServicesModel.h"
 #import "YC_SelectDiscountViewController.h"
 #import "JVzhifubao.h"
+#import "JVweiXinPay.h"
 #import <AlipaySDK/AlipaySDK.h>
-
-@interface YC_OrderServerViewController (){
+#import "UPPayPlugin.h"
+#import "UPPayPluginDelegate.h"
+#import "AppDelegate.h"
+@interface YC_OrderServerViewController ()<UPPayPluginDelegate,WXApiDelegate>{
     BOOL selectDiscount;
 }
 
@@ -114,7 +117,7 @@
 -(UIView *)submitView{
     if (!_submitView) {
         _submitView=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 50)];
-        _submitView.backgroundColor=[UIColor blackColor];
+        _submitView.backgroundColor=SUBMITVIEWCOLOR;
     }
     return _submitView;
 }
@@ -151,7 +154,7 @@
     self.pricesLabel.textColor=WHITECOLOR;
     [self.submitView addSubview:self.pricesLabel];
     self.submitBtn=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-submitWith, 0, submitWith, self.submitView.frame.size.height)];
-    self.submitBtn.backgroundColor=[UIColor redColor];
+    self.submitBtn.backgroundColor=SUBMITCOLOR;
     self.submitBtn.titleLabel.textColor=[UIColor whiteColor];
     [self.submitBtn setTitle:@"支付" forState:UIControlStateNormal];
     [self.submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -212,11 +215,19 @@
                     [self payFromZhifubao:responseObject[@"onum"]];
                     return;
                 }
-                //微信支付
-                if ([self.orderView.payStyle isEqualToString:@"4"]) {
-                    [self payFromZhifubao:responseObject[@"onum"]];
+                //银联支付
+                if ([self.orderView.payStyle isEqualToString:@"3"]) {
+                    [UPPayPlugin startPay:responseObject[@"onum"] mode:@"00" viewController:self delegate:self];
                     return;
                 }
+                //微信支付
+                if ([self.orderView.payStyle isEqualToString:@"4"]) {
+                    AppDelegate * appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                    appdelegate.playViewController=self;
+                    [JVweiXinPay payFromWeXin:responseObject[@"onum"]];
+                    return;
+                }
+                
             }
                 break;
             case 2:
@@ -250,7 +261,7 @@
     product.productName=servModel.scname;
     product.productDescription=servModel.scremark;
     product.orderPrices=[self.CT_realyPrices doubleValue];
-    
+    product.resultURL=zhiFuBaoOrderURL;
     WEAKSELF;
     [JVzhifubao JVzfbWith:product success:^{
         [weakSelf showPopView];
@@ -293,7 +304,7 @@
         YC_SelectDiscountViewController* vc=[[YC_SelectDiscountViewController alloc]init];
         vc.sendModel=self.pricesModel;
         WEAKSELF;
-        vc.pricesArrayblock=^(NSArray* array){
+        vc.pricesArrayblock=^(NSArray* array, NSString * cpid){
             weakSelf.CT_allPrices=array[2];
             weakSelf.orderView.payLabel.text=[UtilityMethod addRMB:array[2]];
             weakSelf.CT_realyPrices=array[4];
@@ -301,11 +312,47 @@
             weakSelf.CT_privilegePrices=array[3];
             weakSelf.orderView.saleLabel.text=[UtilityMethod addRMB:array[3]];
             [_orderView.discountButton setTitle:@"已选择" forState:UIControlStateNormal];
+            weakSelf.model.pCpid = cpid;
+            
         };
         [self.navigationController pushViewController:vc animated:NO];
     }
 }
-
+#pragma mark 微信回调
+-(void)onResp:(BaseResp*)resp
+{
+    //    NSString *strMsg = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
+    NSString *strTitle;
+    if([resp isKindOfClass:[SendMessageToWXResp class]])
+    {
+        strTitle = [NSString stringWithFormat:@"发送媒体消息结果"];
+    }
+    if([resp isKindOfClass:[PayResp class]]){
+        //支付返回结果，实际支付结果需要去微信服务器端查询
+        strTitle = [NSString stringWithFormat:@"支付结果"];
+        
+        switch (resp.errCode) {
+            case WXSuccess:
+                [self showPopView];
+                break;
+                
+            default:
+                warn(@"支付失败!");
+                //                NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
+                break;
+        }
+    }
+    
+}
+#pragma mark 银联回调
+-(void)UPPayPluginResult:(NSString*)result{
+    _po(result);
+    if ([result isEqualToString:@"cancel"]) {
+        warn(@"支付失败");
+    } else {
+        [self showPopView];
+    }
+}
 /*
 #pragma mark - Navigation
 

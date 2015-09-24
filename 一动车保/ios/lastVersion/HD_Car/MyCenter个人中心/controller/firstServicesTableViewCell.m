@@ -50,15 +50,27 @@
 }
 
 
+-(void)hideEvaluate{
+    self.numberRightLayout.constant=30;
+    self.rightLayout.constant=15;
+    [_evaluationBT setHidden:YES];
+    [_productEvaluation setHidden:YES];
+
+}
+
 
 //是否展示评价
 -(void)showEvaluate:(BOOL)b{
     if (b==NO) {
-        self.rightLayout.constant=15;
-        
-        [_evaluationBT setHidden:YES];
-        [_productEvaluation setHidden:YES];
+        [_evaluationBT setTitle:@"已评价" forState:UIControlStateNormal];
+        _evaluationBT.userInteractionEnabled = NO;
+        self.rightLayout.constant=100;
+//        self.rightLayout.constant=15;
+        [_evaluationBT setHidden:NO];
+        [_productEvaluation setHidden:NO];
     }else{
+        [_evaluationBT setTitle:@"评价" forState:UIControlStateNormal];
+        _evaluationBT.userInteractionEnabled = YES;
         self.rightLayout.constant=100;
         [_evaluationBT setHidden:NO];
         [_productEvaluation setHidden:NO];
@@ -70,10 +82,15 @@
 //是否展示商品评价服务
 -(void)showProductEvaluate:(BOOL)b{
     if (b==NO) {
-        self.numberRightLayout.constant=30;
-        [_evaluationBT setHidden:YES];
-        [_productEvaluation setHidden:YES];
+        [_evaluationBT setTitle:@"已评价" forState:UIControlStateNormal];
+        _evaluationBT.userInteractionEnabled = NO;
+        self.numberRightLayout.constant=100;
+//        self.numberRightLayout.constant=30;
+        [_evaluationBT setHidden:NO];
+        [_productEvaluation setHidden:NO];
     }else{
+        [_evaluationBT setTitle:@"评价" forState:UIControlStateNormal];
+        _evaluationBT.userInteractionEnabled = YES;
         self.numberRightLayout.constant=100;
         [_evaluationBT setHidden:NO];
         [_productEvaluation setHidden:NO];

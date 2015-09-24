@@ -12,8 +12,9 @@
 
 @interface JVDisplayServicesViewController : UIViewController
 
-
+//判断纯服务 （YES纯服务）
+@property(nonatomic,assign)BOOL pureServer;
 @property(nonatomic,strong)NSArray* dataSoure;
-
+@property(nonatomic,strong)UILabel * priceLabel;
 @property(nonatomic,assign)CGFloat ViewHeight;
 @end

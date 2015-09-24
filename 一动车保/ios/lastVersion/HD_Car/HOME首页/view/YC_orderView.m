@@ -79,6 +79,8 @@
     self.payTapView2.tag=22;
     [self.payTapView3 addTapGestureRecognizerWithTarget:self action:@selector(changePay:)];
     self.payTapView3.tag=23;
+    [self.payTapView4 addTapGestureRecognizerWithTarget:self action:@selector(changePay:)];
+    self.payTapView4.tag=24;
 }
 
 
@@ -100,6 +102,10 @@
         case 22:
             self.payStyle=@"4";
             self.payStyleDescription=@"微信支付";
+            break;
+        case 24:
+            self.payStyle=@"3";
+            self.payStyleDescription=@"银联支付";
             break;
         case 23:
             self.payStyle=@"1";
@@ -135,7 +141,7 @@
 //    [self.vc.navigationController pushViewController:vc animated:YES];
 //    vc.selectblock = ^(discountModel * model){
 //        self.vc.model.pCpid = model.cpid;
-    
+//    
 //        NSMutableDictionary * parameters = [NSMutableDictionary new];
 //        [parameters setObject:self.vc.model.pPrice forKey:@"money"];
 //        [parameters setObject:@"3" forKey:@"otype"];

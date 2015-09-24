@@ -36,6 +36,10 @@
     [self addboder:self.time3];
     [self addboder:self.time4];
     [self addboder:self.time5];
+    self.cancel.layer.cornerRadius = 2;
+    self.trueButton.layer.cornerRadius = 2;
+    self.cancel.backgroundColor = SUBMITCOLOR;
+    self.trueButton.backgroundColor = SUBMITCOLOR;
     [self.cancel addTarget:self action:@selector(cancelTap) forControlEvents:UIControlEventTouchUpInside];
     [self.trueButton addTarget:self action:@selector(selectTImeTap) forControlEvents:UIControlEventTouchUpInside];
 }

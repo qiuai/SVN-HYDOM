@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIView *payTapView2;
 @property (weak, nonatomic) IBOutlet UIView *payTapView3;
 @property (weak, nonatomic) IBOutlet UIView *payTapView4;
+@property (weak, nonatomic) IBOutlet UIView *payTapView5;
 
 
 @property(weak,nonatomic)UIImageView* payPointer;
@@ -44,6 +45,8 @@
     self.payTapView3.tag=23;
     [self.payTapView4 addTapGestureRecognizerWithTarget:self action:@selector(changePay:)];
     self.payTapView4.tag=24;
+    [self.payTapView5 addTapGestureRecognizerWithTarget:self action:@selector(changePay:)];
+    self.payTapView5.tag=25;
 }
 
 
@@ -64,6 +67,10 @@
             self.payStyle=@"4";
             self.payStyleDescription=@"微信支付";
             break;
+        case 25:
+            self.payStyle=@"3";
+            self.payStyleDescription=@"银联支付";
+            break;
         case 23:
             self.payStyle=@"1";
             self.payStyleDescription=@"会员卡支付";
@@ -83,6 +90,7 @@
     [self addline:self.line4];
     [self addline:self.line5];
     [self addline:self.line6];
+    [self addline:self.line7];
     self.payStyle=@"2";
     self.payStyleDescription=@"支付宝";
     self.washStyle=@"1";

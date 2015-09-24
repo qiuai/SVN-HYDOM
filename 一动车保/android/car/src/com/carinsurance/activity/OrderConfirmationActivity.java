@@ -181,7 +181,7 @@ public class OrderConfirmationActivity extends BaseActivity {
 		yuyue_time.setText("" + baoyangOrderDetail.getStime());
 		tv_usecoup.setText("" + baoyangOrderDetail.getUsecoup());
 		if ((baoyangOrderDetail.getPayway()).equals("1")) {
-			tv_payWay.setText("会员卡支付");
+			tv_payWay.setText("余额支付");
 		} else if ((baoyangOrderDetail.getPayway()).equals("2")) {
 			tv_payWay.setText("支付宝");
 		} else if ((baoyangOrderDetail.getPayway()).equals("3")) {
@@ -294,7 +294,7 @@ public class OrderConfirmationActivity extends BaseActivity {
 		new xUtilsImageLoader(OrderConfirmationActivity.this).display(img, crashDetailModel.getOsimgpath());
 
 		if ((crashDetailModel.getPayway()).equals("1")) {
-			tv_payWay.setText("会员卡支付");
+			tv_payWay.setText("余额支付");
 		} else if ((crashDetailModel.getPayway()).equals("2")) {
 			tv_payWay.setText("支付宝");
 		} else if ((crashDetailModel.getPayway()).equals("3")) {
@@ -546,7 +546,7 @@ public class OrderConfirmationActivity extends BaseActivity {
 		new xUtilsImageLoader(OrderConfirmationActivity.this).display(img, upDingDan.getSortModel().getSeriverTypeitemModel0().getScimage());
 		// tv_addressName.setText(""+upDingDan.getAddress());
 		if (upDingDan.getPayWay().equals("1")) {
-			tv_payWay.setText("会员卡支付");
+			tv_payWay.setText("余额支付");
 		} else if (upDingDan.getPayWay().equals("2")) {
 			tv_payWay.setText("支付宝");
 		} else if (upDingDan.getPayWay().equals("3")) {

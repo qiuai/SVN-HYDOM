@@ -1151,7 +1151,7 @@
                             android:layout_marginTop="5dp"
                             android:button="@null"
                             android:drawableRight="@drawable/chicked_gougou"
-                            android:text="会员卡支付  "
+                            android:text="余额支付  "
                             android:textColor="@color/textcolor__343434"
                             android:visibility="visible" />
 

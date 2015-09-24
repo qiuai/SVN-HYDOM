@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "ParameterDetailsView.h"
-
+#import "JVcommodityInfoViewController.h"
 @interface CarDetailInforView : UIView
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *inforViewHeight;
@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *ImageTextLabelConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imageTextButtonConstraint;
 
-
+@property (nonatomic, weak) JVcommodityInfoViewController * vc;
 @property (nonatomic,strong)ParameterDetailsView * parameterView;
 @property (nonatomic,assign)NSInteger buyNum;
 

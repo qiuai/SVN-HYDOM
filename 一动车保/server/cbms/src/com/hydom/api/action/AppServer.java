@@ -1576,10 +1576,10 @@ public class AppServer {
 				if (pidList != null && pidList.size() > 0) {
 					StringBuffer ln = new StringBuffer();
 					for (int i = 0; i < pidList.size(); i++) {
-						ln.append('?').append((i + 2)).append(',');
+						ln.append('?').append((i + 3)).append(',');
 					}
-					ln.deleteCharAt(n.length() - 1);
-					jpql.append("and (o.id in(" + ln + ") or o.useAllCar=0)");
+					ln.deleteCharAt(ln.length() - 1);
+					jpql.append(" and (o.id in(" + ln + ") or o.useAllCar=0)");
 					for (int i = 0; i < pidList.size(); i++) {
 						params.add(pidList.get(i));
 					}
@@ -1801,15 +1801,21 @@ public class AppServer {
 
 			dataMap.put("result", "001");
 			dataMap.put("oid", order.getId());
-			if (order.getPayWay() == 4) {// 微信支付
+			if (order.getPrice() == 0) { // 不需要支付
+				order.setIsPay(true);
+				dataMap.put("result","001");
+				dataMap.put("oid", "");
+				dataMap.put("onum", "");
+				dataMap.put("payAction","2");
+			}else if (order.getPayWay() == 4) {// 微信支付
 				dataMap.put("onum", WexinPay.weixinOrder(order.getNum(),
-						order.getPrice(), WeChatPayUtil.pay_return, "洗车订单",
-						request));
+					order.getPrice(), WeChatPayUtil.pay_return, "洗车订单",
+					request));
 			} else if (order.getPayWay() == 3) {// 银联支付
 				dataMap.put("onum", UnionPay.payNumber(order.getNum(),
 						order.getPrice(), UnionPayUtil.pay_return));
 			} else {
-				dataMap.put("onum", order.getNum());
+				dataMap.put("onum", order.getNum());////////////////////////////////////////////////////////////////////////////////////////////////////////
 			}
 			dataMap.put("payAction", order.getIsPay() ? "2" : "1"); // 余额不足
 			String json = mapper.writeValueAsString(dataMap);
@@ -2058,9 +2064,17 @@ public class AppServer {
 			dataMap.put("result", "001");
 			dataMap.put("oid", order.getId());
 			if (order.getPayWay() == 4) {// 微信支付
-				dataMap.put("onum", WexinPay.weixinOrder(order.getNum(),
+				if (order.getPrice() == 0) { // 不需要支付
+					order.setIsPay(true);
+					dataMap.put("result","001");
+					dataMap.put("oid", "");
+					dataMap.put("onum", "");
+					dataMap.put("payAction","2");
+				}else{
+					dataMap.put("onum", WexinPay.weixinOrder(order.getNum(),
 						order.getPrice(), WeChatPayUtil.pay_return, "保养订单",
 						request));
+				}
 			} else if (order.getPayWay() == 3) {// 银联支付
 				dataMap.put("onum", UnionPay.payNumber(order.getNum(),
 						order.getPrice(), UnionPayUtil.pay_return));
@@ -2132,6 +2146,8 @@ public class AppServer {
 			order.setAmount_paid(Float.parseFloat(priceMap.get("cpmoney"))); // 优惠了的价钱
 			order.setPrice(Float.parseFloat(priceMap.get("paymoney"))); // 实付价
 
+			
+			
 			if (ucid != null && !"".equals(ucid)) {
 				UserCar userCar = userCarService.find(ucid);
 				if (userCar != null) {
@@ -2203,9 +2219,17 @@ public class AppServer {
 			dataMap.put("result", "001");
 			dataMap.put("oid", order.getId());
 			if (order.getPayWay() == 4) {// 微信支付
-				dataMap.put("onum", WexinPay.weixinOrder(order.getNum(),
+				if (order.getPrice() == 0) { // 不需要支付
+					order.setIsPay(true);
+					dataMap.put("result","001");
+					dataMap.put("oid", "");
+					dataMap.put("onum", "");
+					dataMap.put("payAction","2");
+				}else{
+					dataMap.put("onum", WexinPay.weixinOrder(order.getNum(),
 						order.getPrice(), WeChatPayUtil.pay_return, "商品订单",
 						request));
+				}
 			} else if (order.getPayWay() == 3) {// 银联支付
 				dataMap.put("onum", UnionPay.payNumber(order.getNum(),
 						order.getPrice(), UnionPayUtil.pay_return));
@@ -3909,7 +3933,12 @@ public class AppServer {
 			record.setPrice(couponPackage.getPrice());
 			record.setMember(member);
 			feeRecord.setCouponPackageRecord(record);
-			if (payWay == 1) {// 会员卡
+			if (feeRecord.getFee() == 0) { // 不需要支付
+				couponPackageRecordService.memberCarBuy(feeRecord, member);
+				dataMap.put("result","001");
+				dataMap.put("num", "");
+				dataMap.put("payAction","2");
+			}else if (payWay == 1) {// 会员卡
 				double cpprice = couponPackage.getPrice();
 				double userMoney = member.getMoney();
 				if (userMoney >= cpprice) {// 余额足以支付

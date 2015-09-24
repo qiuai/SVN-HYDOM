@@ -39,27 +39,27 @@
 //选择支付方式
 -(void)selectPayType:(UIGestureRecognizer *)sender
 {
-    if(sender.view.tag!=103) return;
-    NSString * type = @"3";
-//    switch (sender.view.tag) {
-//        case 101:{
-//            //微信支付
-//            type = @"1";
-//        }
-//            break;
-//        case 102:{
-//            //银联支付
-//            type = @"2";
-//        }
-//            break;
-//        case 103:{
-//            //支付宝支付
-//            type = @"3";
-//        }
-//            break;
-//        default:
-//            break;
-//    }
+//    if(sender.view.tag!=103) return;
+    NSString * type = @"2";
+    switch (sender.view.tag) {
+        case 101:{
+            //微信支付
+            type = @"4";
+        }
+            break;
+        case 102:{
+            //银联支付
+            type = @"3";
+        }
+            break;
+        case 103:{
+            //支付宝支付
+            type = @"2";
+        }
+            break;
+        default:
+            break;
+    }
     YC_RechargePriceViewController * vc = [[YC_RechargePriceViewController alloc] init];
     vc.type = type;
     [self.navigationController pushViewController:vc animated:NO];

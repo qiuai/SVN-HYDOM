@@ -28,13 +28,19 @@
 //是否展示评价
 -(void)showEvaluate:(BOOL)b{
     if (b==NO) {
-
-        [_eBtn setHidden:YES];
+        [_eBtn setTitle:@"已评价" forState:UIControlStateNormal];
+        _eBtn.userInteractionEnabled = NO;
+//        [_eBtn setHidden:YES];
     }else{
- 
+        [_eBtn setTitle:@"评价" forState:UIControlStateNormal];
+        _eBtn.userInteractionEnabled = YES;
         [_eBtn setHidden:NO];
     }
     
+}
+
+-(void)hideEvaluate{
+    [_eBtn setHidden:YES];
 }
 
 #pragma -mark 服务评价

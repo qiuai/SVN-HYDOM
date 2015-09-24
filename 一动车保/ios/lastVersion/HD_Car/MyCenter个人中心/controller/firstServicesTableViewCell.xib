@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -51,10 +51,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oaP-8P-HHg">
-                                <rect key="frame" x="265" y="10" width="40" height="20"/>
+                                <rect key="frame" x="255" y="10" width="50" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="NgP-7i-7o8"/>
-                                    <constraint firstAttribute="width" constant="40" id="h2i-VV-8v8"/>
+                                    <constraint firstAttribute="width" constant="50" id="h2i-VV-8v8"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <state key="normal" title="Button">
@@ -130,9 +130,9 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="es1-nT-NX8">
-                                <rect key="frame" x="265" y="67" width="40" height="20"/>
+                                <rect key="frame" x="255" y="67" width="50" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="8tj-Ap-GWa"/>
+                                    <constraint firstAttribute="width" constant="50" id="8tj-Ap-GWa"/>
                                     <constraint firstAttribute="height" constant="20" id="sVD-S9-Vi0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>

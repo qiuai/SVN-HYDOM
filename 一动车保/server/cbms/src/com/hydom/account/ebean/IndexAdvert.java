@@ -20,6 +20,9 @@ public class IndexAdvert extends BaseEntity {
 
 	/** 广告标题 */
 	private String title;
+	
+	/** 发布人*/
+	private Account account;
 
 	/** 广告内容 */
 	@Lob

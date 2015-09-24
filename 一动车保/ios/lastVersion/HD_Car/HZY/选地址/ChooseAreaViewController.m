@@ -147,7 +147,7 @@
     }
     AddressModel * model = _dataSource[indexPath.row];
     cell.textLabel.text = model.name;
-    cell.textLabel.font =[UIFont systemFontOfSize:13];
+    cell.textLabel.font =[UIFont systemFontOfSize:15];
     return cell;
     
 }
@@ -201,5 +201,8 @@
 
 }
 
-
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    [self.view endEditing:YES];
+}
 @end

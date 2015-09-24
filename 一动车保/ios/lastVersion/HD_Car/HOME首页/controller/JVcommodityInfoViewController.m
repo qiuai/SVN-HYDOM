@@ -35,7 +35,7 @@
     [self.view addSubview:_navView];
     
     self.scrollView=[[UIScrollView alloc]initWithFrame:CGRM(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64)];
-    self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 1000);
+    self.scrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 600);
     [self.view addSubview:self.scrollView];
     CYScollViewContainer* imagePageViewVC=[[CYScollViewContainer alloc]init];
     [self addChildViewController:imagePageViewVC];
@@ -44,6 +44,7 @@
     [self.scrollView addSubview:imagePageViewVC.view];
     self.imagePageVC=imagePageViewVC;
     self.detailInfoView=[[[NSBundle mainBundle]loadNibNamed:@"CarDetailInforView" owner:nil options:nil]lastObject];
+    self.detailInfoView.vc = self;
     self.detailInfoView.frame=CGRM(0, 0.5*SCREEN_WIDTH, SCREEN_WIDTH, 400);
     [self.scrollView addSubview:self.detailInfoView];
     [self initData];

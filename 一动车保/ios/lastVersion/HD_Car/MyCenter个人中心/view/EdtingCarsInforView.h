@@ -23,6 +23,5 @@
 @property (nonatomic,weak)carModel * model;
 @property (weak, nonatomic) IBOutlet UIButton *nameButton;
 @property (weak, nonatomic)EdtingCarInforViewController * vc;
-
 - (void)setUpUserInterfaceWith:(carModel *)model;
 @end

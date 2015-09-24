@@ -10,6 +10,8 @@
 #import "JVbaseViewController.h"
 @interface JVcommonOrderInfoViewController : JVbaseViewController
 
+@property (nonatomic, assign) BOOL goods;
+@property (nonatomic, strong) NSString * price;//存服务价格
 @property(nonatomic,strong)NSString* orderID;
 
 @end

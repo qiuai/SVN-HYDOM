@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
@@ -19,7 +19,7 @@
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="it0-De-zsj">
-                    <rect key="frame" x="0.0" y="1" width="320" height="34"/>
+                    <rect key="frame" x="0.0" y="1" width="320" height="35"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="实付:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hjn-t7-oav">
                             <rect key="frame" x="15" y="0.0" width="50" height="35"/>
@@ -46,6 +46,7 @@
                         <constraint firstItem="bNC-3t-YDv" firstAttribute="leading" secondItem="hjn-t7-oav" secondAttribute="trailing" id="5Df-gY-y7c"/>
                         <constraint firstItem="hjn-t7-oav" firstAttribute="leading" secondItem="it0-De-zsj" secondAttribute="leading" constant="15" id="5uA-9k-Fym"/>
                         <constraint firstItem="hjn-t7-oav" firstAttribute="top" secondItem="it0-De-zsj" secondAttribute="top" id="OBk-bJ-b8a"/>
+                        <constraint firstAttribute="height" constant="35" id="POW-6j-dia"/>
                         <constraint firstAttribute="trailing" secondItem="bNC-3t-YDv" secondAttribute="trailing" constant="90" id="mlQ-IS-ylC"/>
                         <constraint firstItem="bNC-3t-YDv" firstAttribute="top" secondItem="it0-De-zsj" secondAttribute="top" id="yAW-B4-XJP"/>
                     </constraints>
@@ -62,6 +63,11 @@
                 <constraint firstItem="Vku-i8-6E9" firstAttribute="leading" secondItem="78B-tt-5ws" secondAttribute="leading" id="wd0-AZ-8l1"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="asy-4G-H0l"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="addsubView" destination="it0-De-zsj" id="9wp-aa-dz0"/>
                 <outlet property="prices" destination="bNC-3t-YDv" id="4zP-gq-kqC"/>

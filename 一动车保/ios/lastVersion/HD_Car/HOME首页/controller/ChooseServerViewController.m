@@ -22,8 +22,7 @@
 @property (nonatomic,strong)NSMutableArray * dataSource;
 @property (nonatomic,strong)NSMutableArray * selectArray;
 @property(nonatomic,weak)UIView* navView;
-
-
+@property(nonatomic,strong)UIScrollView * scrollView;
 @property(nonatomic,weak)JVCommonSelectCarView* topView;
 
 @end
@@ -33,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _selectArray = [[NSMutableArray alloc] init];
+    self.automaticallyAdjustsScrollViewInsets = NO;
     HDNavigationView * navView = [HDNavigationView navigationViewWithTitle:@"选择服务"];
     WEAKSELF;
     [navView tapLeftViewWithImageName:nil tapBlock:^{
@@ -75,15 +75,20 @@
     button.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.navView addSubview:button];
     
-    CGFloat heigth = 104;
+    CGFloat heigth = 4;
     NSInteger tag = Button_tag;
 #warning 根据数据修改
     
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 100, SCREEN_WIDTH, SCREEN_HEIGHT-100)];
+    [self.view addSubview:_scrollView];
+    
+    CGFloat scrollViewHight = 0.0;
     for (NSDictionary * dic in _dataSource) {
         heigth = [self buildViewWith:[dic objectForKey:@"scimage"] title:[dic objectForKey:@"scname"] minY:heigth buttontag:tag];
         tag ++;
+        scrollViewHight = heigth;
     }
-    
+    _scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, scrollViewHight);
 }
 
 /**
@@ -97,29 +102,34 @@
  */
 - (CGFloat)buildViewWith:(NSString *)imageUrl title:(NSString *)title minY:(CGFloat)minY buttontag:(NSInteger)buttontag{
     
-    UIView * view                 = [[UIView alloc] initWithFrame:CGRectMake(0, minY, SCREEN_WIDTH, 41)];
-    UIImageView * imageView       = [[UIImageView alloc] initWithFrame:CGRectMake(10, 5, 30, 30)];
+    UIView * view                 = [[UIView alloc] initWithFrame:CGRectMake(0, minY, SCREEN_WIDTH, 45)];
+    UIImageView * imageView       = [[UIImageView alloc] initWithFrame:CGRectMake(10, 7, 30, 30)];
     imageView.layer.cornerRadius  = 15;
     imageView.layer.masksToBounds = YES;
     [imageView sd_setImageWithURL:imageURLWithPath(imageUrl) placeholderImage:nil];
     [view addSubview:imageView];
     
-    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(45, 5, 150, 30)];
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(45, 7, 150, 30)];
     label.text      = title;
     label.font      = [UIFont systemFontOfSize:13];
     [view addSubview:label];
     
-    UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, 0, 40, 40)];
-    [button setImage:[UIImage imageNamed:@"redSingle2"] forState:0];
-    [button setImage:[UIImage imageNamed:@"redSingle1"] forState:UIControlStateSelected];
+    UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH - 50, 9, 26, 26)];
+    [button setBackgroundImage:[UIImage imageNamed:@"redSingle2"] forState:0];
+    [button setBackgroundImage:[UIImage imageNamed:@"redSingle1"] forState:UIControlStateSelected];
+//    [button setImage:[UIImage imageNamed:@"redSingle2"] forState:0];
+    
+//    [button setImage:[UIImage imageNamed:@"redSingle1"] forState:UIControlStateSelected];
+    
     [button addTarget:self action:@selector(pressSelectButtons:) forControlEvents:UIControlEventTouchUpInside];
     button.tag = buttontag;
     [view addSubview:button];
     
-    UILabel * linlabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 40, SCREEN_WIDTH, 1)];
+    UILabel * linlabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 44, SCREEN_WIDTH, 1)];
     linlabel.backgroundColor = [UIColor lightGrayColor];
+    linlabel.alpha = 0.2;
     [view addSubview:linlabel];
-    [self.view addSubview:view];
+    [_scrollView addSubview:view];
     
     return CGRectGetMaxY(view.frame);
 }
@@ -158,7 +168,7 @@
     
     carListViewController* vc=[[carListViewController alloc]init];
     vc.defaultCarModel=^(carModel* m){
-        self.topView.carNameLabel.text=[NSString stringWithFormat:@"%@ %@",m.cbname,m.cmname];
+        self.topView.carNameLabel.text=[NSString stringWithFormat:@"%@", m.csname];
     };
     [self.navigationController pushViewController:vc animated:NO];
 }

@@ -138,7 +138,7 @@
     if (!_homeScrollView) {
         _homeScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-49)];
         _homeScrollView.backgroundColor=HDfillColor;
-        mainScrollViewDisplayH=0.6*SCREEN_WIDTH+320+365+50;
+        mainScrollViewDisplayH=0.6*SCREEN_WIDTH+320+365+60+30;
         _homeScrollView.contentSize=CGSizeMake(SCREEN_WIDTH, mainScrollViewDisplayH);
         WEAKSELF;
         _homeScrollView.header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -244,7 +244,7 @@
             }
             //广告相关
             self.homeAdlistArray=responseObject[@"adlist"];
-            if (self.homeAdlistArray.count>1) {
+            if (self.homeAdlistArray.count>0) {
                 NSMutableArray* mArray=[NSMutableArray array];
                 for (NSDictionary* dic in self.homeAdlistArray) {
                     [mArray addObject:imageURLWithPath(dic[@"adimg"])];
@@ -298,7 +298,7 @@
 #pragma -mark  Layout UI
 -(void)LayoutUI{
     
-    HDNavigationView* navView=[HDNavigationView navigationViewWithTitle:@"首页"];
+    HDNavigationView* navView=[HDNavigationView navigationViewWithTitle:@"一动车保"];
     //添加导航
     [self.view addSubview:navView];
     //    主要的ScrollView
@@ -739,7 +739,7 @@
     characteristicMarketView* marketView=[[[NSBundle mainBundle]loadNibNamed:@"characteristicMarketView" owner:nil options:nil]lastObject];
     self.marketView = marketView;
     self.marketView.method=@selector(goHotVC:);
-    marketView.frame=CGRectMake(0,CGRectGetMaxY(self.servicesView.frame)+15.0, SCREEN_WIDTH, 35+15+35+169+SCREEN_WIDTH/2.3);
+    marketView.frame=CGRectMake(0,CGRectGetMaxY(self.servicesView.frame)+15.0, SCREEN_WIDTH, 35+15+35+169+SCREEN_WIDTH/2);
     [self.weatherBottomMainView addSubview:marketView];
     marketView.vc = self;
 }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14A389" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -58,9 +58,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uht-Ne-8G4">
-                                <rect key="frame" x="265" y="10" width="40" height="20"/>
+                                <rect key="frame" x="255" y="10" width="50" height="20"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="D9Y-aj-fPs"/>
+                                    <constraint firstAttribute="width" constant="50" id="D9Y-aj-fPs"/>
                                     <constraint firstAttribute="height" constant="20" id="UHz-Wl-yiO"/>
                                 </constraints>
                                 <state key="normal" title="Button">
@@ -99,6 +99,7 @@
             <connections>
                 <outlet property="btn" destination="uht-Ne-8G4" id="G1z-0o-QAJ"/>
                 <outlet property="icon" destination="2H9-sF-h1L" id="e3k-oR-Kk3"/>
+                <outlet property="priceDescribe" destination="30e-QH-Bba" id="c8H-ln-v9T"/>
                 <outlet property="priceWithRIghtLayout" destination="bOv-tU-tjw" id="nwW-ce-hoL"/>
                 <outlet property="prices" destination="WSW-KB-c2n" id="qwW-zu-IkV"/>
                 <outlet property="servicesTitle" destination="tHa-kf-bcU" id="zu6-Kx-sKS"/>

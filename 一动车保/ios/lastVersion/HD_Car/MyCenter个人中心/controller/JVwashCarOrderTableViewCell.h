@@ -25,4 +25,6 @@
 
 //是否展示评价
 -(void)showEvaluate:(BOOL)b;
+
+-(void)hideEvaluate;
 @end

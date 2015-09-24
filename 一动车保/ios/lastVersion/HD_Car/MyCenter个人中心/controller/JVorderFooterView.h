@@ -13,5 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *name;
 @property (weak, nonatomic) IBOutlet UILabel *phone;
 @property (weak, nonatomic) IBOutlet UIView *tapView;
+@property (weak, nonatomic) IBOutlet UILabel *carPeople;
 
 @end

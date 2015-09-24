@@ -33,7 +33,7 @@
     NSInteger footerTag;
     NSInteger cancelFooterIndex;
     NSInteger cancelFooterStyleClick;
-    
+    BOOL goods;
     BOOL httpDataStyle;
     
     NSInteger intPage;
@@ -57,7 +57,7 @@
 
 
 //点击btn
-@property(nonatomic,weak)UILabel* selectlabel;
+@property(nonatomic,weak)UIButton* selectlabel;
 
 
 @end
@@ -147,12 +147,14 @@
         [self.doneLabel setBackgroundImage:[UIImage imageNamed:@"orderright1"] forState:0];
         [self.doingLabel setTitleColor:[UIColor whiteColor] forState:0];
         [self.doneLabel setTitleColor:[UIColor blackColor] forState:0];
+        self.selectlabel = btn;
     }else{
         httpDataStyle=NO;
         [self.doingLabel setBackgroundImage:[UIImage imageNamed:@"orderleft1"] forState:0];
          [self.doneLabel setBackgroundImage:[UIImage imageNamed:@"orderright2"] forState:0];
         [self.doingLabel setTitleColor:[UIColor blackColor] forState:0];
         [self.doneLabel setTitleColor:[UIColor whiteColor] forState:0];
+        self.selectlabel = btn;
     }
     intPage=1;
     
@@ -172,6 +174,9 @@
     [dict setValue:@"10" forKey:@"maxresult"];
     NSString* api=httpDataStyle==YES?getDoingOrderAPI:getFinishOrderAPI;
     
+    
+    
+    _po([UtilityMethod JVDebugUrlWithdict:dict nsurl:api]);
     [HTTPconnect sendPOSTHttpWithUrl:api parameters:dict success:^(id responseObject) {
         
         if (![responseObject isKindOfClass:[NSString class]]) {
@@ -213,11 +218,13 @@
         listModel.ocanop=d[@"ocanop"];
         listModel.ocontact=d[@"ocontact"];
         listModel.ophone=d[@"ophone"];
+        listModel.ostar =d[@"ostar"];
         if ([listModel.ocontact isEqualToString:@""]||[listModel.ocontact isEqualToString:@""]) {
             listModel.showContact=NO;
         }else{
             listModel.showContact=YES;
         }
+        goods = NO;
         //处理cell 数据 array
         NSMutableArray* array=[NSMutableArray array];
         NSArray* valueArray=d[@"sclist"];
@@ -237,6 +244,7 @@
                 [array addObject:model];
             }
             for (NSInteger i=0;i<dArray.count;i++) {
+                goods = YES;
                 JVorderDataModel* model=[[JVorderDataModel alloc]init];
                 model.scid=scid;
                 model.scname=scname;
@@ -248,6 +256,7 @@
                 model.premark=dArray[i][@"premark"];
                 model.pprice=dArray[i][@"pprice"];
                 model.pnum=dArray[i][@"pnum"];
+//                model.goods = goods;
                 //判断cell 类型
                 if (i==0&&[listModel.otype integerValue]==2) {
                     model.cellStyle=0;
@@ -260,6 +269,10 @@
                 }
                 [array addObject:model];
             }
+            
+        }
+        if (goods == YES) {
+            listModel.goods = YES;
         }
         listModel.orderDataArray=array;
         [self.doingDataSource addObject:listModel];
@@ -267,6 +280,7 @@
 }
 #pragma -mark 以完结数据处理
 -(void)doneOptionData:(NSArray *)dict{
+
     for (NSDictionary * d in dict)
     {
         orderListModel* listModel=[[orderListModel alloc]init];
@@ -281,6 +295,7 @@
         }else{
             listModel.showContact=YES;
         }
+        goods = NO;
         //处理cell 数据 array
         NSMutableArray* array=[NSMutableArray array];
         NSArray* valueArray=d[@"sclist"];
@@ -302,6 +317,7 @@
                 [array addObject:model];
             }
             for (NSInteger i=0;i<dArray.count;i++) {
+                goods = YES;
                 JVorderDataModel* model=[[JVorderDataModel alloc]init];
                 model.scid=scid;
                 model.scname=scname;
@@ -315,16 +331,22 @@
                 model.pprice=dArray[i][@"pprice"];
                 model.pnum=dArray[i][@"pnum"];
                 model.pcomt=dArray[i][@"pcomt"];
+//                model.goods = goods;
                 //判断cell 类型
                 if (i==0&&[listModel.otype integerValue]==2) {
                     model.cellStyle=0;
                 }else if(i!=0&&[listModel.otype integerValue]==2){
+                    model.cellStyle=2;
+                }if([listModel.otype integerValue]==3){
                     model.cellStyle=2;
                 }else if([listModel.otype integerValue]==1){
                     model.cellStyle=1;
                 }
                 [array addObject:model];
             }
+        }
+        if (goods == YES) {
+            listModel.goods = YES;
         }
         listModel.orderDataArray=array;
         [self.doneDataSource addObject:listModel];
@@ -337,6 +359,7 @@
     }
     orderListModel* listModel=self.dataSource[indexpath.section];
     JVorderDataModel* dataModel=listModel.orderDataArray[indexpath.row];
+    dataModel.goods = listModel.goods;
     return dataModel;
 }
 
@@ -380,11 +403,14 @@
             cell.goodsPrices.text=[UtilityMethod addRMB:[NSString stringWithFormat:@"%@",dataModel.pprice]];
             cell.goodsCount.text=[NSString stringWithFormat:@"X %@",dataModel.pnum];
             //是否展示评价服务
-          NSInteger it=[dataModel.sccomt integerValue];
+            NSInteger it=[dataModel.sccomt integerValue];
            [cell showEvaluate:it==1?YES:NO];
             //是否展示商品评价服务
             NSInteger imm=[dataModel.pcomt integerValue];
             [cell showProductEvaluate:imm==1?YES:NO];
+            if (self.selectlabel == self.doingLabel) {
+                [cell hideEvaluate];
+            }
             return cell;
         }
             break;
@@ -394,6 +420,7 @@
             JVwashCarOrderTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:str1];
             if (cell==nil) {
                 cell=[[[NSBundle mainBundle]loadNibNamed:@"JVwashCarOrderTableViewCell" owner:nil options:nil]lastObject];
+                cell.selectionStyle=UITableViewCellSelectionStyleNone;
                 cell.viewController=self;
                 cell.subClick=@selector(washEvaluationServices:);
             }
@@ -402,6 +429,9 @@
             cell.servicesDescription.text=dataModel.premark;
             NSInteger imm=[dataModel.pcomt integerValue];
             [cell showEvaluate:imm==1?YES:NO];
+            if (self.selectlabel == self.doingLabel) {
+                [cell hideEvaluate];
+            }
             return cell;
         }
             break;
@@ -411,6 +441,7 @@
             JVservicesOrderTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:str1];
             if (cell==nil) {
                 cell=[[[NSBundle mainBundle]loadNibNamed:@"JVservicesOrderTableViewCell" owner:nil options:nil]lastObject];
+                cell.selectionStyle=UITableViewCellSelectionStyleNone;
                 cell.viewController=self;
                 cell.productSubClick=@selector(evaluationProduct:);
             }
@@ -420,6 +451,9 @@
             cell.count.text= [NSString stringWithFormat:@"X %@",dataModel.pnum];
             NSInteger imm=[dataModel.pcomt integerValue];
             [cell showEvaluate:imm==1?YES:NO];
+            if (self.selectlabel == self.doingLabel) {
+                [cell hideEvaluate];
+            }
             return cell;
         }
             break;
@@ -429,14 +463,22 @@
             noGoodsListTableViewCell *cell=[tableView dequeueReusableCellWithIdentifier:str1];
             if (cell==nil) {
                 cell=[[[NSBundle mainBundle]loadNibNamed:@"noGoodsListTableViewCell" owner:nil options:nil]lastObject];
+                cell.selectionStyle=UITableViewCellSelectionStyleNone;
                 cell.viewController=self;
                 cell.subClick=@selector(evaluationServices:);
             }
+            if (dataModel.goods == NO) {
+                cell.priceDescribe.hidden = YES;
+                cell.prices.hidden = YES;
+            }
             [cell.icon sd_setImageWithURL:imageURLWithPath(dataModel.scimg) placeholderImage:[UIImage imageNamed:FillImage]];
             cell.servicesTitle.text=dataModel.scname;
-            cell.prices.text=[UtilityMethod addRMB:[NSString stringWithFormat:@"%@",dataModel.scprice]];
+            cell.prices.text=[UtilityMethod addRMB:globalPrices(dataModel.scprice)];
             NSInteger imm=[dataModel.sccomt integerValue];
             [cell showEvaluate:imm==1?YES:NO];
+            if (self.selectlabel == self.doingLabel) {
+                [cell hideEvaluate];
+            }
             return cell;
         }
             break;
@@ -458,6 +500,8 @@
         case 2:
         {JVcommonOrderInfoViewController *vc=[[JVcommonOrderInfoViewController alloc]init];
             vc.orderID=listModel.oid;
+            vc.goods = listModel.goods;
+            vc.price = [NSString stringWithFormat:@"￥ %@", globalPrices(listModel.oprice)];
             [self.navigationController pushViewController:vc animated:NO];
             break;
         }   
@@ -493,9 +537,11 @@
 {
     orderListModel* listModel=self.dataSource[section];
     if (listModel.showContact) {
-        return 80;
+//        return 95;
+        return 100;
     }else{
-        return 43;
+//        return 43;
+        return 48;
     }
 }
 
@@ -518,12 +564,27 @@
     footerTag=section+50;
     if (listModel.showContact) {
         JVorderFooterView*   footView = [[[NSBundle mainBundle]loadNibNamed:@"JVorderFooterView" owner:nil options:nil]lastObject];
-        footView.prices.text=[NSString stringWithFormat:@"%@", globalPrices(listModel.oprice)];
+        footView.prices.text=[NSString stringWithFormat:@"￥%@", globalPrices(listModel.oprice)];
         footView.tag=footerTag;
+        footView.name.text = listModel.ocontact;
+        footView.phone.text = listModel.ophone;
+        [footView addTapGestureRecognizerWithTarget:self action:@selector(phoneToContact:)];
+        UILabel * starLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 62, 80, 25)];
+        starLabel.text = @"技师星级：";
+        starLabel.font = [UIFont systemFontOfSize:14];
+        [footView addSubview:starLabel];
+        
+        UIView * starView = [[UIView alloc] initWithFrame:CGRectMake(80, 65, 120, 25)];
+        if ([listModel.ostar integerValue]) {
+            [self drawStarWithInt:[listModel.ostar integerValue] withView:starView];
+        } else {
+            [self drawNoStarWithView:starView];
+        }
+        [footView addSubview:starView];
         return footView;
     }else{
         JvOrderFooterStyleTwoView* footView = [[[NSBundle mainBundle]loadNibNamed:@"JvOrderFooterStyleTwoView" owner:nil options:nil]lastObject];
-        footView.prices.text=[NSString stringWithFormat:@"%@", globalPrices(listModel.oprice)];
+        footView.prices.text=[NSString stringWithFormat:@"￥ %@", globalPrices(listModel.oprice)];
         footView.viewStyle=[listModel.ocanop integerValue];
         footView.tag=footerTag;
         footView.viewController=self;
@@ -531,6 +592,7 @@
         return footView;
     }
 }
+
 
 
 #pragma -mark footerViewclick
@@ -552,6 +614,14 @@
     }
     [self.alert show];
     cancelFooterIndex=[dict[@"tag"] integerValue]-50;
+}
+
+#pragma -mark 拨打号码
+-(void)phoneToContact:(UIGestureRecognizer *)sender
+{
+    JVorderFooterView * footView = (JVorderFooterView *)sender.view;
+    NSString * string = [NSString stringWithFormat:@"tel://%@", footView.phone.text];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
 }
 
 #pragma -mark 点击确认 取消订单
@@ -655,6 +725,51 @@
 
 
 
+}
+
+//画★星
+-(void)drawStarWithInt:(NSInteger)index withView:(UIView *)view
+{
+    NSInteger count=index/2;
+    NSInteger f=index%2;
+    
+    for (int i=0; i<count; i++) {
+        UIImageView* imageV=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"storesSelectStar"]];
+        imageV.frame=CGRectMake(15*i, 0, 15, 15);
+        [view addSubview:imageV];
+    }
+    if (f>0) {
+        UIImageView* imageV=[[UIImageView alloc]initWithImage:[UIImage imageNamed:@"storesStar_2"]];
+        imageV.frame=CGRectMake(15*count, 0, 15, 15);
+        [view addSubview:imageV];
+    }
+}
+
+-(void)drawNoStarWithView:(UIView *)view
+{
+   UIImage * image = [self imageWithTintColor:[UIColor lightGrayColor] image:[UIImage imageNamed:@"storesSelectStar"]];
+    for (int i = 0; i < 5; i ++) {
+        UIImageView* imageV=[[UIImageView alloc]initWithImage:image];
+        imageV.frame=CGRectMake(15*i, 0, 15, 15);
+        [view addSubview:imageV];
+    }
+}
+
+- (UIImage *)imageWithTintColor:(UIColor *)tintColor image:(UIImage *)image
+{
+    //We want to keep alpha, set opaque to NO; Use 0.0f for scale to use the scale factor of the device’s main screen.
+    UIGraphicsBeginImageContextWithOptions(image.size, NO, 0.0f);
+    [tintColor setFill];
+    CGRect bounds = CGRectMake(0, 0, image.size.width, image.size.height);
+    UIRectFill(bounds);
+    
+    //Draw the tinted image in context
+    [image drawInRect:bounds blendMode:kCGBlendModeDestinationIn alpha:1.0f];
+    
+    UIImage *tintedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return tintedImage;
 }
 
 @end

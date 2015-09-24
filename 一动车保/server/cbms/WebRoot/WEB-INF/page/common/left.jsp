@@ -102,7 +102,7 @@
 				<td:permission privilegeValue="manage/comment/list">
 					<li><a href='${pageContext.request.contextPath}/manage/comment/list'>订单评论列表</a></li>
 				</td:permission>
-				<td:permission privilegeValue="/manage/order/repush/list">
+				<td:permission privilegeValue="manage/order/repush/list">
 					<li><a href='${pageContext.request.contextPath}/manage/order/repush/list'>订单手动推送</a></li>
 				</td:permission>
 			</ul>

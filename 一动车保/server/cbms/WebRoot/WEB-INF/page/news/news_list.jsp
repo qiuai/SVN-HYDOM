@@ -80,7 +80,6 @@
 											<input id="selectAll" type="checkbox" />
 										</th>
 										<th>标题</th>
-										<th>备注</th>
 										<th>创建日期</th>
 										<th>操作</th>
 									</tr>
@@ -92,8 +91,7 @@
 												<input type="checkbox" name="ids" value="${news.id}">
 											</td>
 											<td>${news.title}</td>
-											<td>${news.memo}</td>
-											<td><fmt:formatDate value="${news.createDate}" pattern="yyyy-MM-dd"/></td>
+											<td><fmt:formatDate value="${news.createDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 											<td>
 												<a href="${pageContext.request.contextPath}/manage/news/edit?id=${news.id}">修改</a>
 											</td>

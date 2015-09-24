@@ -31,9 +31,14 @@
 //是否展示评价
 -(void)showEvaluate:(BOOL)b{
     if (b==NO) {
-        self.priceWithRIghtLayout.constant=15;
-        [_btn setHidden:YES];
+//        self.priceWithRIghtLayout.constant=15;
+//        [_btn setHidden:YES];
+        self.priceWithRIghtLayout.constant=100;
+        _btn.userInteractionEnabled = NO;
+        [_btn setTitle:@"已评价" forState:UIControlStateNormal];
     }else{
+        [_btn setTitle:@"评价" forState:UIControlStateNormal];
+        _btn.userInteractionEnabled = YES;
         self.priceWithRIghtLayout.constant=100;
         [_btn setHidden:NO];
     }
@@ -41,6 +46,10 @@
     
 }
 
+-(void)hideEvaluate{
+    self.priceWithRIghtLayout.constant=15;
+    [_btn setHidden:YES];
+}
 
 -(void)submitClick:(UIButton*)bt{
     noGoodsListTableViewCell* cell=[UtilityMethod getTableViewCell:bt class:[noGoodsListTableViewCell class]];

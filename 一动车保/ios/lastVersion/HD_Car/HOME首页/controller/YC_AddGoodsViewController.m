@@ -15,12 +15,15 @@
 #import "UIImageView+WebCache.h"
 #import "YC_GoodsModel.h"
 #import "Global.pch"
+#import <MJRefresh.h>
 @interface YC_AddGoodsViewController ()<UITableViewDelegate,UITableViewDataSource>
 
+{
+    NSString * index;
+}
 @property(nonatomic, strong)UITableView * tableView;
-@property(nonatomic, assign)NSInteger maxPage;
+@property(nonatomic, strong)NSString * maxPage;
 @property(nonatomic, strong)NSMutableArray * dataSource;
-
 @property(nonatomic,strong)YC_GoodsModel* selectGoods;
 
 @end
@@ -37,44 +40,66 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    index = @"1";
     self.view.backgroundColor = COLOR(236, 236, 236, 1);
-    HDNavigationView * naveView = [HDNavigationView navigationViewWithTitle:@"新增"];
+    [self initNavViewWithtitle:@"新增"];
     WEAKSELF;
-    [naveView tapLeftViewWithImageName:nil tapBlock:^{
+    [self.navView tapLeftViewWithImageName:nil tapBlock:^{
         [weakSelf.navigationController popViewControllerAnimated:YES];
     }];
-    [self.view addSubview:naveView];
     
     UIButton * button = [[UIButton alloc] initWithFrame:CGRectMake(SCREEN_WIDTH-66, 20, 66, 44)];
     [button setTitle:@"确认" forState:0];
     [button setTitleColor:[UIColor whiteColor] forState:0];
     [button addTarget:self action:@selector(pressSureButton:) forControlEvents:UIControlEventTouchUpInside];
     button.titleLabel.font = [UIFont systemFontOfSize:15];
-    [naveView addSubview:button];
+    [self.navView addSubview:button];
     
+    [self initInterface];
+    
+    [self initData];
+    
+}
+
+
+-(void)getDataFromServer
+{
+    if ([index integerValue] < [_maxPage integerValue]) {
+        NSInteger temp = [index integerValue];
+        temp ++;
+        index = [NSString stringWithFormat:@"%ld", (long)temp];
+        [self initData];
+    }
+    [_tableView.footer endRefreshing];
+}
+
+-(void)initData
+{
     NSMutableDictionary * requestDict=[NSMutableDictionary new];
     [requestDict setObject:self.scid forKey:@"scid"];
     [requestDict setObject:self.cmid forKey:@"cmid"];
     if (self.pids) {
         [requestDict setObject:self.pids forKey:@"pids"];
     }
-    [requestDict setObject:@"1" forKey:@"page"];
-    [requestDict setObject:@"20" forKey:@"maxresult"];
-    
+    [requestDict setObject:index forKey:@"page"];
+    [requestDict setObject:@"10" forKey:@"maxresult"];
     
     [HTTPconnect sendGETWithUrl:getSelectOrderGoodsAPI parameters:requestDict success:^(id responseObject) {
+        [_tableView.footer endRefreshing];
         if (![responseObject isKindOfClass:[NSString class]]) {
-            _dataSource = [NSMutableArray arrayWithArray:responseObject[@"list"]];
-            NSLog(@"%@", responseObject);
-            [self initInterface];
+            for (NSDictionary * dic in responseObject[@"list"]) {
+                [self.dataSource addObject:dic];
+            }
+            _maxPage = responseObject[@"pages"];
+            [_tableView reloadData];
         }
     } failure:^(NSError *error) {
-
+        [_tableView.footer endRefreshing];
+        warn(@"网络错误");
     } ];
-    
-    
+
 }
+
 
 -(void)initInterface
 {
@@ -83,8 +108,13 @@
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator = NO;
     _tableView.backgroundColor = [UIColor clearColor];
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.view addSubview:_tableView];
+    WEAKSELF;
+    _tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+        [weakSelf getDataFromServer];
+    }];
     
 
 }
@@ -100,6 +130,9 @@
     HChooseCommodityTableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:@"HChooseCommodityTableViewCell"];
     if (!cell) {
         cell = [[NSBundle mainBundle] loadNibNamed:@"HChooseCommodityTableViewCell" owner:nil options:nil].lastObject;
+    }
+    if(_dataSource.count < 1){
+        return cell;
     }
     [cell.leftImageView sd_setImageWithURL:imageURLWithPath(_dataSource[indexPath.row][@"pimage"])];
     cell.priceLabel.text = [NSString stringWithFormat:@"￥%@", globalPrices(_dataSource[indexPath.row][@"price"])];

@@ -34,7 +34,7 @@
 //哪种cell
 @property(nonatomic,assign)NSInteger cellStyle;
 
-
+@property(nonatomic,assign)BOOL goods;
 
 
 @end

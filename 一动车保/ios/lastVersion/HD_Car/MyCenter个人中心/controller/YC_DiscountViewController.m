@@ -51,11 +51,11 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self initData];
+    [self initData:_selectButton];
 }
 
 
--(void)initData{
+-(void)initData:(UIButton *)sender{
     NSMutableDictionary * parameters = [NSMutableDictionary dictionaryWithDictionary:[userDefaultManager getUserWithToken]];
     [parameters setObject:@"1" forKey:@"type"];
     [parameters setObject:[NSNumber numberWithInteger:index] forKey:@"page"];
@@ -68,8 +68,10 @@
                 [model setValuesForKeysWithDictionary:dic];
                 [_currentDataArray addObject:model];
             }
-            _dataArray = _currentDataArray;
-            [_tableView reloadData];
+            if (sender == _currentButton) {
+                _dataArray = _currentDataArray;
+                [_tableView reloadData];
+            }
         }
     } failure:^(NSError *error){
         warn(@"网络错误");
@@ -89,6 +91,11 @@
                 [model setValuesForKeysWithDictionary:dic];
                 [_pastDataArray addObject:model];
             }
+            if (_selectButton == _pastButton) {
+                _dataArray = _pastDataArray;
+                [_tableView reloadData];
+            }
+            
         }
     } failure:^(NSError *error) {
          warn(@"网络错误");

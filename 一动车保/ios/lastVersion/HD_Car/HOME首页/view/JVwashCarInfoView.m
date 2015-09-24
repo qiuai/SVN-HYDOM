@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIView *payTapView1;
 @property (weak, nonatomic) IBOutlet UIView *payTapView2;
 @property (weak, nonatomic) IBOutlet UIView *payTapView3;
+@property (weak, nonatomic) IBOutlet UIView *payTapView4;
 @property (weak, nonatomic) IBOutlet UIView *washTap1;
 @property (weak, nonatomic) IBOutlet UIView *washTap2;
 
@@ -43,6 +44,8 @@
     self.payTapView2.tag=22;
     [self.payTapView3 addTapGestureRecognizerWithTarget:self action:@selector(changePay:)];
     self.payTapView3.tag=23;
+    [self.payTapView4 addTapGestureRecognizerWithTarget:self action:@selector(changePay:)];
+    self.payTapView4.tag=24;
     [self.washTap1 addTapGestureRecognizerWithTarget:self action:@selector(changeWash:)];
     self.washTap1.tag=11;
     [self.washTap2 addTapGestureRecognizerWithTarget:self action:@selector(changeWash:)];
@@ -66,6 +69,10 @@
         case 22:
             self.payStyle=@"4";
             self.payStyleDescription=@"微信支付";
+            break;
+        case 24:
+            self.payStyle=@"3";
+            self.payStyleDescription=@"银联支付";
             break;
         default:
             self.payStyle=@"1";

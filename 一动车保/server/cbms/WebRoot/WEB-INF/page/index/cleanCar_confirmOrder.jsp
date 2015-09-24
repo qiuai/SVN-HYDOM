@@ -232,7 +232,7 @@
 		}else if(payWay == "4"){//微信支付
 			weixinPay();
 		}else if(payWay == "2"){//支付宝支付
-			//$(".pay").show();
+// 			$(".pay").show();
 			alipay();
 		}else if(payWay == "3"){//银联支付
 			unionPay();
@@ -253,8 +253,12 @@
 				var address = "alipay_return";
 				var returnAddress = "gotoConfirm";
 				var openUrl = "<%=basePath%>alipay/alipayapi.jsp?orderNum="+orderNum+"&orderPrice="+orderPrice+"&orderName="+orderName+"&address="+address+"&returnAddress="+returnAddress;
-				window.location.href = openUrl;
-			//	window.open(openUrl);	
+				if(orderPrice == "0" || orderPrice == 0){
+					saveOrder();
+				}else{
+					window.location.href = openUrl;
+				}
+// 				window.open(openUrl);
 			}else{
 				alert(result.message);
 				$(".pay").hide();
@@ -365,8 +369,12 @@
 	
 	//银联支付
 	function unionPay(){
-		var url = "<%=basePath%>web/pay/union/payOrder?order_num="+confirmId+"&returnAddress=gotoConfirm";
-		window.location.href=url;
+		if(${order.price } == "0" || ${order.price } == 0){
+			saveOrder();
+		}else{
+			var url = "<%=basePath%>web/pay/union/payOrder?order_num="+confirmId+"&returnAddress=gotoConfirm";
+			window.location.href=url;
+		}
 	}
 	
 </script>

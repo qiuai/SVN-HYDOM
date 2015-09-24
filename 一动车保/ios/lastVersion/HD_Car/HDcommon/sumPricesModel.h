@@ -43,12 +43,13 @@
 @property(nonatomic,strong)NSArray* scidArray;
 
 
+@property (nonatomic, strong) NSString * pidNew;
+
 //商品购买数量
 @property(nonatomic,strong)NSString* productCount;
 
 
 +(instancetype)sumPrices;
-
 
 
 @end

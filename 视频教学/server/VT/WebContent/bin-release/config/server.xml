@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<setting>
+   		<!--server httpsite="http://192.168.0.201:8080/VT/" com="api/common.do" rtmpsite="rtmp://192.168.0.234/vts/" imguploadsite="api/upload.do"/-->
+   		<server httpsite="http://192.168.0.234:8060/VT/" com="api/common.do" rtmpsite="rtmp://192.168.0.234/vts/" imguploadsite="api/upload.do"/>
+   		<!--server httpsite="http://115.29.233.131:9999/VT/" com="api/common.do" rtmpsite="rtmp://115.29.233.131/vts/" imguploadsite="api/upload.do"/-->
+</setting>

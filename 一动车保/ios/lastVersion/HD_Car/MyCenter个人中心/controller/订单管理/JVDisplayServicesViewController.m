@@ -31,6 +31,7 @@
             self.ViewHeight+=100;
         }
     }
+    
 }
 
 
@@ -48,6 +49,12 @@
         [self.view addSubview:serView];
         _endY+=44;
         NSInteger productCount=orderModel.productArray.count;
+        //判断纯服务
+        if(self.pureServer==YES) {
+            serView.prices.hidden = YES;
+            serView.serverPay.hidden = YES;
+        }
+        
         for (NSInteger j=0; j<productCount; j++) {
             JVcommonOrderSericesProductMOdel* productModel=orderModel.productArray[j];
             commonDisplayProductVIew* productView=[[[NSBundle mainBundle]loadNibNamed:@"commonDisplayProductVIew" owner:nil options:nil]lastObject];
@@ -61,7 +68,6 @@
         }
     }
 }
-
 
 
 

@@ -17,7 +17,7 @@
 #import "YC_payToCountViewController.h"
 #import "ChooseAreaViewController.h"
 #import "JVcontactUsViewController.h"
-
+#import "YC_VIPViewController.h"
 
 @interface JVmyCenterViewController ()<UITableViewDataSource,UITableViewDelegate>
 
@@ -91,8 +91,8 @@
 {
     
     //整体scrollView
-    UIScrollView * scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-20-49)];
-    scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT-20);
+    UIScrollView * scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT-50)];
+    scrollView.contentSize = CGSizeMake(SCREEN_WIDTH, SCREEN_HEIGHT+60);
     scrollView.showsVerticalScrollIndicator = NO;
     [self.view addSubview:scrollView];
     
@@ -124,12 +124,12 @@
     
     
     //列表
-    UITableView * tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(headView.frame), SCREEN_WIDTH, (SCREEN_HEIGHT-49)*(2/3.0))];
+    UITableView * tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(headView.frame), SCREEN_WIDTH, SCREEN_HEIGHT*(2.6/3.0))];
     tableView.dataSource = self;
     tableView.delegate = self;
     tableView.backgroundColor = [UIColor clearColor];
     tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
-    tableView.rowHeight = CGRectGetHeight(tableView.frame)/8.0;
+    tableView.rowHeight = CGRectGetHeight(tableView.frame)/10.0;
     tableView.scrollEnabled = NO;
     [scrollView addSubview:tableView];
     
@@ -140,7 +140,7 @@
 #pragma mark tableView代理
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 6;
+    return 7;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -157,7 +157,6 @@
         case 0:{
             [cell.leftImageView setImage:[UIImage imageNamed:@"我的_24"]];
             cell.titleLabel.text = @"我的订单";
-            cell.rightArrow.hidden = YES;
         }
             break;
         case 1:{
@@ -176,11 +175,16 @@
         }
             break;
         case 4:{
+            [cell.leftImageView setImage:[UIImage imageNamed:@"我的_06"]];
+            cell.titleLabel.text = @"会员卡";
+        }
+            break;
+        case 5:{
             [cell.leftImageView setImage:[UIImage imageNamed:@"我的_29"]];
             cell.titleLabel.text = @"反馈";
         }
             break;
-        case 5:{
+        case 6:{
             [cell.leftImageView setImage:[UIImage imageNamed:@"我的_32"]];
             cell.titleLabel.text = @"关于";
         }
@@ -233,13 +237,19 @@
             [self.parentContainer hiddenTabbar];
         }
             break;
-        case 4:{
-            JVsuggestViewController* vc=[[JVsuggestViewController alloc]init];
+        case 4:{            
+            YC_VIPViewController* vc=[[YC_VIPViewController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
             [self.parentContainer hiddenTabbar];
         }
             break;
         case 5:{
+            JVsuggestViewController* vc=[[JVsuggestViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:NO];
+            [self.parentContainer hiddenTabbar];
+        }
+            break;
+        case 6:{
             JVcontactUsViewController* vc=[[JVcontactUsViewController alloc]init];
             [self.navigationController pushViewController:vc animated:NO];
             [self.parentContainer hiddenTabbar];

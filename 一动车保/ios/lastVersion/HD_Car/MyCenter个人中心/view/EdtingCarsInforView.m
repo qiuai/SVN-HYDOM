@@ -12,6 +12,12 @@
 @implementation EdtingCarsInforView
 
 -(void)willMoveToSuperview:(UIView *)newSuperview{
+//    self.carColorTextField.moveView=self.vc.view;
+//    self.carNumberTextField.moveView=self.vc.view;
+//    self.carOilTextField.moveView=self.vc.view;
+//    self.carOutPutTextField.moveView=self.vc.view;
+//    self.carRunTextField.moveView=self.vc.view;
+//    self.startTimeTextField.moveView=self.vc.view;
     self.carColorTextField.moveView=self;
     self.carNumberTextField.moveView=self;
     self.carOilTextField.moveView=self;

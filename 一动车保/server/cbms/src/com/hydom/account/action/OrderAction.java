@@ -536,8 +536,12 @@ public class OrderAction extends BaseAction {
 			if (order.getStatus() == 34) {
 				return ajaxError("该订单退款已完成,请重新确认", response);
 			}
-
-			order.setStatus(33);
+			
+			if(order.getPrice() == 0){
+				order.setStatus(34);
+			}else{
+				order.setStatus(33);
+			}
 			order.setModifyDate(new Date());
 
 			if (order.getPayWay() == 1) {// 会员卡

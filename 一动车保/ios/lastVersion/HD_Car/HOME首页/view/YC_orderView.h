@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIView *payTapView1;
 @property (weak, nonatomic) IBOutlet UIView *payTapView2;
 @property (weak, nonatomic) IBOutlet UIView *payTapView3;
+@property (weak, nonatomic) IBOutlet UIView *payTapView4;
 
 @property (weak, nonatomic) IBOutlet UIButton *discountButton;
 

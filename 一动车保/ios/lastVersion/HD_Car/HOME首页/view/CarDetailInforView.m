@@ -7,6 +7,8 @@
 //
 
 #import "CarDetailInforView.h"
+#import "YC_EvaluateViewController.h"
+#import "YC_webViewViewController.h"
 @interface CarDetailInforView()
 @property (weak, nonatomic) IBOutlet UILabel *productTItle;
 @property (weak, nonatomic) IBOutlet UILabel *productPrice;
@@ -34,7 +36,7 @@
 - (void)buildViewWith:(NSString *)string x:(CGFloat)x y:(CGFloat)y{
     
     UIView * view = [[UIView alloc] initWithFrame:CGRectMake(x, y, 80, 25)];
-    UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    UIImageView * imageView = [[UIImageView alloc] initWithFrame:CGRectMake(5, 5, 15, 15)];
     [imageView setImage:[UIImage imageNamed:@"gougou"]];
     [view addSubview:imageView];
     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, 55, 25)];
@@ -67,15 +69,15 @@
         temp ++;
     }
     self.productTItle.text=self.goodsTitle;
-    self.productPrice.text=[UtilityMethod addRMB:[NSString stringWithFormat:@"%@",self.goodsPrices]];
-    
-    self.productPinlun.text=[NSString stringWithFormat:@"%@",self.pingjia];
+    self.productPrice.text=[UtilityMethod addRMB:[NSString stringWithFormat:@"%@",globalPrices(self.goodsPrices)]];
+    self.productPinlun.text=[NSString stringWithFormat:@"（%@）",self.pingjia];
 }
 
 //点击评论按钮触发
 - (IBAction)pressEvaluateButton:(id)sender {
-    
-    
+    YC_EvaluateViewController * vc = [[YC_EvaluateViewController alloc] init];
+    vc.pID = self.vc.productID;
+    [self.vc.navigationController pushViewController:vc animated:YES];
 }
 - (IBAction)pressParameterButton:(id)sender {
     
@@ -101,8 +103,10 @@
 }
 //点击图文详情按钮触发
 - (IBAction)pressImageTextButton:(id)sender {
-    
-    
+    YC_webViewViewController * vc = [[YC_webViewViewController alloc] init];
+    vc.urlString = self.purl;
+    [self.vc.navigationController pushViewController:vc animated:YES];
+
 }
 
 

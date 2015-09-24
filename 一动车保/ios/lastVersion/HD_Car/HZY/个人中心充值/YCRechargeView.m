@@ -13,7 +13,8 @@
 
 -(void)awakeFromNib
 {
-
+//    self.weixinView.hidden = YES;
+//    self.bankView.hidden = YES;
 }
 
 

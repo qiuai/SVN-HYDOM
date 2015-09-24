@@ -48,13 +48,12 @@
           self.productOrderView.productName.text=responseObject[@"opname"];
           self.productOrderView.oncePrices.text=[NSString stringWithFormat:@"￥%@",responseObject[@"oprice"]];
           self.productOrderView.count.text=[NSString stringWithFormat:@"X %@",responseObject[@"opnum"]];
-//          responseObject[@"opnum"];
           self.productOrderView.address.text=responseObject[@"address"];
           self.productOrderView.payStyle.text= [self getPayTpyeFromNumber: responseObject[@"payway"]];
           self.productOrderView.youhuijuan.text=responseObject[@"usecoup"];
-          self.productOrderView.sumPrices.text=[NSString stringWithFormat:@"￥%@",responseObject[@"orimoney"]];
-          self.productOrderView.youhuiPrices.text=[NSString stringWithFormat:@"-￥%@",responseObject[@"cpmoney"]];
-          self.productOrderView.realyPrices.text=[NSString stringWithFormat:@"￥%@",responseObject[@"paymoney"]];
+          self.productOrderView.sumPrices.text=[NSString stringWithFormat:@"￥ %@",globalPrices(responseObject[@"orimoney"])];
+          self.productOrderView.youhuiPrices.text=[NSString stringWithFormat:@"-￥ %@", globalPrices(responseObject[@"cpmoney"])];
+          self.productOrderView.realyPrices.text=[NSString stringWithFormat:@"￥ %@",            globalPrices(responseObject[@"paymoney"])];
       }else{
           warn(responseObject);
       }

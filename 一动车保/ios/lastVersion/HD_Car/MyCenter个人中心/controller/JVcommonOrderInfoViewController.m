@@ -127,14 +127,16 @@
             self.importantView.carNameLB.text=responseObject[@"ocmname"];
             self.importantView.carNumberLB.text=responseObject[@"oplateNum"];
             self.importantView.contantPhoneLB.text=responseObject[@"ophone"];
-            self.importantView.serviceModelLB.text=@"上门服务";
+            self.importantView.serviceModelLB.text=responseObject[@"odate"];
             self.importantView.carColorLB.text=responseObject[@"ocarcolor"];
+            self.orderStateLabel.text = responseObject[@"ostatus"];
             self.confirmView.payStyle.text= [self getPayTpyeFromNumber: responseObject[@"payway"]];
-            self.confirmView.couponsPrices.text=[UtilityMethod addSubRMB:responseObject[@"cpmoney"]];
-            self.confirmView.productPrcies.text=[UtilityMethod addRMB:responseObject[@"opmoney"]];
-            self.confirmView.servicePrcies.text=[UtilityMethod addRMB: responseObject[@"ocmoney"]];
-            self.confirmView.realityPrices.text=[UtilityMethod addRMB: responseObject[@"paymoney"]];
+            self.confirmView.couponsPrices.text=[UtilityMethod addSubRMB:globalPrices(responseObject[@"cpmoney"])];
+            self.confirmView.productPrcies.text=[UtilityMethod addRMB:globalPrices(responseObject[@"opmoney"])];
+            self.confirmView.servicePrcies.text=[UtilityMethod addRMB:globalPrices(responseObject[@"ocmoney"])];
+            self.confirmView.realityPrices.text=[UtilityMethod addRMB:globalPrices(responseObject[@"paymoney"])];
             self.confirmView.servicesTime.text=responseObject[@"stime"];
+            self.confirmView.couponsLabel.text = responseObject[@"usecoup"];
             self.lat=responseObject[@"lat"];
             self.lng=responseObject[@"lng"];
             NSMutableArray* dataArray=[NSMutableArray array];
@@ -157,6 +159,11 @@
             }
             _displayVC.dataSoure=dataArray;
             CGFloat height=_displayVC.ViewHeight;
+            //没有商品为存服务
+            if (self.goods == NO) {
+                _displayVC.pureServer = YES;
+                self.confirmView.servicePrcies.text= self.price;
+            }
             [self.baseScrollView addSubview:_displayVC.view];
             _displayVC.view.frame=CGRM(0, CGRectGetMaxY(self.importantView.frame)+10+35, SCREEN_WIDTH, height);
             self.confirmView.y=height+10+CGRectGetMaxY(self.importantView.frame)+10+35;

@@ -105,7 +105,7 @@
 -(UIView *)submitView{
     if (!_submitView) {
         _submitView=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 50)];
-        _submitView.backgroundColor=[UIColor blackColor];
+        _submitView.backgroundColor=SUBMITVIEWCOLOR;
     }
     return _submitView;
 }
@@ -114,7 +114,7 @@
     if (!_osScrollView) {
         CGFloat  titleViewY=CGRectGetMaxY(self.titleView.frame);
         _osScrollView=[[UIScrollView alloc]initWithFrame:CGRectMake(0, titleViewY, SCREEN_WIDTH, SCREEN_HEIGHT-50-titleViewY)];
-        _osScrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 800);
+        _osScrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 820);
         _osScrollView.backgroundColor=HDfillColor;
     }
     return _osScrollView;
@@ -239,7 +239,9 @@
     self.servicesInfoView.frame=CGRM(0, 40, SCREEN_WIDTH, 130);
     selectDiscount=NO;
     self.washCarInfoView=[[[NSBundle mainBundle]loadNibNamed:@"JVwashCarInfoView" owner:nil options:nil]lastObject];
-    self.washCarInfoView.frame=CGRM(0,CGRectGetMaxY(self.servicesInfoView.frame), SCREEN_WIDTH, 510);
+    self.washCarInfoView.frame=CGRM(0,CGRectGetMaxY(self.servicesInfoView.frame), SCREEN_WIDTH, 540);
+    self.washCarInfoView.personTextField.moveView=self.osScrollView;
+    self.washCarInfoView.phoneNumberTextField.moveView=self.osScrollView;
     [self.washCarInfoView.locationLabel addTapGestureRecognizerWithTarget:self action:@selector(pushLocationVC)];
     [self.washCarInfoView.couponsLabel  addTapGestureRecognizerWithTarget:self action:@selector(selectCountVC)];
     self.pricesView=[[[NSBundle mainBundle]loadNibNamed:@"storesOrderPriceView" owner:nil options:nil]lastObject];
@@ -263,7 +265,7 @@
     self.pricesLabel.textColor=WHITECOLOR;
     [self.submitView addSubview:self.pricesLabel];
     self.submitBtn=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-submitWith, 0, submitWith, self.submitView.frame.size.height)];
-    self.submitBtn.backgroundColor=[UIColor redColor];
+    self.submitBtn.backgroundColor=SUBMITCOLOR;
     self.submitBtn.titleLabel.textColor=[UIColor whiteColor];
     [self.submitBtn setTitle:@"提交" forState:UIControlStateNormal];
     [self.submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -287,6 +289,7 @@
         self.longitude=[dict objectForKey:@"longitude"];
         self.locationInfo=[dict objectForKey:@"locationInfo"];
         self.washCarInfoView.locationLabel.text=@"已选择";
+        self.washCarInfoView.locationLabel.textColor = [UIColor blackColor];
     };
 }
 
@@ -297,7 +300,7 @@
         YC_SelectDiscountViewController* vc=[[YC_SelectDiscountViewController alloc]init];
         vc.sendModel=self.pricesModel;
         WEAKSELF;
-        vc.pricesArrayblock=^(NSArray* array){
+        vc.pricesArrayblock=^(NSArray* array, NSString * cpid){
             weakSelf.pricesView.allPrices.text=array[2];
             weakSelf.pricesLabel.text=array[4];
             weakSelf.pricesView.privilegePrices.text=[UtilityMethod addSubRMB: array[3]];
@@ -308,6 +311,7 @@
             weakSelf.CT_privilegePrices=array[3];
             useCoupon=YES;
             weakSelf.washCarInfoView.couponsLabel.text=@"已使用";
+            weakSelf.cpid = cpid;
         };
         [self.navigationController pushViewController:vc animated:NO];
     }

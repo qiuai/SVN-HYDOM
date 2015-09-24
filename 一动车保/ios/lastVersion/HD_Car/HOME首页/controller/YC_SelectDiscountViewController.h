@@ -18,6 +18,6 @@
 
 /**返回数组回调 获取请参考接口文档 4.5.4 order/price/calc
 */
-@property (nonatomic, copy) void(^pricesArrayblock)(NSArray * model);
+@property (nonatomic, copy) void(^pricesArrayblock)(NSArray * model, NSString *cpid);
 
 @end

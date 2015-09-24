@@ -82,7 +82,7 @@
             self.importantView.carNumberLB.text=responseObject[@"oplateNum"];
             self.importantView.contantPhoneLB.text=responseObject[@"ophone"];
             
-            self.importantView.serviceModelLB.text=[responseObject[@"ocleanType"] isEqualToString:@"1"]? @"内部清洗":@"内外清洗";
+            self.importantView.serviceModelLB.text=[responseObject[@"ocleanType"] isEqualToString:@"1"]? @"清洗车身":@"内外清洗";
             self.importantView.carColorLB.text=responseObject[@"ocarcolor"];
             self.confirmView.payStyle.text=[self getPayTpyeFromNumber: responseObject[@"payway"]];
             self.confirmView.couponsLabel.text=responseObject[@"usecoup"];

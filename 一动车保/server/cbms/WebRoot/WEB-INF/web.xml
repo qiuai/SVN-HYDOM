@@ -39,6 +39,15 @@
 		<url-pattern>/user/*</url-pattern>
 	</filter-mapping>
 	
+	<filter>
+		<filter-name>AlipayURLFilter</filter-name>
+		<filter-class>com.hydom.util.filter.AlipayURLFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AlipayURLFilter</filter-name>
+		<url-pattern>/alipay/*</url-pattern>
+	</filter-mapping>
+	
 	<session-config>
 		<session-timeout>30</session-timeout>
 	</session-config>

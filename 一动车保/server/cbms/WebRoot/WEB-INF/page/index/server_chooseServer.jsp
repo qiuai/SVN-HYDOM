@@ -168,7 +168,7 @@ img.brandImage{
 						<c:when test="${empty cleanCar.userCar}"><%-- 没有默认车型  点击重选 跳转到选择车型页面 --%>
 							<div class="shopping_con_top">
 								<div class="text">
-									<a href="javascript:void(0);"><img src="${pageContext.request.contextPath}/${cleanCar.carBrand.imgPath}" id="carBrandImg" class="brandImage"/></a>
+									<a href="javascript:void(0);"><img src="${pageContext.request.contextPath}/${cleanCar.carBrand.imgPath}" id="carBrandImg" class="brandImage"></a>
 									<p id="carName">${cleanCar.carBrand.name}&nbsp;${cleanCar.carType.name}&nbsp;${cleanCar.car.name }</p>
 								</div>
 								<a href="javascript:showChooseCar();"><img src="${pageContext.request.contextPath}/resource/page/images/buy_2.png" alt="" /></a>
@@ -179,7 +179,7 @@ img.brandImage{
 						<c:otherwise>
 							<div class="shopping_con_top"><%-- 没有默认车型  点击重选 选择其车管家中的车辆信息 --%>
 								<div class="text" id="userCarText">
-									<a href="#"><img src="${pageContext.request.contextPath}/${cleanCar.carBrand.imgPath}" class="brandImage"/></a>
+									<a href="#"><img src="${pageContext.request.contextPath}/${cleanCar.carBrand.imgPath}" class="brandImage"></a>
 									<p id="carName">${cleanCar.carBrand.name}&nbsp;${cleanCar.carType.name}&nbsp;${cleanCar.car.name }</p>
 									<p class="pc">车身颜色：<span>${cleanCar.carColor }</span></p>
 									<p class="pc">车牌号：<span>${cleanCar.carNum }</span></p>

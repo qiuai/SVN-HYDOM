@@ -77,7 +77,7 @@
 -(UIView *)submitView{
     if (!_submitView) {
         _submitView=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 50)];
-        _submitView.backgroundColor=[UIColor blackColor];
+        _submitView.backgroundColor=SUBMITVIEWCOLOR;
     }
     return _submitView;
 }
@@ -96,7 +96,7 @@
     self.pricesLabel.textColor=WHITECOLOR;
     [self.submitView addSubview:self.pricesLabel];
     self.submitBtn=[[UIButton alloc]initWithFrame:CGRectMake(SCREEN_WIDTH-submitWith, 0, submitWith, self.submitView.frame.size.height)];
-    self.submitBtn.backgroundColor=[UIColor redColor];
+    self.submitBtn.backgroundColor=SUBMITCOLOR;
     self.submitBtn.titleLabel.textColor=[UIColor whiteColor];
     [self.submitBtn setTitle:@"支付" forState:UIControlStateNormal];
     [self.submitBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];

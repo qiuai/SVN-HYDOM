@@ -21,8 +21,11 @@
 #import "JVDisplayMaintenanceServicesViewController.h"
 #import "lookSelectLocationViewController.h"
 #import "JVzhifubao.h"
-
-@interface JVaffirmServicesOrderViewController ()
+#import "JVweiXinPay.h"
+#import "UPPayPlugin.h"
+#import "UPPayPluginDelegate.h"
+#import "AppDelegate.h"
+@interface JVaffirmServicesOrderViewController ()<UPPayPluginDelegate,WXApiDelegate>
 @property(strong,nonatomic)UIScrollView* baseScrollView;
 
 /**重要信息view*/
@@ -66,7 +69,8 @@
     self.importantView.carNameLB.text=self.model.carDescription;
     self.importantView.carNumberLB.text=self.model.plateNumber;
     self.importantView.contantPhoneLB.text=self.model.phone;
-    self.importantView.serviceModelLB.text=@"上门服务";
+    self.importantView.serviceModelLB.text=self.model.timeDescriptionStr;
+    //@"上门服务";
     self.importantView.carColorLB.text=self.model.color;
     //商品展示
     self.showProductView.productArray=self.showProductArray;
@@ -77,7 +81,10 @@
     [self.confirmView.lookMyLocation addTapGestureRecognizerWithTarget:self action:@selector(pushLookMyLocation)];
     
     self.confirmView.payStyle.text=self.model.payWayDescriotion;
-    self.confirmView.couponsLabel.text=@"已使用";
+    self.confirmView.couponsLabel.text = @"未使用";
+    if (self.model.cpid !=nil && self.model.cpid.length > 0) {
+        self.confirmView.couponsLabel.text= @"已使用";
+    }
     self.confirmView.productPrcies.text=[UtilityMethod addRMB:self.aboutPricesArray[0]];
     self.confirmView.servicePrcies.text=[UtilityMethod addRMB:self.aboutPricesArray[1]];
     self.confirmView.couponsPrices.text=[UtilityMethod addSubRMB:self.aboutPricesArray[2]];
@@ -102,7 +109,7 @@
 
 
 -(void)layoutUI{
-    self.baseScrollView=[[UIScrollView alloc]initWithFrame:CGRM(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-55)];
+    self.baseScrollView=[[UIScrollView alloc]initWithFrame:CGRM(0, 64, SCREEN_WIDTH, SCREEN_HEIGHT-64-50)];
     self.baseScrollView.backgroundColor=HDfillColor;
     self.baseScrollView.contentSize=CGSizeMake(SCREEN_WIDTH, 600);
     [self.view addSubview:self.baseScrollView];
@@ -143,7 +150,7 @@
     }
     
     self.confirmView=[[[NSBundle mainBundle]loadNibNamed:@"JVconfirmOrderServicesView" owner:nil options:nil]lastObject];
-    self.confirmView.frame=CGRM(0, CGRectGetMaxY(painterView.frame), SCREEN_WIDTH, 285);
+    self.confirmView.frame=CGRM(0, CGRectGetMaxY(painterView.frame)+10, SCREEN_WIDTH, 285);
     [self.baseScrollView addSubview:self.confirmView];
     //    提交订单view
     [self submitViewLayout];
@@ -151,10 +158,10 @@
 
 #pragma -mark submitView Layout
 -(void)submitViewLayout{
-    self.submitView=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 55)];
+    self.submitView=[[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT-50, SCREEN_WIDTH, 50)];
     self.submitView.backgroundColor=[UIColor whiteColor];
     [self.view addSubview:self.submitView];
-    UIButton* comebackBtn=[[UIButton alloc]initWithFrame:CGRM(SCREEN_WIDTH/2.0, 15, 65,30)];
+    UIButton* comebackBtn=[[UIButton alloc]initWithFrame:CGRM(SCREEN_WIDTH/2.0, 10, 65,30)];
     [comebackBtn setTitle:@"修改" forState:0];
     [comebackBtn setTitleColor:[UIColor blackColor] forState:0];
     [self.submitView addSubview:comebackBtn];
@@ -165,10 +172,10 @@
     [comebackBtn.layer setBorderColor:colorref];
     comebackBtn.titleLabel.font=FONT14;
     [comebackBtn addTarget:self action:@selector(combaceClick) forControlEvents:UIControlEventTouchUpInside];
-    UIButton* submitBTN=[[UIButton alloc]initWithFrame:CGRM(SCREEN_WIDTH-20-65, 15, 65,30)];
+    UIButton* submitBTN=[[UIButton alloc]initWithFrame:CGRM(SCREEN_WIDTH-20-65, 10, 65,30)];
     submitBTN.titleLabel.font=FONT14;
     [submitBTN setTitle:@"支付" forState:0];
-    submitBTN.backgroundColor=[UIColor redColor];
+    submitBTN.backgroundColor=SUBMITCOLOR;
     [submitBTN setTitleColor:[UIColor whiteColor] forState:0];
     [submitBTN.layer setMasksToBounds:YES];
     [submitBTN.layer setCornerRadius:5.0]; //设置矩形四个圆角半径
@@ -187,7 +194,7 @@
     //    }
     UIView* line1=[UIView new];
     line1.frame=CGRM(0, 0, SCREEN_WIDTH, 1);
-    line1.backgroundColor=COLOR(0, 00, 00, 0.3);
+    line1.backgroundColor=COLOR(0, 0, 0, 0.3);
     [self.submitView addSubview:line1];
     
     
@@ -229,10 +236,9 @@
     
     _po(@"查看商品详情");
     JVDisplayMaintenanceServicesViewController* vc=[[JVDisplayMaintenanceServicesViewController alloc]init];
+    vc.price = self.confirmView.servicePrcies.text;
     vc.dataArray=self.dispalyProductArray;
     [self.navigationController pushViewController:vc animated:NO];
-    
-    
     
 }
 
@@ -269,10 +275,19 @@
                     }
                     //微信支付
                     if ([self.model.payWay isEqualToString:@"4"]) {
-                        [self JVservicesPayFromZhifubao:responseObject[@"onum"]];
+                        AppDelegate * appdelegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+                        appdelegate.playViewController=self;
+                        [JVweiXinPay payFromWeXin:responseObject[@"onum"]];
                         return;
                     }
+                    //银联支付
+                    if ([self.model.payWay isEqualToString:@"3"]) {
+                        [UPPayPlugin startPay:responseObject[@"onum"] mode:@"00" viewController:self delegate:self];
+                        return;
+                    }
+
                 }
+                    
                     break;
                 case 2:
                 {
@@ -317,7 +332,31 @@
     
 }
 
-
+-(void)onResp:(BaseResp*)resp
+{
+    //    NSString *strMsg = [NSString stringWithFormat:@"errcode:%d", resp.errCode];
+    NSString *strTitle;
+    if([resp isKindOfClass:[SendMessageToWXResp class]])
+    {
+        strTitle = [NSString stringWithFormat:@"发送媒体消息结果"];
+    }
+    if([resp isKindOfClass:[PayResp class]]){
+        //支付返回结果，实际支付结果需要去微信服务器端查询
+        strTitle = [NSString stringWithFormat:@"支付结果"];
+        
+        switch (resp.errCode) {
+            case WXSuccess:
+                [self showPopView];
+                break;
+                
+            default:
+                warn(@"支付失败!");
+                //                NSLog(@"错误，retcode = %d, retstr = %@", resp.errCode,resp.errStr);
+                break;
+        }
+    }
+    
+}
 #pragma -mark 下单成功
 -(void)success{
     [self showPopView];
@@ -331,7 +370,6 @@
         _showView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:0.6];
         _showView.userInteractionEnabled = YES;
         [self.view addSubview:_showView];
-        
         
         UIImageView * alertView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH-80, SCREEN_WIDTH-80)];
         alertView.center = _showView.center;
@@ -354,5 +392,14 @@
     _po(@"dealloc JVaffirm");
 }
 
+#pragma mark 银联回调
+-(void)UPPayPluginResult:(NSString*)result{
+    _po(result);
+    if ([result isEqualToString:@"cancel"]) {
+        warn(@"支付失败");
+    } else {
+        [self showPopView];
+    }
+}
 
 @end

@@ -6,26 +6,24 @@ public class Task {
 	// public static final String url =
 	// "http://192.168.0.61:8080/cbms/api/";//// liudun
 
-	// 内网
-	public static final String url = "http://192.168.0.234:8080/api/";// heou
-	public static final String img_url = "http://192.168.0.234:8080/";
-//	http://qq826552818.imwork.net:27989
-	// (支付商品)内网支付回调（第一个一个是内网，一个是外网）//57702
-	public static final String ALIPAY_RETURN_URL = "http://qq826552818.imwork.net:27989/cbms/web/pay/alipay_return";//
-	// 内网回调地址
-	// (充值) 内网充值回调地址
-	public static final String ALIPAY_RECHARGE_RETURN_URL = "http://qq826552818.imwork.net:27989/cbms/web/pay/alipay_recharge_return";//
+//	// 内网
+//	public static final String url = "http://192.168.0.136:8081/api/";// heou
+//	public static final String img_url = "http://192.168.0.136:8081/";
+////	http://qq826552818.imwork.net:27989
+//	// (支付商品)内网支付回调（第一个一个是内网，一个是外网）//57702
+//	public static final String ALIPAY_RETURN_URL = "http://qq826552818.imwork.net:27989/cbms/web/pay/alipay_return";//
+//	// 内网回调地址
+//	// (充值) 内网充值回调地址
+//	public static final String ALIPAY_RECHARGE_RETURN_URL = "http://qq826552818.imwork.net:27989/cbms/web/pay/alipay_recharge_return";//
 	// 内网充值地址
 
-//	// // 外网
-//	 public static final String url = "http://www.yidongchebao.com/api/";
-//	 public static final String img_url = "http://www.yidongchebao.com/";
-//	 // (支付商品)外网支付回调地址
-//	 public static final String ALIPAY_RETURN_URL =
-//	 "http://www.yidongchebao.com/web/pay/alipay_return";// 内网回调地址
-//	 // (充值) 外网充值回调地址
-//	 public static final String ALIPAY_RECHARGE_RETURN_URL =
-//	 "http://www.yidongchebao.com/web/pay/alipay_recharge_return";// 内网充值地址
+	// // 外网
+	public static final String url = "http://www.yidongchebao.com/api/";
+	public static final String img_url = "http://www.yidongchebao.com/";
+	// (支付商品)外网支付回调地址
+	public static final String ALIPAY_RETURN_URL = "http://www.yidongchebao.com/web/pay/alipay_return";// 内网回调地址
+	// (充值) 外网充值回调地址
+	public static final String ALIPAY_RECHARGE_RETURN_URL = "http://www.yidongchebao.com/web/pay/alipay_recharge_return";// 内网充值地址
 
 	public static final String GETTIANQI = "101";// (首页的第一个界面)获取天气的标识
 

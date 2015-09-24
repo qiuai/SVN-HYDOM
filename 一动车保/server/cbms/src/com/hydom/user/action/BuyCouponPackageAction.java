@@ -103,7 +103,12 @@ public class BuyCouponPackageAction extends BaseAction{
 				record.setPrice(couponPackage.getPrice());
 				record.setMember(member); 
 				feeRecord.setCouponPackageRecord(record);
-				if (payWay == 1) {// 会员卡
+				if(feeRecord.getFee() == 0){
+					couponPackageRecordService.memberCarBuy(feeRecord, member);
+					dataMap.put("result", "001");
+					dataMap.put("payWay", "1");
+					dataMap.put("payAction", "2");// 支付完成
+				}else if (payWay == 1) {// 会员卡
 					double cpprice = couponPackage.getPrice();
 					double userMoney = member.getMoney();
 					if (userMoney >= cpprice) {// 余额足以支付

@@ -10,4 +10,5 @@
 #import "JVDisplayServicesViewController.h"
 @interface JVDisplayMaintenanceServicesViewController : JVbaseViewController
 @property(nonatomic,strong)NSArray* dataArray;
+@property (nonatomic, strong) NSString * price;
 @end

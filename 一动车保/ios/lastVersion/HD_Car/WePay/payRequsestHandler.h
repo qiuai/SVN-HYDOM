@@ -41,12 +41,12 @@
 // 账号帐户资料
 //更改商户把相关参数后可测试
 
-#define APP_ID          @"wx0d30216caecf878b"               //APPID
+#define APP_ID          @"wx94943b9a4457af4b"               //APPID
 #define APP_SECRET      @"6179197b62cf661a98c0e467154447b6" //appsecret
 //商户号，填写商户对应参数
-#define MCH_ID          @"1248749901"
+#define MCH_ID          @"1266283101"
 //商户API密钥，填写相应参数
-#define PARTNER_ID      @"6179197b62cf661a98c0e467154447b6"
+#define PARTNER_ID      @"ydcb4008559999085182239999ydcbgy"
 //支付结果回调页面
 #define NOTIFY_URL      @"http://wxpay.weixin.qq.com/pub_v2/pay/notify.v2.php"
 //获取服务器端支付数据地址（商户自定义）
@@ -77,5 +77,8 @@
 -(NSString *)sendPrepay:(NSMutableDictionary *)prePayParams;
 //签名实例测试
 - ( NSMutableDictionary *)sendPay_demo;
+
+//支付签名
+- ( NSMutableDictionary *)sendPayWith:(NSString*)prePayid;
 
 @end

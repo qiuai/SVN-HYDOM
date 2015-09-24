@@ -18,13 +18,13 @@
 #import "YC_MarketSaleCell.h"
 #import "JVshowGoodsForOrderViewController.h"
 #import "YC_HotDetailViewController.h"
-
+#import <MJRefresh.h>
 @interface YC_MarketViewController ()<UITableViewDataSource,UITableViewDelegate,UICollectionViewDataSource,UICollectionViewDelegate>
 {
     
     NSString * title;
     NSString * api;
-
+    NSInteger index;
 }
 
 /**父容器*/
@@ -61,6 +61,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    index = 1;
     self.view.backgroundColor = [UIColor whiteColor];
     [self.parentContainer hiddenTabbar];
     [self initInterface];
@@ -100,11 +101,11 @@
     NSMutableDictionary * parameters = [[NSMutableDictionary alloc]init];
     [parameters setObject:@1 forKey:@"page"];
     //请求一页数据的count
-    [parameters setObject:@8 forKey:@"maxresult"];
+    [parameters setObject:@10 forKey:@"maxresult"];
     
     [HTTPconnect sendGETWithUrl:api parameters:parameters success:^(id responseObject) {
         if (![responseObject isKindOfClass:[NSString class]]) {
-
+            _totalPage = [responseObject[@"page"] integerValue];
             for( NSDictionary* dict in responseObject[@"list"]){
                 YC_MarketModel * marketModel = [YC_MarketModel getMarketModelFromDic:dict];
                 [self.dataArray addObject:marketModel];
@@ -138,6 +139,10 @@
         collectionView.dataSource = self;
         collectionView.backgroundColor = HDfillColor;
         [self.view addSubview:collectionView];
+        WEAKSELF;
+        collectionView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            [weakSelf getDataFromServer];
+        }];
         [collectionView registerClass:[YC_MarketSaleCell class] forCellWithReuseIdentifier:@"YC_MarketSaleCell"];
         self.dataView=collectionView;
 
@@ -147,6 +152,10 @@
         tableView.delegate = self;
         tableView.showsVerticalScrollIndicator = NO;
         tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        WEAKSELF;
+        tableView.footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            [weakSelf getDataFromServer];
+        }];
         if (self.marketType == sugeest || self.marketType == life) {
             tableView.rowHeight = 90;
         } else {
@@ -156,7 +165,37 @@
         [self.view addSubview:tableView];
         self.dataView=tableView;
     }
+    
 }
+
+-(void)getDataFromServer
+{
+    if (index < _totalPage) {
+        index ++;
+        NSMutableDictionary * parameters = [[NSMutableDictionary alloc]init];
+        [parameters setObject:@(index) forKey:@"page"];
+        //请求一页数据的count
+        [parameters setObject:@10 forKey:@"maxresult"];
+        
+        [HTTPconnect sendGETWithUrl:api parameters:parameters success:^(id responseObject) {
+            [[self.dataView footer] endRefreshing];
+            if (![responseObject isKindOfClass:[NSString class]]) {
+                
+                for( NSDictionary* dict in responseObject[@"list"]){
+                    YC_MarketModel * marketModel = [YC_MarketModel getMarketModelFromDic:dict];
+                    [self.dataArray addObject:marketModel];
+                }
+                //刷新数据
+                [self.dataView performSelector:@selector(reloadData) withObject:nil];
+            }
+        } failure:^(NSError *error) {
+              [[self.dataView footer] endRefreshing];
+        }];
+
+    }
+    [[self.dataView footer] endRefreshing];
+}
+
 
 #pragma -mark tableView协议
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

@@ -21,7 +21,8 @@
 //是否展示评价服务
 -(void)showEvaluate:(BOOL)b;
 
-
+//进行中订单屏蔽评价按钮
+-(void)hideEvaluate;
 
 //是否展示商品评价服务
 -(void)showProductEvaluate:(BOOL)b;

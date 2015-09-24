@@ -217,7 +217,7 @@
 		//将当前支付
 		function payOrder(){
 		
-			if(payWay == "1"){//现金支付
+			if(payWay == "1" || ${order.price } == 0){//现金支付  或实付金额为0
 				if(sessionId != ""){
 					saveOrder();
 				}else{

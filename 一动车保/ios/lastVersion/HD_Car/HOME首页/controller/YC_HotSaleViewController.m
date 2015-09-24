@@ -148,12 +148,12 @@
         self.homeCell.textLabel.textColor = ShareBackColor;
         self.homeCell.backgroundColor = [UIColor whiteColor];
         _subDataArray = _dataArray[indexPath.row][@"pclist"];
-        NSLog(@"%@",_subDataArray);
+//        NSLog(@"%@",_subDataArray);_subDataArray
         [_subTableView reloadData];
     }
     if (tableView == _subTableView) {
         YC_HotGoodsViewController * vc = [[YC_HotGoodsViewController alloc] init];
-        vc.pname = _dataArray[indexPath.row][@"topname"];
+        vc.pname = _subDataArray[indexPath.row][@"pcname"];
         vc.pcid = _subDataArray[indexPath.row][@"pcid"];
         vc.car=_car;
         [self.navigationController pushViewController:vc animated:YES];
