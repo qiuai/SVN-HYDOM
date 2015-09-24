@@ -1,0 +1,200 @@
+﻿body {
+  margin:0px;
+  background-color:rgba(102, 102, 102, 1);
+  background-image:none;
+  position:static;
+  left:auto;
+  width:1140px;
+  margin-left:0;
+  margin-right:0;
+  text-align:left;
+}
+#base {
+  position:absolute;
+  z-index:0;
+}
+#u0 {
+  position:absolute;
+  left:10px;
+  top:10px;
+  width:1130px;
+  height:640px;
+}
+#u0_img {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:1130px;
+  height:640px;
+}
+#u1 {
+  position:absolute;
+  left:2px;
+  top:312px;
+  width:1126px;
+  visibility:hidden;
+  word-wrap:break-word;
+}
+#u2 {
+  position:absolute;
+  left:200px;
+  top:120px;
+  width:700px;
+  height:430px;
+}
+#u2_img {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:700px;
+  height:430px;
+}
+#u3 {
+  position:absolute;
+  left:2px;
+  top:207px;
+  width:696px;
+  visibility:hidden;
+  word-wrap:break-word;
+}
+#u4 {
+  position:absolute;
+  left:340px;
+  top:190px;
+  width:410px;
+  height:260px;
+}
+#u4_img {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:410px;
+  height:260px;
+}
+#u5 {
+  position:absolute;
+  left:2px;
+  top:122px;
+  width:406px;
+  visibility:hidden;
+  word-wrap:break-word;
+}
+#u6 {
+  position:absolute;
+  left:479px;
+  top:256px;
+  width:165px;
+  height:25px;
+}
+#u6_input {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:165px;
+  height:25px;
+  background-image:none;
+  font-family:'Microsoft YaHei Regular', 'Microsoft YaHei';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  text-decoration:none;
+  color:#000000;
+  text-align:left;
+}
+#u6_input {
+  font-family:'Applied Font';
+}
+#u7 {
+  position:absolute;
+  left:484px;
+  top:316px;
+  width:160px;
+  height:25px;
+}
+#u7_input {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:160px;
+  height:25px;
+  background-image:none;
+  font-family:'Microsoft YaHei Regular', 'Microsoft YaHei';
+  font-weight:400;
+  font-style:normal;
+  font-size:13px;
+  text-decoration:none;
+  color:#000000;
+  text-align:left;
+}
+#u7_input {
+  font-family:'Applied Font';
+}
+#u8 {
+  position:absolute;
+  left:398px;
+  top:265px;
+  width:81px;
+  height:27px;
+  font-size:20px;
+}
+#u8_img {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:81px;
+  height:27px;
+}
+#u9 {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:81px;
+  white-space:nowrap;
+}
+#u10 {
+  position:absolute;
+  left:394px;
+  top:322px;
+  width:85px;
+  height:27px;
+  font-size:20px;
+}
+#u10_img {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:85px;
+  height:27px;
+}
+#u11 {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:85px;
+  white-space:nowrap;
+}
+#u12 {
+  position:absolute;
+  left:484px;
+  top:380px;
+  width:106px;
+  height:30px;
+}
+#u12_input {
+  position:absolute;
+  left:0px;
+  top:0px;
+  width:106px;
+  height:30px;
+  background-image:url(../../resources/images/transparent.gif);
+  font-family:'Microsoft YaHei Regular', 'Microsoft YaHei';
+  font-weight:400;
+  font-style:normal;
+  font-size:20px;
+  text-decoration:none;
+  color:#000000;
+  text-align:center;
+}
+#u12_input {
+  font-family:'Applied Font';
+}
